@@ -1,1 +1,1 @@
-# DiplomManager
+# ThesisManager
