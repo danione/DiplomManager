@@ -84,27 +84,41 @@ $(document).ready(function(){
   });
 });
 
+function responsiveAppear()
+{
+  $("#navigation").attr('class', 'nav responsive');
+  $("#greetings").insertBefore($("#finyear"));
+  $("#newyear").insertAfter($("#greetings"));
+  $("#navigation").append("<div id=\"side\" class=\"side\"></div>");
+  $("#sidenav a").each(function(index){
+    $(this).appendTo($("#side"));
+  });
+  $("body").attr('class', 'responsive-body');
+}
+
+function responsiveDisappear()
+{
+  $("#navigation").attr('class', 'nav');
+  $("#finyear").insertBefore($("#greetings"));
+  $("#newyear").insertAfter($("#finyear"));
+  $("#side a").each(function(index){
+    $(this).appendTo($("#sidenav"));
+  });
+  $("#side").remove();
+  $("body").attr('class', 'none');
+}
+
 $('#icon').click(function responsive()
 {
     if($("#navigation").attr('class') === 'nav')
     {
       if($(window).width() <= 680)
-      {
-        $("#navigation").attr('class', 'nav responsive');
-        $("#greetings").insertBefore($("#finyear"));
-        $("#newyear").insertAfter($("#greetings"));
-        $("body").attr('class', 'responsive-body');
-        }
+        responsiveAppear();
     }
     else
     {
       if($(window).width() <= 680)
-      {
-        $("#navigation").attr('class', 'nav');
-        $("#finyear").insertBefore($("#greetings"));
-        $("#newyear").insertAfter($("#finyear"));
-        $("body").attr('class', 'none');
-      }
+        responsiveDisappear();
     }
 
 });
