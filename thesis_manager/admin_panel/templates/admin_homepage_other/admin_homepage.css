@@ -1,0 +1,148 @@
+body
+{
+  padding-top: 70px;
+  margin: 0;
+}
+
+ul.nav
+{
+    position: fixed;
+    height: 70px;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0088ff;
+    transition: top 0.2s ease-in-out;
+    top: 0;
+}
+
+ul.nav li
+{
+  float: right;
+}
+
+.nav li a {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.nav li a:hover
+{
+  color: #f1f1f1;
+}
+
+ul.nav li a
+{
+    display: inline-block;
+    color: #01070c;
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-family: 'Josefin Slab', sans-serif;
+}
+
+@media screen and (max-width:680px)
+{
+  .responsive-body{
+    display: inline;
+  }
+  ul.nav li
+  {
+    display: none;
+  }
+  ul.nav li.icon
+  {
+    float: right;
+    display: inline-block;
+  }
+  ul.nav.responsive
+  {
+    top: 0;
+    height: auto;
+  }
+  ul.nav.responsive li.icon
+  {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul.nav.responsive li
+  {
+    float: none;
+    display: inline;
+  }
+  ul.nav.responsive li a
+  {
+    display: block;
+    text-align: left;
+  }
+}
+
+.bar1, .bar2, .bar3
+{
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    margin: 7px 20px;
+    transition: 0.4s;
+}
+
+.icon
+{
+  padding:18px 0;
+  cursor: pointer;
+}
+
+.change .bar1
+{
+  -webkit-transform: rotate(-45deg) translate(-8px, 9px) ;
+  transform: rotate(-45deg) translate(-8px, 9px) ;
+}
+
+.change .bar2
+{
+  opacity: 0;
+}
+
+.change .bar3
+{
+  -webkit-transform: rotate(45deg) translate(-5px, -6px) ;
+  transform: rotate(45deg) translate(-5px, -6px) ;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #005299;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #01070c;
+    display: block;
+    transition: 0.3s;
+    font-family: 'Josefin Slab', sans-serif;
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.main-content {
+    transition: margin-left .5s;
+    padding: 16px;
+}
