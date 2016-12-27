@@ -1,7 +1,9 @@
+/*nav and side nav*/
 body
 {
   padding-top: 70px;
   margin: 0;
+  height: 100%;
 }
 
 ul.nav
@@ -16,6 +18,7 @@ ul.nav
     background-color: #0088ff;
     transition: top 0.2s ease-in-out;
     top: 0;
+    z-index: 6;
 }
 
 ul.nav li
@@ -23,7 +26,8 @@ ul.nav li
   float: right;
 }
 
-.nav li a {
+.nav li a
+{
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -45,6 +49,149 @@ ul.nav li a, .side a
     transition: 0.3s;
     font-family: 'Josefin Slab', sans-serif;
 }
+
+
+.bar1, .bar2, .bar3
+{
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    margin: 7px 20px;
+    transition: 0.4s;
+}
+
+.icon
+{
+  padding:18px 0;
+  cursor: pointer;
+}
+
+.change .bar1
+{
+  -webkit-transform: rotate(-45deg) translate(-8px, 9px) ;
+  transform: rotate(-45deg) translate(-8px, 9px) ;
+}
+
+.change .bar2
+{
+  opacity: 0;
+}
+
+.change .bar3
+{
+  -webkit-transform: rotate(45deg) translate(-5px, -6px) ;
+  transform: rotate(45deg) translate(-5px, -6px) ;
+}
+
+.sidenav
+{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 8;
+    top: 0;
+    left: 0;
+    background-color: #005299;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a
+{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #01070c;
+    display: block;
+    transition: 0.3s;
+    font-family: 'Josefin Slab', sans-serif;
+}
+
+.sidenav a:hover, .offcanvas a:focus
+{
+    color: #f1f1f1;
+}
+
+.main-content
+{
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+
+/*footer*/
+
+.footer{
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  padding: 1rem;
+}
+
+.line1
+{
+
+    width: 60%;
+    height: 2px;
+    background-color: #0088ff;
+    margin: auto;
+}
+
+.line2
+{
+    width: 30%;
+    height: 1px;
+    background-color: #1b3280;
+    opacity: 0.6;
+    margin: auto;
+    margin-top: 1%;
+
+}
+.footer a{
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 20%;
+  opacity: 0.5;
+}
+
+.footer-text{
+  text-align: center;
+  display: inline-block;
+  opacity: 0.5;
+  margin-top: 2%;
+  margin-left: 15%;
+  font-size: 17px;
+  margin-right: 35%;
+}
+
+@media screen and (max-width:1355px)
+{
+  .footer-text{
+    font-size: 15px;
+    margin-right: 25%;
+  }
+}
+
+@media screen and (max-width:950px)
+{
+  .footer-text{
+    margin-left: 10%;
+  }
+}
+
+
+@media screen and (max-width:830px)
+{
+  .footer-text{
+    font-size: 13px;
+    margin-right: 15%;
+    margin-left: 5%;
+  }
+}
+
+
 
 @media screen and (max-width:680px)
 {
@@ -83,68 +230,28 @@ ul.nav li a, .side a
     display: block;
     text-align: left;
   }
+  .footer-text{
+      margin-left: 2%;
+      font-size: 10px;
+      margin-right: 5%;
+  }
 }
 
-.bar1, .bar2, .bar3
+@media screen and (max-width:475px)
 {
+  .footer a img{
     width: 30px;
-    height: 2px;
-    background-color: black;
-    margin: 7px 20px;
-    transition: 0.4s;
+    height: 15px;
+  }
 }
 
-.icon
+@media screen and (max-width:365px)
 {
-  padding:18px 0;
-  cursor: pointer;
-}
-
-.change .bar1
-{
-  -webkit-transform: rotate(-45deg) translate(-8px, 9px) ;
-  transform: rotate(-45deg) translate(-8px, 9px) ;
-}
-
-.change .bar2
-{
-  opacity: 0;
-}
-
-.change .bar3
-{
-  -webkit-transform: rotate(45deg) translate(-5px, -6px) ;
-  transform: rotate(45deg) translate(-5px, -6px) ;
-}
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #005299;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #01070c;
+  .footer-text{
     display: block;
-    transition: 0.3s;
-    font-family: 'Josefin Slab', sans-serif;
-}
-
-.sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
-}
-
-.main-content {
-    transition: margin-left .5s;
-    padding: 16px;
+  }
+  .footer a {
+    margin-left: 45%;
+    margin-right: 45%;
+  }
 }

@@ -40,6 +40,7 @@ function openSideNavi()
   $(".main-content").css('margin-left', '250px');
   $("ul.nav li a").css('font-size','20px');
   $("body").css('background-color', 'rgba(0,0,0,0.4)');
+  $(".footer a").css('opacity', '0');
   $(".nav").css('background-color', '#007ae6');
   $(".bar1, .bar2, .bar3").css('height', '1px');
   $(".bar1, .bar2, .bar3").css('width', '25px');
@@ -50,6 +51,7 @@ function closeSideNavi()
   $("#sidenav").css('width','0');
   $(".main-content").css('margin-left', '0');
   $("body").css('background-color', 'white');
+  $(".footer a").css('opacity', '0.5');
   $("ul.nav li a").css('font-size','25px');
   $(".bar1, .bar2, .bar3").css('height', '2px');
   $(".bar1, .bar2, .bar3").css('width', '30px');
@@ -86,6 +88,9 @@ $(document).ready(function(){
 
 function responsiveAppear()
 {
+  $("#greetings").css('font-size', '20px');
+  $("#newyear").css('font-size', '20px');
+  $("#finyear").css('font-size', '20px');
   $("#navigation").attr('class', 'nav responsive');
   $("#greetings").insertBefore($("#finyear"));
   $("#newyear").insertAfter($("#greetings"));
