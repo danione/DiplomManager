@@ -84,6 +84,11 @@ $(document).ready(function(){
     $('#icon').attr('class', 'icon');
     opened = false;
   });
+
+  $(".main-content").css('padding-bottom', $(".footer").outerHeight(true));
+  $(".main-content").css('padding-top', $(".nav").outerHeight(true));
+
+
 });
 
 function responsiveAppear()

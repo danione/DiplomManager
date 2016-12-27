@@ -1,7 +1,7 @@
 /*nav and side nav*/
-body
+html,body
 {
-  padding-top: 70px;
+  padding: 0;
   margin: 0;
   height: 100%;
 }
@@ -113,10 +113,14 @@ ul.nav li a, .side a
     color: #f1f1f1;
 }
 
+.container{
+  min-height: 100%;
+  position: relative;
+}
+
 .main-content
 {
     transition: margin-left .5s;
-    padding: 16px;
 }
 
 
@@ -124,19 +128,18 @@ ul.nav li a, .side a
 
 .footer{
   left: 0;
-  right: 0;
-  bottom: 0;
   position: absolute;
-  padding: 1rem;
+  bottom: 0;
+  width: 100%;
 }
 
 .line1
 {
-
     width: 60%;
     height: 2px;
     background-color: #0088ff;
     margin: auto;
+    margin-top: 5%;
 }
 
 .line2
