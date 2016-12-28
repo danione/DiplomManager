@@ -88,6 +88,12 @@ $(document).ready(function(){
   $(".main-content").css('padding-bottom', $(".footer").outerHeight(true));
   $(".main-content").css('padding-top', $(".nav").outerHeight(true));
 
+  if($(".commission tr").length == 1)
+  {
+    $(".commission").css('display', 'none');
+    $("#commission-header").css('display', 'none');
+  }
+
 
 });
 

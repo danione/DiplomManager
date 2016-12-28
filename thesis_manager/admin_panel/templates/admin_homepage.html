@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="admin_homepage_other/admin_homepage.css">
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Infant:300i&amp;subset=cyrillic" rel="stylesheet">
   </head>
 
   <body class="none">
@@ -33,6 +34,11 @@
         <a href="#">Assign A New Commission</a>
         <a href="#">Listing</a>
         <a href="#">Exit</a>
+        <div class="decoration">
+          <div id="bubble1"></div>
+          <div id="bubble2"></div>
+          <div id="bubble3"></div>
+        </div>
       </div>
 
       <script src="admin_homepage_other/script.js"></script>
@@ -40,22 +46,37 @@
 
       <div class="main-content" id="main">
 
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
-        <img src="http://www.w3schools.com/css/img_fjords.jpg" alt="Mountain View" >
+        <h1 id="assignment-header"> Students without smth </h1>
+
+        <input type="text" name="search" placeholder="Search..">
+
+
+        <table id="assignment" class="assignment">
+          <tr class="assignment-header">
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Assign</th>
+          </tr>
+          <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Germany</td>
+            <td>Germany</td>
+          </tr>
+         </table>
+
+        <h1 id="commission-header"> Students without commission </h1>
+
+        <table id="commission" class="commission">
+          <tr class="assignment-header">
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Assign</th>
+          </tr>
+         </table>
+
+
       </div>
+
 
       <div class="footer">
         <div class="line1"></div>
