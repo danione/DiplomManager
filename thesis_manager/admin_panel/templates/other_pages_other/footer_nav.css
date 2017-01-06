@@ -1,0 +1,271 @@
+/*nav and side nav*/
+html,body
+{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+ul.nav
+{
+    position: fixed;
+    height: 70px;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0088ff;
+    transition: top 0.2s ease-in-out;
+    top: 0;
+    z-index: 6;
+}
+
+ul.nav li
+{
+  float: right;
+}
+
+.nav li a
+{
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.nav li a:hover, .side a
+{
+  color: #f1f1f1;
+}
+
+ul.nav li a, .side a
+{
+    display: inline-block;
+    color: #01070c;
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-family: 'Josefin Slab', sans-serif;
+}
+
+
+.bar1, .bar2, .bar3
+{
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    margin: 7px 20px;
+    transition: 0.4s;
+}
+
+.icon
+{
+  padding:18px 0;
+  cursor: pointer;
+}
+
+.change .bar1
+{
+  -webkit-transform: rotate(-45deg) translate(-8px, 9px) ;
+  transform: rotate(-45deg) translate(-8px, 9px) ;
+}
+
+.change .bar2
+{
+  opacity: 0;
+}
+
+.change .bar3
+{
+  -webkit-transform: rotate(45deg) translate(-5px, -6px) ;
+  transform: rotate(45deg) translate(-5px, -6px) ;
+}
+
+.sidenav
+{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 8;
+    top: 0;
+    left: 0;
+    background: #0088ff; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#0088ff,#33ffad); /* For Safari 5.1 to 6.0 */
+    background: linear-gradient(#0088ff,#33ffad);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.decoration
+{
+
+}
+
+.sidenav a
+{
+    padding: 0.5em 0.5em 0.5em 0.5em ;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+    font-family: 'Josefin Slab', sans-serif;
+}
+
+.sidenav a:hover, .offcanvas a:focus
+{
+    color: #f1f1f1;
+}
+
+.container
+{
+  min-height: 100%;
+  position: relative;
+}
+
+.main-content
+{
+    transition: margin-left .5s;
+    text-align: center;
+}
+
+
+/*footer*/
+
+.footer
+{
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.line1
+{
+    width: 60%;
+    height: 2px;
+    background-color: #0088ff;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.line2
+{
+    width: 30%;
+    height: 1px;
+    background-color: #1b3280;
+    opacity: 0.6;
+    margin: auto;
+    margin-top: 1%;
+
+}
+.footer a{
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 20%;
+  opacity: 0.5;
+}
+
+.footer-text{
+  text-align: center;
+  display: inline-block;
+  opacity: 0.5;
+  margin-top: 2%;
+  margin-left: 17%;
+  font-size: 17px;
+  margin-right: 35%;
+}
+
+@media screen and (max-width:1355px)
+{
+  .footer-text{
+    font-size: 15px;
+    margin-right: 25%;
+    margin-left: 11%;
+  }
+}
+
+@media screen and (max-width:950px)
+{
+  .footer-text{
+    margin-left: 10%;
+  }
+}
+
+
+@media screen and (max-width:830px)
+{
+  .footer-text{
+    font-size: 13px;
+    margin-right: 15%;
+    margin-left: 5%;
+  }
+}
+
+
+
+@media screen and (max-width:680px)
+{
+  .responsive-body{
+    display: inline;
+  }
+  ul.nav li
+  {
+    display: none;
+  }
+  ul.nav li.icon
+  {
+    float: right;
+    display: inline-block;
+  }
+  ul.nav.responsive
+  {
+    top: 0;
+    height: auto;
+  }
+  ul.nav.responsive li.icon
+  {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul.nav.responsive li
+  {
+    float: none;
+    display: inline;
+  }
+  ul.nav.responsive li a, .side a
+  {
+    font-size: 20px;
+    padding: 15px;
+    display: block;
+    text-align: left;
+  }
+  .footer-text{
+      margin-left: 4%;
+      font-size: 10px;
+      margin-right: 5%;
+  }
+}
+
+@media screen and (max-width:475px)
+{
+  .footer a img{
+    width: 30px;
+    height: 15px;
+  }
+}
+
+@media screen and (max-width:365px)
+{
+  .footer-text{
+    display: block;
+  }
+  .footer a {
+    margin-left: 45%;
+    margin-right: 45%;
+  }
+}
