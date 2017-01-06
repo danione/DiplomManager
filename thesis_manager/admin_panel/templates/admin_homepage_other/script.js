@@ -88,12 +88,30 @@ $(document).ready(function(){
   $(".main-content").css('padding-bottom', $(".footer").outerHeight(true));
   $(".main-content").css('padding-top', $(".nav").outerHeight(true));
 
-  if($(".commission tr").length == 1)
+  if($("#document tr").length == 1)
+  {
+    $(".document").css('display', 'none');
+    $("#document-header").css('display', 'none');
+  }
+
+  if($("#assignment tr").length == 1)
+  {
+    $("#assignment-header").css('display', 'none');
+    $(".assignment").css('display', 'none');
+
+  }
+
+  if($("#reviewer tr").length == 1)
+  {
+    $(".reviewer").css('display', 'none');
+    $("#reviewer-header").css('display', 'none');
+  }
+
+  if($("#commission tr").length == 1)
   {
     $(".commission").css('display', 'none');
     $("#commission-header").css('display', 'none');
   }
-
 
 });
 
@@ -137,4 +155,20 @@ $('#icon').click(function responsive()
         responsiveDisappear();
     }
 
+});
+
+var clicked = false;
+$('body').on('click','img',function()
+{
+  var name = "#" + $(this).attr('class') + "-search";
+  if(!clicked)
+  {
+    $(name).css('width', '7em');
+    clicked = true;
+  }
+  else
+  {
+    $(name).css('width', '0');
+    clicked = false;
+  }
 });

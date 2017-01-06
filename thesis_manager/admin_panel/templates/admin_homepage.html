@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="admin_homepage_other/admin_homepage.css">
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Infant:300i&amp;subset=cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
   <body class="none">
@@ -34,7 +34,7 @@
         <a href="#">Assign A New Commission</a>
         <a href="#">Listing</a>
         <a href="#">Exit</a>
-        <div class="decoration">
+        <div class="document">
           <div id="bubble1"></div>
           <div id="bubble2"></div>
           <div id="bubble3"></div>
@@ -46,34 +46,71 @@
 
       <div class="main-content" id="main">
 
-        <h1 id="assignment-header"> Students without smth </h1>
-
-        <input type="text" name="search" placeholder="Search..">
-
-
-        <table id="assignment" class="assignment">
-          <tr class="assignment-header">
+        <h1 id="document-header"> Students without document </h1>
+        <div class="search">
+          <img id="search-icon" class="document" src="admin_homepage_other/search-icon.png" alt="search-icon">
+          <input id="document-search" type="text" name="search" placeholder="Search...">
+        </div>
+        <table id="document" class="document">
+          <tr>
             <th>Student Name</th>
             <th>Class</th>
-            <th>Assign</th>
+            <th>Approve</th>
           </tr>
           <tr>
             <td>Alfreds Futterkiste</td>
             <td>Germany</td>
-            <td>Germany</td>
+            <td>
+              <div class="assign-approve">
+                <a href="#">
+                  <div class="tick">
+                  </div>
+                </a>
+              </div>
+
+            </td>
           </tr>
          </table>
 
-        <h1 id="commission-header"> Students without commission </h1>
+         <h1 id="assignment-header"> Students without assignment </h1>
+         <div class="search">
+           <img id="search-icon" class="assignment" src="admin_homepage_other/search-icon.png" alt="search-icon">
+           <input id="assignment-search" type="text" name="search" placeholder="Search...">
+         </div>
+         <table id="assignment" class="assignment">
+           <tr>
+             <th>Student Name</th>
+             <th>Class</th>
+             <th>Assign</th>
+           </tr>
+        </table>
 
-        <table id="commission" class="commission">
-          <tr class="assignment-header">
-            <th>Student Name</th>
-            <th>Class</th>
-            <th>Assign</th>
-          </tr>
+
+          <h1 id="reviewer-header"> Students without reviewer </h1>
+          <div class="search">
+            <img id="search-icon" class="reviewer" src="admin_homepage_other/search-icon.png" alt="search-icon">
+            <input id="reviewer-search" type="text" name="search" placeholder="Search...">
+          </div>
+          <table id="reviewer" class="reviewer">
+            <tr>
+              <th>Student Name</th>
+              <th>Class</th>
+              <th>Assign</th>
+            </tr>
          </table>
 
+         <h1 id="commission-header"> Students without commission </h1>
+         <div class="search">
+            <img id="search-icon" class="commission" src="admin_homepage_other/search-icon.png" alt="search-icon">
+           <input id="commission-search" type="text" name="search" placeholder="Search...">
+         </div>
+         <table id="commission" class="commission">
+           <tr>
+             <th>Student Name</th>
+             <th>Class</th>
+             <th>Assign</th>
+           </tr>
+        </table>
 
       </div>
 
