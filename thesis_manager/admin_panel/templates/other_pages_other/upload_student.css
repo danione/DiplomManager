@@ -1,0 +1,101 @@
+h1
+{
+  font-weight: normal;
+  font-family: 'Josefin Slab', serif;
+}
+
+.main-content
+{
+  font-family: 'Josefin Slab', serif;
+}
+
+.table
+{
+  margin: auto;
+  width: 60%;
+  border-collapse: collapse;
+}
+
+.table td
+{
+  width: 20%;
+  border: 1px solid black;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: #002240;
+  color: #fff;
+  font-size: 1.2em;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  cursor: pointer;
+}
+
+.table td:hover
+{
+  background-color: #fff !important;
+  color: #002240 !important;
+  border: 1px solid #002240 !important;
+}
+
+.upload-a-student, .add-a-student
+{
+  position: relative;
+  width: 20%;
+  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin: auto;
+  margin-top: 4%;
+  height: 0;
+  text-align: center;
+}
+
+input
+{
+  width: 60%;
+  margin-bottom: 4%;
+}
+
+.submit
+{
+  margin-top: 15em;
+  padding-top: 0.9em;
+  margin-bottom: 1em;
+  background-color: #002240;
+  height: 2em;
+  border: 1px solid #002240;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+a
+{
+  text-decoration: none;
+}
+
+.submit:hover
+{
+  background-color: #fff !important;
+  color: #002240 !important;
+}
+
+p
+{
+  margin-top: -20%;
+}
+
+
+.upload-button
+{
+  margin-top: 5%;
+}

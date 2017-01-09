@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="other_pages_other/footer_nav.css">
+    <link rel="stylesheet" type="text/css" href="other_pages_other/upload_student.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
@@ -17,19 +18,15 @@
           <div class="bar2"></div>
           <div class="bar3"></div>
         </li>
-        <li id="finyear"><a href="#news">Finish A Year</a></li>
+        <li id="finyear"><a href="#news">Manage Years</a></li>
         <li id="newyear"><a href="#contact">Start A School Year</a></li>
         <li id="greetings"><a href="#about">Welcome, ...</a></li>
       </ul>
 
       <div id="sidenav" class="sidenav">
-        <a href="#newstudent">Add A New Student</a>
         <a href="#">Upload Students</a>
-        <a href="#">Add A New Teacher</a>
         <a href="#">Upload Teachers</a>
-        <a href="#">Add A New Thesis</a>
         <a href="#">Upload Thesis Topics</a>
-        <a href="#">Add A New Reviewer</a>
         <a href="#">Upload Reviewers</a>
         <a href="#">Assign A New Commission</a>
         <a href="#">Listing</a>
@@ -45,8 +42,40 @@
 
 
       <div class="main-content" id="main">
+        <h1>Uploading students</h1>
+        <div class="option-buttons">
+          <table class="table">
+            <tr>
+              <td><div class="add">Add</div></td>
+              <td><div class="upload">Upload</div></td>
+            </tr>
+          </table>
+        </div>
+        <div class="options">
+          <div class="add-a-student">
 
+            <form>
+              Full Name:<br> <input type="text" name="FullName" required><br>
+              Class: (Just enter the correct letter of the class) <br> <input type="text" name="Class" required><br>
+              Number:<br>  <input type="number" name="Number" min="1" required><br>
+              <input type="radio" name="gender" value="female"> Female<br>
+              <input type="radio" name="gender" value="other"> Other<br>
+              <a href="#"><div class="submit">Submit</div></a>
+            </form>
+
+          </div>
+          <div class="upload-a-student">
+            <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
+
+            <input type="file">
+
+            <a href="#"><div class="submit upload-button">Upload</div></a>
+          </div>
+        </div>
       </div>
+
+      <script src="other_pages_other/upload_student.js"></script>
+
 
 
       <div class="footer">

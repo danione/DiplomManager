@@ -1,0 +1,62 @@
+h1, h2
+{
+  font-weight: normal;
+  font-family: 'Josefin Slab', serif;
+}
+
+.main-content
+{
+  font-family: 'Josefin Slab', serif;
+}
+
+.buttons
+{
+  width: 60%;
+  padding-top: 25em;
+  margin: auto;
+}
+
+.first
+{
+  font-family: 'Josefin Slab', serif;
+  font-weight: 400;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background-color: #03E857;
+  float: left;
+}
+
+.tick::before
+{
+  content: '\2713';
+  font-size: 4em;
+  color: #019B3A;
+  font-family: 'Josefin Slab', serif;
+  overflow: hidden;
+}
+
+a
+{
+  text-decoration: none;
+}
+
+.second
+{
+  font-family: 'Josefin Slab', serif;
+  font-weight: 400;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background-color: #E80D03;
+  float: right;
+}
+
+.cross::before
+{
+  content: '\2717';
+  font-size: 4em;
+  color: #9B0700;
+  font-family: 'Josefin Slab', serif;
+  overflow: hidden;
+}
