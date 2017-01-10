@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="other_pages_other/footer_nav.css">
     <link rel="stylesheet" type="text/css" href="other_pages_other/upload_student.css">
+    <link rel="stylesheet" type="text/css" href="other_pages_other/container_css.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
@@ -58,8 +59,20 @@
               Full Name:<br> <input type="text" name="FullName" required><br>
               Class: (Just enter the correct letter of the class) <br> <input type="text" name="Class" required><br>
               Number:<br>  <input type="number" name="Number" min="1" required><br>
-              <input type="radio" name="gender" value="female"> Female<br>
-              <input type="radio" name="gender" value="other"> Other<br>
+              <section class="section">
+                <div class="bin">
+                  <input type="radio" name="software/hardware" id="sys">
+                  <label for="sys">
+                    <span class="radio">System Programming</span>
+                  </label>
+                </div>
+                <div class="bin">
+                  <input type="radio" name="software/hardware" id="net">
+                  <label for="net">
+                    <span class="radio">Computer Networks</span>
+                  </label>
+                </div>
+            </section>
               <a href="#"><div class="submit">Submit</div></a>
             </form>
 
@@ -72,9 +85,11 @@
             <a href="#"><div class="submit upload-button">Upload</div></a>
           </div>
         </div>
+        <script src="other_pages_other/upload_student.js"></script>
+        <script src="other_pages_other/container_js.js"></script>
+
       </div>
 
-      <script src="other_pages_other/upload_student.js"></script>
 
 
 

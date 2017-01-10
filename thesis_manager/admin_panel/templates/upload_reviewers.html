@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="other_pages_other/footer_nav.css">
+    <link rel="stylesheet" type="text/css" href="other_pages_other/upload_reviewers.css">
+    <link rel="stylesheet" type="text/css" href="other_pages_other/container_css.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
@@ -41,7 +43,37 @@
 
 
       <div class="main-content" id="main">
+        <h1>Uploading reviewers</h1>
+        <div class="option-buttons">
+          <table class="table">
+            <tr>
+              <td><div class="add">Add</div></td>
+              <td><div class="upload">Upload</div></td>
+            </tr>
+          </table>
+        </div>
+        <div class="options">
+          <div class="add-a-reviewer">
 
+            <form>
+              Full Name:<br> <input type="text" name="FullName" required><br>
+              Titles:<br> <input type="text" name="Title" required><br>
+              Place of work:<br> <input type="text" name="WorkPlace" required><br>
+
+              <a href="#"><div class="submit">Submit</div></a>
+            </form>
+
+          </div>
+          <div class="upload-a-reviewer">
+            <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
+
+            <input type="file">
+
+            <a href="#"><div class="submit upload-button">Upload</div></a>
+          </div>
+        </div>
+        <script src="other_pages_other/upload_reviewers.js"></script>
+        <script src="other_pages_other/container_js.js"></script>
       </div>
 
 

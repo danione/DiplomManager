@@ -29,7 +29,7 @@ $(".table td").click(function()
   content = this;
   has_previous = click_change(content, has_previous, previous);
 
-  var appearing_content ="." + $(this).children().attr('class') + "-a-student";
+  var appearing_content ="." + $(this).children().attr('class') + "-a-reviewer";
   $(appearing_content).css('visibility', 'visible');
   $(appearing_content).css('opacity', '1');
   previous = content;
