@@ -40,6 +40,7 @@ function openSideNavi()
   $(".main-content").css('margin-left', '250px');
   $("ul.nav li a").css('font-size','20px');
   $("body").css('background-color', 'rgba(0,0,0,0.4)');
+
   $(".footer a").css('opacity', '0');
   $(".nav").css('background-color', '#007ae6');
   $(".bar1, .bar2, .bar3").css('height', '1px');
@@ -56,6 +57,7 @@ function closeSideNavi()
   $(".bar1, .bar2, .bar3").css('height', '2px');
   $(".bar1, .bar2, .bar3").css('width', '30px');
   $(".nav").css('background-color', '#0088ff');
+
 }
 
 function myFunction(x)

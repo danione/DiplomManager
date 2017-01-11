@@ -55,19 +55,22 @@
         <div class="options">
           <div class="add-a-student">
 
-            <form>
-              Full Name:<br> <input type="text" name="FullName" required><br>
-              Class: (Just enter the correct letter of the class) <br> <input type="text" name="Class" required><br>
-              Number:<br>  <input type="number" name="Number" min="1" required><br>
+            <form id="student-form">
+              Full Name:<br>
+              <input type="text" name="FullName" required><br>
+              Class: (Just enter the correct letter of the class) <br>
+              <input type="text" name="Class" required><br>
+              Number:<br>
+              <input type="number" name="Number" min="1" required><br>
               <section class="section">
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="sys">
+                  <input type="radio" name="software/hardware" id="sys" required>
                   <label for="sys">
                     <span class="radio">System Programming</span>
                   </label>
                 </div>
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="net">
+                  <input type="radio" name="software/hardware" id="net" required>
                   <label for="net">
                     <span class="radio">Computer Networks</span>
                   </label>

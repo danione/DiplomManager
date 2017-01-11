@@ -1,0 +1,116 @@
+.upload-a-thesis, .add-a-thesis
+{
+  position: relative;
+  width: 20%;
+  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin: auto;
+  margin-top: 4%;
+  height: 0;
+  text-align: center;
+}
+
+.bin
+{
+  margin-bottom: 15px;
+}
+
+.bin label
+{
+  position: relative;
+}
+
+.section input[type="radio"]
+{
+  display: none;
+}
+
+.section {
+  padding-top: 3%;
+  padding-right: 70%;
+  padding-bottom: 0;
+  padding-left: 50%;
+}
+
+
+.bin span::before, .bin span::after
+ {
+  content: '';
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  position: absolute;
+}
+
+.bin span.radio:hover
+{
+  cursor: pointer;
+}
+
+.bin span.radio::before
+{
+  height: 1.5em;
+  width: 2.8em;
+  left: -3.2em;
+  border-radius: 3.1em;
+  background-color: #fff;
+  border: 1px solid #84868C;
+  -webkit-transition: background 0.5s ease;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  transition: background 0.5s;
+}
+
+.bin span.radio::after
+{
+  box-shadow: 0 4px 5px -3px #3C3D40;
+  -moz-box-shadow: 0 4px 5px -3px #3C3D40;
+  -webkit-box-shadow: 0 4px 5px -3px #3C3D40;
+  left: -3.05em;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 0.6em;
+  background-color: #002240;
+  -webkit-transition: left 0.5s ease, background 0.5s ease;
+  -moz-transition: left 0.5s ease, background 0.5s ease;
+  -o-transition: left 0.5s ease,background 0.5s ease;
+  transition: left 0.5s ease, background 0.5s ease;
+}
+input[type="radio"]:checked + label span.radio:before
+{
+  background-color: #002240;
+}
+
+input[type="radio"]:checked + label span.radio:after
+{
+  left: -1.7em;
+  background-color: #fff;
+}
+
+input[type="text"]
+{
+  width: 60%;
+  font-family: 'Josefin Slab', sans-serif;
+  color:#002240;
+  padding: 0.3em;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+input[type="text"]:focus
+{
+  width: 90%;
+  border: 1px solid #002240;
+}
+
+.bottom-p
+{
+  margin-top: 20%;
+
+}

@@ -1,0 +1,69 @@
+.standard-topic, .prearranged-topic
+{
+  position: relative;
+  width: 20%;
+  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin: auto;
+  margin-top: 4%;
+  height: 0;
+  text-align: center;
+}
+
+.standard-topic
+{
+  margin-top: -2%;
+}
+
+.heading
+{
+  font-size: 1.5em;
+}
+
+input[type="number"]
+{
+  text-align: center;
+}
+
+@media screen and (max-width:1024px)
+{
+
+  .main-content
+  {
+      font-size: 0.9em;
+  }
+  .heading{
+      font-size: 1.2em;
+  }
+  h1
+  {
+    font-size: 1.5em;
+  }
+
+  .table td
+  {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+  }
+}
+
+
+@media screen and (max-width:768px)
+{
+  input
+  {
+    width: 100%;
+    margin-left: -100%;
+    margin-right: -100%;
+
+  }
+  .heading
+  {
+    margin-left: -100%;
+    margin-right: -100%;
+  }
+}
