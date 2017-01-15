@@ -1,0 +1,214 @@
+caption
+{
+  font-size: 2em;
+}
+
+.table_three caption, .table_four caption
+{
+  margin-top: 3%;
+}
+
+.student
+{
+  text-align: left;
+}
+
+.tables
+{
+  width: 60%;
+  margin: auto;
+  margin-top: 4%;
+}
+
+.table_one
+{
+  float: left;
+  width: 30%;
+}
+.table_two,.table_three,.table_four
+{
+  float: right;
+  width: 60%;
+}
+
+.simple-table, .simple-table th, .simple-table td
+{
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.simple-table th,td
+{
+  border-bottom: 1px solid black;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.simple-table th
+{
+  font-weight: normal;
+  font-size: 1.2em;
+  color: #fff;
+  background-color: #002240;
+}
+.simple-table td
+{
+  background-color: #DCDCDC;
+  cursor: pointer;
+}
+
+.button-assign
+{
+  float:right;
+  margin-top: -2.6em;
+}
+
+.tick::before
+{
+  content: '\2713';
+  font-size: 1.4em;
+  color: #fff;
+  font-family: 'Josefin Slab', serif;
+  overflow: hidden;
+  right: 0;
+}
+.assign
+{
+  right: 0;
+  font-family: 'Josefin Slab', serif;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background-color: #002240;
+}
+
+a
+{
+  text-decoration: none;
+}
+
+.head, .body
+{
+  display: block;
+}
+
+.body
+{
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.head, .body tr
+{
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.body::-webkit-scrollbar
+{
+  width: 0.5em;
+}
+
+.body::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.body::-webkit-scrollbar-thumb
+{
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+@media screen and (max-width: 1035px) {
+  .table_one,
+  .table_two,
+  .table_three,
+  .table_four
+  {
+    float: none;
+  }
+
+  .table_two caption
+  {
+    margin-top: 5%;
+  }
+
+  .table_one
+  {
+    width: 60%;
+  }
+
+  caption
+  {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  caption
+  {
+    font-size: 1.2em;
+  }
+
+  .tick::before
+  {
+    font-size: 1.2em;
+  }
+  .assign
+  {
+    width: 1.2em;
+    height: 1.2em;
+  }
+  .button-assign
+  {
+    margin-top: -2.25em;
+  }
+
+  .table_one,
+  .table_two,
+  .table_three,
+  .table_four
+  {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 450px)
+{
+  .tick::before
+  {
+    font-size: 1em;
+  }
+  .assign
+  {
+    width: 1em;
+    height: 1em;
+  }
+  .button-assign
+  {
+    margin-top: -2.1em;
+  }
+
+  .table_one,
+  .table_two,
+  .table_three,
+  .table_four
+  {
+    width: 100%;
+  }
+
+  .simple-table th
+  {
+    font-size: 0.9em;
+  }
+
+  .tables
+  {
+    width: 80%;
+  }
+
+
+}
