@@ -179,6 +179,7 @@ input[type=text]
   transition: width  0.5s ease-in-out;
 }
 
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #fff;
 }
@@ -229,44 +230,28 @@ table td
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.assign-approve
+.assign
 {
-  border-radius: 50%;
-	width: 3em;
-	height: 3em;
-  background-color: #03E857;
-  margin: auto;
+  border-radius: 5%;
+  color: #fff;
+  background-color: #3ACC33;
+  width: 60%;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.35);
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
 }
 
-.tick::before
+.assign:hover
 {
-  display: inline-block;
-  position: relative;
-  content:'\2713';
-  vertical-align: top;
-  font-size: 2.5em;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  color: #03CE4D;
-  top: -0.05em;
-  left: 0.05em;
-  -webkit-transition-duration: 0.8s;
-  -moz-transition-duration: 0.8s;
-  -o-transition-duration: 0.8s;
-  transition-duration: 0.8s;
-
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  transition-property: transform;
-
-  overflow: hidden;
+  background-color: #fff;
+  color: #3ACC33;
+  cursor: pointer;
 }
 
-a:hover .tick::before {
-    -webkit-transform:rotate(360deg);
-    -moz-transform:rotate(360deg);
-    -o-transform:rotate(360deg);
+a
+{
+  text-decoration: none;
 }
 
 table td:last-child
@@ -281,7 +266,7 @@ table td:last-child
 {
   left: 0;
   position: absolute;
-  bottom: 0;
+  bottom: 1em;
   width: 100%;
 }
 
@@ -344,6 +329,11 @@ table td:last-child
     font-size: 13px;
     margin-right: 15%;
     margin-left: 5%;
+  }
+
+  .assign
+  {
+    width: 100%;
   }
 }
 

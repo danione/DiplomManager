@@ -20,10 +20,10 @@ h1, h2
 {
   font-family: 'Josefin Slab', serif;
   font-weight: 400;
+  border-radius: 50%;
   width: 5em;
   height: 5em;
-  border-radius: 50%;
-  background-color: #03E857;
+  background-color: #002240;
   float: left;
 }
 
@@ -31,7 +31,7 @@ h1, h2
 {
   content: '\2713';
   font-size: 4em;
-  color: #019B3A;
+  color: #fff;
   font-family: 'Josefin Slab', serif;
   overflow: hidden;
 }
@@ -48,15 +48,16 @@ a
   width: 5em;
   height: 5em;
   border-radius: 50%;
-  background-color: #E80D03;
+  background-color: #fff;
   float: right;
+  border: 1px solid #002240;
 }
 
 .cross::before
 {
   content: '\2717';
   font-size: 4em;
-  color: #9B0700;
+  color: #002240;
   font-family: 'Josefin Slab', serif;
   overflow: hidden;
 }

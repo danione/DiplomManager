@@ -44,25 +44,19 @@
         <h1 id="document-header"> Students without document </h1>
         <div class="search">
           <img id="search-icon" class="document" src="admin_homepage_other/search-icon.png" alt="search-icon">
-          <input id="document-search" type="text" name="search" placeholder="Search...">
+          <input id="document-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
         </div>
         <table id="document" class="document">
           <tr>
             <th>Student Name</th>
             <th>Class</th>
-            <th>Approve</th>
+            <th></th>
           </tr>
           <tr>
             <td>Alfreds Futterkiste</td>
             <td>Germany</td>
             <td>
-              <div class="assign-approve">
-                <a href="#">
-                  <div class="tick">
-                  </div>
-                </a>
-              </div>
-
+                <a href="#"><div class="assign">Assign</div></a>
             </td>
           </tr>
          </table>
@@ -70,13 +64,13 @@
          <h1 id="assignment-header"> Students without assignment </h1>
          <div class="search">
            <img id="search-icon" class="assignment" src="admin_homepage_other/search-icon.png" alt="search-icon">
-           <input id="assignment-search" type="text" name="search" placeholder="Search...">
+           <input id="assignment-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
          </div>
          <table id="assignment" class="assignment">
            <tr>
              <th>Student Name</th>
              <th>Class</th>
-             <th>Assign</th>
+             <th></th>
            </tr>
         </table>
 
@@ -84,27 +78,28 @@
           <h1 id="reviewer-header"> Students without reviewer </h1>
           <div class="search">
             <img id="search-icon" class="reviewer" src="admin_homepage_other/search-icon.png" alt="search-icon">
-            <input id="reviewer-search" type="text" name="search" placeholder="Search...">
+            <input id="reviewer-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
           </div>
           <table id="reviewer" class="reviewer">
             <tr>
               <th>Student Name</th>
               <th>Class</th>
-              <th>Assign</th>
+              <th></th>
             </tr>
          </table>
 
          <h1 id="commission-header"> Students without commission </h1>
          <div class="search">
             <img id="search-icon" class="commission" src="admin_homepage_other/search-icon.png" alt="search-icon">
-           <input id="commission-search" type="text" name="search" placeholder="Search...">
+           <input id="commission-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
          </div>
          <table id="commission" class="commission">
            <tr>
              <th>Student Name</th>
              <th>Class</th>
-             <th>Assign</th>
+             <th></th>
            </tr>
+
         </table>
 
       </div>
@@ -124,9 +119,5 @@
       </div>
     </div>
     <script src="admin_homepage_other/script.js"></script>
-    
   </body>
-
-
-
 </html>

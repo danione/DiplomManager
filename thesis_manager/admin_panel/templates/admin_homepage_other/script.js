@@ -164,11 +164,14 @@ $('body').on('click','img',function()
   if(!clicked)
   {
     $(name).css('width', '7em');
+    $(name).css('padding-left', '0.5em');
     clicked = true;
   }
   else
   {
     $(name).css('width', '0');
+    $(name).css('padding-left', '0');
     clicked = false;
+
   }
 });
