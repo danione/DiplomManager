@@ -139,7 +139,7 @@ ul.nav li a, .side a
 {
   left: 0;
   position: absolute;
-  bottom: 0;
+  bottom: 0.5em;
   width: 100%;
 }
 

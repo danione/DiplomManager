@@ -1,0 +1,132 @@
+.new-commission, .existing-commission
+{
+  position: relative;
+  width: 20%;
+  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin: auto;
+  margin-top: 4%;
+  height: 0;
+  text-align: center;
+}
+
+
+.bin
+{
+  margin-bottom: 20%;
+}
+
+.bin label
+{
+  position: relative;
+}
+
+.section input[type="radio"]
+{
+  display: none;
+}
+
+.section {
+  padding-right: 50%;
+  padding-top: 0;
+  padding-left: 50%;
+}
+
+.bin span::before, .bin span::after
+ {
+  content: '';
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  position: absolute;
+}
+
+.bin span.radio:hover
+{
+  cursor: pointer;
+}
+
+.bin span.radio::before
+{
+  height: 1.5em;
+  width: 2.8em;
+  left: -3.2em;
+  border-radius: 3.1em;
+  background-color: #fff;
+  border: 1px solid #84868C;
+  -webkit-transition: background 0.5s ease;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  transition: background 0.5s;
+}
+
+.bin span.radio::after
+{
+  box-shadow: 0 4px 5px -3px #3C3D40;
+  -moz-box-shadow: 0 4px 5px -3px #3C3D40;
+  -webkit-box-shadow: 0 4px 5px -3px #3C3D40;
+  left: -3.05em;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 0.6em;
+  background-color: #002240;
+  -webkit-transition: left 0.5s ease, background 0.5s ease;
+  -moz-transition: left 0.5s ease, background 0.5s ease;
+  -o-transition: left 0.5s ease,background 0.5s ease;
+  transition: left 0.5s ease, background 0.5s ease;
+}
+input[type="radio"]:checked + label span.radio:before
+{
+  background-color: #002240;
+}
+
+input[type="radio"]:checked + label span.radio:after
+{
+  left: -1.7em;
+  background-color: #fff;
+}
+
+
+.automatic-date, .manual-date
+{
+  display: none;
+  margin-top: 10%;
+}
+
+.hide-seek
+{
+  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+}
+
+.symbol
+{
+  height: 5em;
+  background-color: #002240;
+  width: 5em;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.step-1, .step-2, .step-3, .step-4
+{
+  opacity: 0;
+  height: 0;
+}
+
+.symbol span
+{
+  font-size:5.8em;
+  color: #fff;
+}
+
+.submit
+{
+  display: none;
+}

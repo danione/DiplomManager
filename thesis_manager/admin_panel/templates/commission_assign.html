@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="other_pages_other/footer_nav.css">
+    <link rel="stylesheet" type="text/css" href="other_pages_other/container_css.css">
+    <link rel="stylesheet" type="text/css" href="other_pages_other/commission_assign.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
@@ -26,7 +28,6 @@
         <a href="#">Upload Students</a>
         <a href="#">Upload Teachers</a>
         <a href="#">Upload Reviewers</a>
-        <a href="#">Assign A New Commission</a>
         <a href="#">Listing</a>
         <a href="#">Exit</a>
         <div class="document">
@@ -36,10 +37,73 @@
         </div>
       </div>
 
-      <script src="other_pages_other/footer_nav.js"></script>
 
 
       <div class="main-content" id="main">
+        <h1>Assigning ...'s commission</h1>
+        <div class="option-buttons">
+          <table class="table" id="commission">
+            <tr>
+              <td><div class="new">New</div></td>
+              <td><div class="existing">Existing</div></td>
+            </tr>
+          </table>
+        </div>
+        <div class="options">
+          <div class="new-commission">
+
+            <form>
+              <div class="hide-seek">
+                Chairman of the commission:<br> <input type="text" name="Chairman" required><br>
+                Member №1:<br> <input type="text" name="Members" required><br>
+                Member №2:<br> <input type="text" name="Members" required><br>
+                Member №3:<br> <input type="text" name="Members" required><br>
+              </div>
+              Automatic or manual date:
+              <section class="section">
+                <div class="bin">
+                  <input type="radio" name="auto/manual" id="automatic" required>
+                  <label for="automatic">
+                    <span class="radio">Automatic Date</span>
+                  </label>
+                </div>
+                <div class="bin">
+                  <input type="radio" name="auto/manual" id="manual" required>
+                  <label for="manual">
+                    <span class="radio">Manual Date</span>
+                  </label>
+                </div>
+              </section>
+              <div class="automatic-date">
+                <div class="steps">
+                  <div class="step-1">
+                    <div class="symbol"><span>1</span></div>
+                    Morning or Afternoon:
+                  </div>
+                  <div class="step-2">
+                    <div class="symbol"><span>2</span></div>
+                  </div>
+                  <div class="step-3">
+                    <div class="symbol"><span>3</span></div>
+                  </div>
+                  <div class="step-4">
+                    <div class="symbol"><span>4</span></div>
+                  </div>
+                </div>
+                <a href="#"><div class="next">Next</div></a>
+              </div>
+
+              <div class="manual-date">
+                Man
+              </div>
+
+            </form>
+
+          </div>
+          <div class="existing-commission">
+
+          </div>
+        </div>
 
       </div>
 
@@ -57,6 +121,9 @@
         </div>
       </div>
     </div>
+    <script src="other_pages_other/footer_nav.js"></script>
+    <script src="other_pages_other/container_js.js"></script>
+    <script src="other_pages_other/commission_assign.js"></script>
   </body>
 
 
