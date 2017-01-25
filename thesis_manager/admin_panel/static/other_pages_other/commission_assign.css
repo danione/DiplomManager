@@ -25,7 +25,7 @@
   position: relative;
 }
 
-.section input[type="radio"]
+.section input[type="radio"], input[type="checkbox"]
 {
   display: none;
 }
@@ -114,16 +114,44 @@ input[type="radio"]:checked + label span.radio:after
   margin: auto;
 }
 
+.date
+{
+  margin-top: 3%;
+}
+
+.checkbox label:before {
+  border-radius: 3px;
+}
+
+input[type=checkbox]:checked + label:before {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+  font-size: 15px;
+  color: #002240;
+  text-align: center;
+    line-height: 15px;
+}
+
 .step-1, .step-2, .step-3, .step-4
 {
-  opacity: 0;
-  height: 0;
+  display: none;
 }
 
 .symbol span
 {
   font-size:5.8em;
   color: #fff;
+}
+
+.ui-datepicker {
+  width: 216px;
+  height: auto;
+  margin: 5px auto 0;
+  font: 9pt Arial, sans-serif;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+  background-color: #fff;
 }
 
 .submit

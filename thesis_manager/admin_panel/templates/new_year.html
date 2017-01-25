@@ -1,46 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> Start A New Year </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:300,400" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="other_pages_other/footer_nav.css">
-    <link rel="stylesheet" type="text/css" href="other_pages_other/new_year.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  </head>
-
-  <body class="none">
-    <div class="container">
-      <ul class="nav" id="navigation">
-        <li id="icon" class="icon" onclick="myFunction(this)">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-        </li>
-        <li id="finyear"><a href="#news">Manage Years</a></li>
-        <li id="newyear"><a href="#contact">Start A School Year</a></li>
-        <li id="greetings"><a href="#about">Welcome, ...</a></li>
-      </ul>
-
-      <div id="sidenav" class="sidenav">
-        <a href="#">Upload Students</a>
-        <a href="#">Upload Teachers</a>
-        <a href="#">Upload Thesis Topics</a>
-        <a href="#">Upload Reviewers</a>
-        <a href="#">Listing</a>
-        <a href="#">Exit</a>
-        <div class="document">
-          <div id="bubble1"></div>
-          <div id="bubble2"></div>
-          <div id="bubble3"></div>
-        </div>
-      </div>
+{% extends 'base.html' %}
 
 
+{% block title %}New School Year{% endblock %}
 
-      <div class="main-content" id="main">
+{% block extra_head %}
+  {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/new_year.css' %}">
+{% endblock %}
 
+{% block content %}
+
+  {% load static %}
         <h1> Oops...</h1>
         <h2> Have you finished the previous year using "Manage Years" Option?</h2>
 
@@ -67,10 +37,4 @@
         </div>
       </div>
     </div>
-    <script src="other_pages_other/footer_nav.js"></script>
-
-  </body>
-
-
-
-</html>
+{% endblock %}

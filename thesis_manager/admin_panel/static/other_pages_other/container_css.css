@@ -18,6 +18,7 @@ h1
 
 .table td
 {
+  text-align: center;
   width: 20%;
   border: 1px solid black;
   padding-top: 1em;

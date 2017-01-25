@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Upload Teachers{% endblock %}
+
+{% block extra_head %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/upload_teachers.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  {% load static %}
+        <h1>Uploading teachers</h1>
+        <div class="option-buttons">
+          <table class="table" id="a-teacher">
+            <tr>
+              <td><div class="add">Add</div></td>
+              <td><div class="upload">Upload</div></td>
+            </tr>
+          </table>
+        </div>
+        <div class="options">
+          <div class="add-a-teacher">
+
+            <form>
+              Full Name:<br> <input type="text" name="FullName" required><br>
+              Titles:<br> <input type="text" name="Title" required><br>
+              Place of work:<br> <input type="text" name="WorkPlace" required><br>
+              <section class="section">
+                <div class="bin">
+                  <input type="radio" name="software/hardware" id="sys">
+                  <label for="sys">
+                    <span class="radio">System Programming</span>
+                  </label>
+                </div>
+                <div class="bin">
+                  <input type="radio" name="software/hardware" id="net">
+                  <label for="net">
+                    <span class="radio">Computer Networks</span>
+                  </label>
+                </div>
+            </section>
+              <a href="#"><div class="submit">Submit</div></a>
+            </form>
+
+          </div>
+          <div class="upload-a-teacher">
+            <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
+
+            <input type="file">
+
+            <a href="#"><div class="submit upload-button">Upload</div></a>
+          </div>
+        </div>
+    <script src="{% static 'other_pages_other/container_js.js' %}"></script>
+{% endblock %}

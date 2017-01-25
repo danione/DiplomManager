@@ -68,3 +68,9 @@ $(".simple-table td").click(function()
   }
   previous_vol_2 = this;
 });
+
+$(".submit").click(function()
+{
+  $.validate();
+  $(this).closest("form").submit();
+});
