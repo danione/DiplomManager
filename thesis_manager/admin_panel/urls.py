@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^upload_reviewers/$', views.upload_reviewers, name='upload_reviewers'),
     url(r'^listing/$', views.listing, name='listing'),
     url(r'^student_handler/$', views.student_handler, name='student_handler'),
-    url(r'^student_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_student')), name='student_handler/redirection'),
+    url(r'^student_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_students')), name='student_handler/redirection'),
 ]

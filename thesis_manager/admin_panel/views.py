@@ -3,7 +3,13 @@ from django.http import HttpResponseRedirect
 from .models import Student
 
 def admin_homepage(request):
-    return render(request, 'admin_homepage.html')
+    students_list = list(Student.objects.order_by('student_class','student_name'))
+    for student in students_list:
+        student.has_document = True;
+        if student.has_document == True:
+            students_list.remove(student)
+    context = {'students_list': students_list}
+    return render(request, 'admin_homepage.html', context)
 
 def new_year(request):
     return render(request, 'new_year.html')

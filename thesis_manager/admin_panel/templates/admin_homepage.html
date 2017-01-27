@@ -22,13 +22,18 @@
       <th>Class</th>
       <th></th>
     </tr>
-    <tr>
-      <td>Alfreds Futterkiste</td>
-      <td>Germany</td>
-      <td>
-          <a href="#"><div class="assign">Assign</div></a>
-      </td>
-    </tr>
+    {% if students_list %}
+      {% for student in students_list %}
+      <tr>
+        <td>{{ student.student_name }}</td>
+        <td>{{ student.student_class }}</td>
+        <td>
+            <a><div class="assign">Assign</div></a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    {% endif %}
    </table>
 
    <h1 id="assignment-header"> Students without assignment </h1>

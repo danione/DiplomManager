@@ -27,29 +27,27 @@
             <form id="student-form" action=" {% url 'student_handler' %}" method="post">
               {% csrf_token %}
               <label for="FullName">Full Name:</label><br>
-              <input id="FullName" type="text" data-validation="custom" data-validation-regexp="^[\wа-я]*$" data-le><br>
+              <input id="FullName" type="text" name="FullName" data-validation="custom" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <label for="Class">Class: (Just enter the correct letter of the class)</label><br>
-              <input id="Class" type="text" name="Class" maxlength="1" required><br>
+              <input id="Class" type="text" name="Class" data-validation="custom" data-validation-regexp="^[АБВГ]$"><br>
               <label for="Number">Number:</label><br>
-              <input id="Number" type="number" name="Number" min="1" required><br>
+              <input id="Number" type="text" name="Number" data-validation="number" data-validation-allowing="range[1;50]"><br>
               <section class="section">
                 <div class="bin">
-                  <input type="radio" name="software" id="sys" required>
+                  <input type="radio" name="software" id="sys" checked>
                   <label for="sys">
                     <span class="radio">System Programming</span>
                   </label>
                 </div>
                 <div class="bin">
-                  <input type="radio" name="hardware" id="net" required>
+                  <input type="radio" name="hardware" id="net">
                   <label for="net">
                     <span class="radio">Computer Networks</span>
                   </label>
                 </div>
               </section>
-              <a href="#"><div class="submit">Submit</div></a>
+              <a><div class="submit">Submit</div></a>
             </form>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 
           </div>
           <div class="upload-a-student">
