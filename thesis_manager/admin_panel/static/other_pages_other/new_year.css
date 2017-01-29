@@ -16,6 +16,7 @@ h1, h2
   margin: auto;
 }
 
+
 .first
 {
   font-family: 'Josefin Slab', serif;
@@ -25,6 +26,21 @@ h1, h2
   height: 5em;
   background-color: #002240;
   float: left;
+  border: 1px solid #002240;
+  -webkit-transition: background 0.6s ease-in-out;
+  -moz-transition: background 0.6s ease-in-out;
+  -o-transition: background 0.6s ease-in-out;
+  transition: background 0.6s ease-in-out;
+}
+
+.first:hover .tick::before
+{
+  color: #002240;
+}
+
+.first:hover
+{
+  background: #fff;
 }
 
 .tick::before
@@ -34,7 +50,12 @@ h1, h2
   color: #fff;
   font-family: 'Josefin Slab', serif;
   overflow: hidden;
+  -webkit-transition: color 0.6s ease-in-out;
+  -moz-transition: color 0.6s ease-in-out;
+  -o-transition: color 0.6s ease-in-out;
+  transition: color 0.6s ease-in-out;
 }
+
 
 a
 {
@@ -51,6 +72,10 @@ a
   background-color: #fff;
   float: right;
   border: 1px solid #002240;
+  -webkit-transition: background 0.6s ease-in-out;
+  -moz-transition: background 0.6s ease-in-out;
+  -o-transition: background 0.6s ease-in-out;
+  transition: background 0.6s ease-in-out;
 }
 
 .cross::before
@@ -60,4 +85,17 @@ a
   color: #002240;
   font-family: 'Josefin Slab', serif;
   overflow: hidden;
+  -webkit-transition: color 0.6s ease-in-out;
+  -moz-transition: color 0.6s ease-in-out;
+  -o-transition: color 0.6s ease-in-out;
+  transition: color 0.6s ease-in-out;
+}
+.second:hover .cross::before
+{
+  color: #fff;
+}
+
+.second:hover
+{
+  background: #002240;
 }

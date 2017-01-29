@@ -71,6 +71,8 @@ $(".simple-table td").click(function()
 
 $(".submit").click(function()
 {
-  $.validate();
+  $.validate({
+    modules : 'file'
+  });
   $(this).closest("form").submit();
 });

@@ -22,8 +22,8 @@
       <th>Class</th>
       <th></th>
     </tr>
-    {% if students_list %}
-      {% for student in students_list %}
+    {% if students_list_document %}
+      {% for student in students_list_document %}
       <tr>
         <td>{{ student.student_name }}</td>
         <td>{{ student.student_class }}</td>
@@ -47,6 +47,18 @@
        <th>Class</th>
        <th></th>
      </tr>
+     {% if students_list_assignment %}
+       {% for student in students_list_assignment %}
+       <tr>
+         <td>{{ student.student_name }}</td>
+         <td>{{ student.student_class }}</td>
+         <td>
+             <a><div class="assign">Assign</div></a>
+         </td>
+       </tr>
+       {% endfor %}
+
+     {% endif %}
   </table>
 
 
@@ -61,6 +73,18 @@
         <th>Class</th>
         <th></th>
       </tr>
+      {% if students_list_reviewer %}
+        {% for student in students_list_reviewer %}
+        <tr>
+          <td>{{ student.student_name }}</td>
+          <td>{{ student.student_class }}</td>
+          <td>
+              <a><div class="assign">Assign</div></a>
+          </td>
+        </tr>
+        {% endfor %}
+
+      {% endif %}
    </table>
 
    <h1 id="commission-header"> Students without commission </h1>
@@ -74,7 +98,21 @@
        <th>Class</th>
        <th></th>
      </tr>
-     <script src="{% static 'admin_homepage_other/script.js' %}"></script>
+     {% if students_list_commission %}
+       {% for student in students_list_commission %}
+       <tr>
+         <td>{{ student.student_name }}</td>
+         <td>{{ student.student_class }}</td>
+         <td>
+             <a><div class="assign">Assign</div></a>
+         </td>
+       </tr>
+       {% endfor %}
 
+     {% endif %}
   </table>
+  <script src="{% static 'admin_homepage_other/script.js' %}"></script>
+  
+
+
 {% endblock %}

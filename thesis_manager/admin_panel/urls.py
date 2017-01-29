@@ -12,6 +12,17 @@ urlpatterns = [
     url(r'^upload_thesis/$', views.upload_thesis, name='upload_thesis'),
     url(r'^upload_reviewers/$', views.upload_reviewers, name='upload_reviewers'),
     url(r'^listing/$', views.listing, name='listing'),
+    url(r'^teacher_handler/$', views.teacher_handler, name='teacher_handler'),
+    url(r'^teacher_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_teachers')), name='teacher_handler/redirection'),
     url(r'^student_handler/$', views.student_handler, name='student_handler'),
     url(r'^student_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_students')), name='student_handler/redirection'),
+    url(r'^thesis_handler/$', views.thesis_handler, name='thesis_handler'),
+    url(r'^thesis_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_thesis')), name='thesis_handler/redirection'),
+    url(r'^reviewer_handler/$', views.reviewer_handler, name='reviewer_handler'),
+    url(r'^reviewer_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_reviewer')), name='reviewer_handler/redirection'),
+    url(r'^file_handler/$', views.file_handler, name='file_handler'),
+    url(r'^file_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_students')), name='file_handler/redirection'),
+    url(r'^empty_tables/$', views.empty_tables, name='empty_tables'),
+    url(r'^empty_tables/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='empty_tables/redirection'),
+
 ]

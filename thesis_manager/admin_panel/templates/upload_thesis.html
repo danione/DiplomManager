@@ -24,32 +24,31 @@
         <div class="options">
           <div class="add-a-thesis">
 
-            <form id="thesis-form">
-              Thesis Name:<br>
-              <input type="text" name="ThesisName" required><br>
-              Teacher:<br>
-              <input type="text" name="Teacher" required><br>
+            <form id="thesis-form" action=" {% url 'thesis_handler' %}" method="post">
+              {% csrf_token %}
+              <label for="ThesisDescription">Descripion:</label><br>
+              <input id="ThesisDescription" type="text" name="ThesisDescription" data-validation="custom" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <section class="section">
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="sys" required>
+                  <input type="radio" name="software-hardware" id="sys" value="0" checked>
                   <label for="sys">
                     <span class="radio">System Programming</span>
                   </label>
                 </div>
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="net" required>
+                  <input type="radio" name="software-hardware" id="net" value="1">
                   <label for="net">
                     <span class="radio">Computer Networks</span>
                   </label>
                 </div>
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="mix" required>
+                  <input type="radio" name="software-hardware" id="mix" value="2">
                   <label for="mix">
                     <span class="radio">Mixed</span>
                   </label>
                 </div>
               </section>
-              <a href="#"><div class="submit">Submit</div></a>
+              <a><div class="submit">Submit</div></a>
             </form>
 
           </div>

@@ -41,7 +41,7 @@ function openSideNavi()
   $("ul.nav li a").css('font-size','20px');
   $("body").css('background-color', 'rgba(0,0,0,0.4)');
   $(".footer a").css('opacity', '0');
-  $(".nav").css('background-color', '#007ae6');
+  $(".nav").css('background-color', 'rgb(0, 122, 230)');
   $(".bar1, .bar2, .bar3").css('height', '1px');
   $(".bar1, .bar2, .bar3").css('width', '25px');
 }

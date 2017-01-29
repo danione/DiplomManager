@@ -24,11 +24,14 @@
         <div class="options">
           <div class="add-a-reviewer">
 
-            <form>
-              Full Name:<br> <input type="text" name="FullName" required><br>
-              Titles:<br> <input type="text" name="Title" required><br>
-              Place of work:<br> <input type="text" name="WorkPlace" required><br>
-
+            <form id="reviewer-form" action=" {% url 'reviewer_handler' %}" method="post">
+              {% csrf_token %}
+              <label for="FullName">Full Name:</label><br>
+              <input id="FullName" type="text" name="FullName" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <label for="Title">Titles:</label><br>
+              <input id="Title" type="text" name="Title" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <label for="Work">Place of Work:</label><br>
+              <input id="Work" type="text" name="Work" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <a><div class="submit">Submit</div></a>
             </form>
 
@@ -36,11 +39,14 @@
           <div class="upload-a-reviewer">
             <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
 
-            <input type="file">
-
-            <a href="#"><div class="submit upload-button">Upload</div></a>
+            <form action=" {% url 'file_handler' %}" method="post">
+              {% csrf_token %}
+              <input type="file" name="reviewer">
+              <a><div class="submit upload-button">Upload</div></a>
+            </form>
           </div>
         </div>
       </div>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>
+
 {% endblock %}

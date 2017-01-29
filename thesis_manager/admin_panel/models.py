@@ -5,6 +5,7 @@ class Teacher(models.Model):
     teacher_name = models.CharField(max_length=200)
     titles = models.CharField(max_length=200)
     place_of_work = models.CharField(max_length=200)
+    system_programming = models.BooleanField(default=False)
 
     def __str__(self):
         return self.teacher_name
@@ -13,8 +14,9 @@ class Thesis(models.Model):
     id = models.AutoField(primary_key=True)
     thesis_description = models.TextField()
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
-    type_thesis = models.CharField(max_length=200)
-
+    software = models.BooleanField(default=True)
+    hardware = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.thesis_description
 

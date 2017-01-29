@@ -24,34 +24,36 @@
         <div class="options">
           <div class="add-a-teacher">
 
-            <form>
-              Full Name:<br> <input type="text" name="FullName" required><br>
-              Titles:<br> <input type="text" name="Title" required><br>
-              Place of work:<br> <input type="text" name="WorkPlace" required><br>
+            <form id="teacher-form" action=" {% url 'teacher_handler' %}" method="post">
+              {% csrf_token %}
+              <label for="FullName">Full Name:</label><br>
+              <input id="FullName" type="text" name="FullName" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <label for="Title">Titles:</label><br>
+              <input id="Title" type="text" name="Title" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <label for="Work">Place of Work:</label><br>
+              <input id="Work" type="text" name="Work" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <section class="section">
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="sys">
+                  <input type="radio" name="software-hardware" id="sys" value="0" checked>
                   <label for="sys">
                     <span class="radio">System Programming</span>
                   </label>
                 </div>
                 <div class="bin">
-                  <input type="radio" name="software/hardware" id="net">
+                  <input type="radio" name="software-hardware" id="net" value="1">
                   <label for="net">
                     <span class="radio">Computer Networks</span>
                   </label>
                 </div>
-            </section>
-              <a href="#"><div class="submit">Submit</div></a>
+              </section>
+              <a><div class="submit">Submit</div></a>
             </form>
 
           </div>
           <div class="upload-a-teacher">
             <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
 
-            <input type="file">
 
-            <a href="#"><div class="submit upload-button">Upload</div></a>
           </div>
         </div>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>
