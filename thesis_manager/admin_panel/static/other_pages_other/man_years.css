@@ -35,6 +35,7 @@
 
 .simple-table td
 {
+  text-align: center;
   cursor: pointer;
 }
 .simple-table td:hover

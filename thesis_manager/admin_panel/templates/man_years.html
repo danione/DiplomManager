@@ -25,9 +25,12 @@
     </div>
     <div class="options">
       <div class="save-a-year">
-          Choose a name and click submit:<br>
-          <input type="text" name="year" id="year"><br>
-          <a href="#"><div class="submit">Submit</div></a>
+          <form id="thesis-form" action=" {% url 'saving_database' %}" method="post">
+            {% csrf_token %}
+            <label for="SaveYear">Choose a name and click submit:</label><br>
+            <input id="SaveYear" type="text" name="SaveYear" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[^-\s][a-zA-Z0-9_\s-]+$"><br>
+            <a><div class="submit">Submit</div></a>
+          </form>
       </div>
       <div class="load-a-year">
         <p> If you load a year and you did not save the current progress, all current data will be lost!</p>
@@ -35,12 +38,14 @@
           <tr>
             <th>Name</th>
           </tr>
-          <tr>
-            <td>Fredy</td>
-          </tr>
-          <tr>
-            <td>Fredy</td>
-          </tr>
+          {% if archives %}
+            {% for archive in archives %}
+            <tr>
+              <td>{{ archive }}</td>
+            </tr>
+            {% endfor %}
+
+          {% endif %}
 
         </table>
         <a href="#"><div class="submit load-button">Load</div></a>

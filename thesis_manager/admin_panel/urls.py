@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^file_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_students')), name='file_handler/redirection'),
     url(r'^empty_tables/$', views.empty_tables, name='empty_tables'),
     url(r'^empty_tables/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='empty_tables/redirection'),
-
+    url(r'^saving_database/$', views.saving_database, name='saving_database'),
+    url(r'^saving_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='saving_database/redirection'),
 ]

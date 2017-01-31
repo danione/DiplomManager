@@ -16,7 +16,7 @@ class Thesis(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
     software = models.BooleanField(default=True)
     hardware = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return self.thesis_description
 

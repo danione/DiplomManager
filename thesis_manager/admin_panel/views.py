@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import Student, Teacher, Thesis, Reviewer
+import csv
+import os
 
 def init_list():
     return list(Student.objects.order_by('student_class','student_name'))
@@ -28,7 +30,34 @@ def empty_tables(request):
     Student.objects.all().delete()
     return HttpResponseRedirect('redirection')
 
+def saving_database(request):
+    if request.method == 'POST':
+        raw_name = request.POST.get('SaveYear')
+        archive_name = 'attachment; filename="' + raw_name + '.csv"'
 
+        students_list = init_list()
+        directory = os.getcwd() + '/archives/'
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        with open(directory + raw_name + '.csv', 'w+', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            previous_class = None
+            current_class = None
+            for student in students_list:
+                current_class = student.student_class
+                if previous_class != current_class:
+                    previous_class = current_class
+                    writer.writerow(['XII' + student.student_class])
+                    if student.system_programming == True:
+                        writer.writerow(['S'])
+                    else:
+                        writer.writerow(['H'])
+                writer.writerow([student.student_number,student.student_name, student.student_class, student.system_programming, student.has_document,student.has_assignment,
+                student.has_reviewer, student.has_commission, student.assigned_teacher, student.assigned_thesis, student.assigned_reviewer])
+        return HttpResponseRedirect('redirection')
+
+    return (request,'man_years.html')
+    
 def file_handler(request):
     if request.method == 'POST':
         extension = request.FILES['text_csv'].name.split('.')[1]
@@ -55,7 +84,11 @@ def file_handler(request):
     return(request,'upload_student.html')
 
 def man_years(request):
-    return render(request, 'man_years.html')
+    directory = os.getcwd() + '/archives/'
+    if os.path.exists(directory):
+        archives = [files for files in os.listdir(directory) if os.path.isfile(files)]
+    context = {'archives' : archives}
+    return render(request, 'man_years.html', context)
 
 def upload_students(request):
     return render(request, 'upload_student.html')

@@ -27,7 +27,7 @@
             <form id="thesis-form" action=" {% url 'thesis_handler' %}" method="post">
               {% csrf_token %}
               <label for="ThesisDescription">Descripion:</label><br>
-              <input id="ThesisDescription" type="text" name="ThesisDescription" data-validation="custom" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <input id="ThesisDescription" type="text" name="ThesisDescription" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <section class="section">
                 <div class="bin">
                   <input type="radio" name="software-hardware" id="sys" value="0" checked>
