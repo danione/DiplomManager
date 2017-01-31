@@ -26,4 +26,8 @@ urlpatterns = [
     url(r'^empty_tables/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='empty_tables/redirection'),
     url(r'^saving_database/$', views.saving_database, name='saving_database'),
     url(r'^saving_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='saving_database/redirection'),
+    url(r'^deleting_database/$', views.deleting_database, name='deleting_database'),
+    url(r'^deleting_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='deleting_database/redirection'),
+    url(r'^load_database/$', views.load_database, name='load_database'),
+    url(r'^load_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='load_database/redirection'),
 ]

@@ -4,8 +4,16 @@ from .models import Student, Teacher, Thesis, Reviewer
 import csv
 import os
 
+
+def get_archive_dir():
+    return os.getcwd() + '/archives/'
+
 def init_list():
     return list(Student.objects.order_by('student_class','student_name'))
+
+def delete_information():
+    Student.objects.all().delete()
+
 
 def admin_homepage(request):
     students_list_document = init_list()
@@ -22,42 +30,73 @@ def admin_homepage(request):
                'students_list_reviewer': students_list_reviewer,'students_list_commission' : students_list_commission}
     return render(request, 'admin_homepage.html', context)
 
+def empty_tables(request):
+    delete_information()
+    return HttpResponseRedirect('redirection')
+
 def new_year(request):
     return render(request, 'new_year.html')
 
+def deleting_database(request):
+    if request.method == 'POST':
+        directory = get_archive_dir()
+        os.remove(directory + request.POST.get('delete'))
+        return HttpResponseRedirect('redirection')
 
-def empty_tables(request):
-    Student.objects.all().delete()
-    return HttpResponseRedirect('redirection')
+    return (request,'man_years.html')
+
+def load_database(request):
+    if request.method == 'POST':
+        directory = get_archive_dir()
+        delete_information()
+        with open(directory + request.POST.get('load'), 'r', newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                Student(student_name = row[1], student_class = row[2], student_number = row[0], system_programming = row[3], has_document = row[4], has_assignment = row[5],
+                has_commission = row[6], has_reviewer = row[7]).save()
+            return HttpResponseRedirect('redirection')
+    return (request, 'man_years.html')
+
 
 def saving_database(request):
     if request.method == 'POST':
         raw_name = request.POST.get('SaveYear')
-        archive_name = 'attachment; filename="' + raw_name + '.csv"'
-
         students_list = init_list()
-        directory = os.getcwd() + '/archives/'
+        directory = get_archive_dir()
+
         if not os.path.exists(directory):
             os.makedirs(directory)
+
         with open(directory + raw_name + '.csv', 'w+', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            previous_class = None
-            current_class = None
+
             for student in students_list:
-                current_class = student.student_class
-                if previous_class != current_class:
-                    previous_class = current_class
-                    writer.writerow(['XII' + student.student_class])
-                    if student.system_programming == True:
-                        writer.writerow(['S'])
-                    else:
-                        writer.writerow(['H'])
                 writer.writerow([student.student_number,student.student_name, student.student_class, student.system_programming, student.has_document,student.has_assignment,
-                student.has_reviewer, student.has_commission, student.assigned_teacher, student.assigned_thesis, student.assigned_reviewer])
-        return HttpResponseRedirect('redirection')
+                student.has_reviewer, student.has_commission])
+            return HttpResponseRedirect('redirection')
 
     return (request,'man_years.html')
-    
+
+def man_years(request):
+    directory = get_archive_dir()
+    archives = [files for files in os.listdir(directory) if os.path.isfile(os.path.join(directory, files))]
+    context = {'archives' : archives}
+    return render(request, 'man_years.html', context)
+
+
+def student_handler(request):
+    if request.method == 'POST':
+        name_ = request.POST.get('FullName')
+        class_ = request.POST.get('Class')
+        number_ = request.POST.get('Number')
+        software_ = False;
+        if request.POST.get('software-hardware') == 0:
+            software_ = True;
+            Student(student_name = name_ , student_class = class_ , student_number = number_ , system_programming = software_).save()
+            return HttpResponseRedirect('redirection')
+
+    return(request, 'upload_student.html')
+
 def file_handler(request):
     if request.method == 'POST':
         extension = request.FILES['text_csv'].name.split('.')[1]
@@ -66,7 +105,6 @@ def file_handler(request):
             rows = my_file.split('\r\n')
             class_ = None
             software_ = False
-            student_ = None
             for row in rows:
                 if row[:1] == 'X':
                     class_ = row[-1:].upper()
@@ -83,18 +121,8 @@ def file_handler(request):
         return HttpResponseRedirect('redirection')
     return(request,'upload_student.html')
 
-def man_years(request):
-    directory = os.getcwd() + '/archives/'
-    if os.path.exists(directory):
-        archives = [files for files in os.listdir(directory) if os.path.isfile(files)]
-    context = {'archives' : archives}
-    return render(request, 'man_years.html', context)
-
 def upload_students(request):
     return render(request, 'upload_student.html')
-
-def upload_teachers(request):
-    return render(request, 'upload_teacher.html')
 
 def teacher_handler(request):
     if request.method == 'POST':
@@ -107,6 +135,10 @@ def teacher_handler(request):
         Teacher(teacher_name = name_ , titles = titles_ , place_of_work = work_ , system_programming = software_).save()
         return HttpResponseRedirect('redirection')
     return(request, 'upload_teacher.html')
+
+def upload_teachers(request):
+    return render(request, 'upload_teacher.html')
+
 
 def upload_thesis(request):
     return render(request, 'upload_thesis.html')
@@ -138,19 +170,6 @@ def thesis_handler(request):
         return HttpResponseRedirect('redirection')
 
     return(request, 'upload_thesis.html')
-
-def student_handler(request):
-    if request.method == 'POST':
-        name_ = request.POST.get('FullName')
-        class_ = request.POST.get('Class')
-        number_ = request.POST.get('Number')
-        software_ = False;
-        if request.POST.get('software-hardware') == 0:
-            software_ = True;
-        Student(student_name = name_ , student_class = class_ , student_number = number_ , system_programming = software_).save()
-        return HttpResponseRedirect('redirection')
-
-    return(request, 'upload_student.html')
 
 
 def listing(request):

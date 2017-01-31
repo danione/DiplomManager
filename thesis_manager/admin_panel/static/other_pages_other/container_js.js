@@ -55,8 +55,10 @@ $(".table td").click(function()
 
 var has_previous_vol_2 = false;
 var previous_vol_2;
+
 $(".simple-table td").click(function()
 {
+  $(this).addClass('selected').siblings().removeClass('selected');
   $(this).css('background-color', '#002240');
   $(this).css('color', '#fff');
   if(!has_previous_vol_2)
@@ -74,5 +76,23 @@ $(".submit").click(function()
   $.validate({
     modules : 'file'
   });
-  $(this).closest("form").submit();
+  var error_naming = false;
+  if($(this).closest("form").attr('id') == 'not-simple-form')
+  {
+    $(".hide").val($('.selected').html());
+  }
+  else if($(this).closest("form").attr('id') == 'saving-form')
+  {
+    $("#not-simple-form td").each(function()
+    {
+      if($(this).html().split(".")[0] == $('#SaveYear').val())
+      {
+        error_naming = true;
+        $(".error_msg").css('display', 'inline')
+        return
+      }
+    });
+  }
+  if( error_naming == false)
+    $(this).closest("form").submit();
 });

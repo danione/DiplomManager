@@ -53,3 +53,15 @@
 {
   background-color: #8C0500;
 }
+
+.del-field, .load-field
+{
+  display: none;
+}
+
+.error_msg
+{
+  color: red;
+  margin-top: 15%;
+  display: none;
+}
