@@ -44,8 +44,8 @@ $(".table td").click(function()
     content = this;
     has_previous = click_change(content, has_previous, previous);
 
-    var current_id = $(this).children().attr('class');
-    var appearing_content ="." + current_id + "-" + find_name(current_id);
+    var current_class = $(this).children().attr('class');
+    var appearing_content = "." + current_class + "-" + find_name(current_class);
     $(appearing_content).css('visibility', 'visible');
     $(appearing_content).css('opacity', '1');
     previous = content;

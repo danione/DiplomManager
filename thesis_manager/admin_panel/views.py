@@ -1,3 +1,6 @@
+# Look up the methods POST/PUT/DELETE
+# Delete or Not?!
+# Archives
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Student, Teacher, Thesis, Reviewer
@@ -29,7 +32,7 @@ def admin_homepage(request):
     context = {'students_list_document': students_list_document,'students_list_assignment' : students_list_assignment,
                'students_list_reviewer': students_list_reviewer,'students_list_commission' : students_list_commission}
     return render(request, 'admin_homepage.html', context)
-
+# We need to keep it secret, keep it safe! Every student gets a field -> graduated? and it is PUT! 
 def empty_tables(request):
     delete_information()
     return HttpResponseRedirect('redirection')

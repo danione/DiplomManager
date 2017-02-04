@@ -45,6 +45,8 @@ function openSideNavi()
   $(".nav").css('background-color', '#007ae6');
   $(".bar1, .bar2, .bar3").css('height', '1px');
   $(".bar1, .bar2, .bar3").css('width', '25px');
+  $(".icon").css('padding-bottom', '21px');
+
 }
 
 function closeSideNavi()
@@ -57,7 +59,6 @@ function closeSideNavi()
   $(".bar1, .bar2, .bar3").css('height', '2px');
   $(".bar1, .bar2, .bar3").css('width', '30px');
   $(".nav").css('background-color', '#0088ff');
-
 }
 
 function myFunction(x)

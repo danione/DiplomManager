@@ -14,7 +14,7 @@
   <h1 id="document-header"> Students without document </h1>
   <div class="search">
     <img id="search-icon" class="document" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
-    <input id="document-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+    <input id="document-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
   </div>
   <table id="document" class="document">
     <tr>
@@ -39,7 +39,7 @@
    <h1 id="assignment-header"> Students without assignment </h1>
    <div class="search">
      <img id="search-icon" class="assignment" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
-     <input id="assignment-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+     <input id="assignment-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
    </div>
    <table id="assignment" class="assignment">
      <tr>
@@ -65,7 +65,7 @@
     <h1 id="reviewer-header"> Students without reviewer </h1>
     <div class="search">
       <img id="search-icon" class="reviewer" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
-      <input id="reviewer-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      <input id="reviewer-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
     </div>
     <table id="reviewer" class="reviewer">
       <tr>
@@ -90,7 +90,7 @@
    <h1 id="commission-header"> Students without commission </h1>
    <div class="search">
      <img id="search-icon" class="commission" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
-     <input id="commission-search" type="text" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+     <input id="commission-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
    </div>
    <table id="commission" class="commission">
      <tr>
@@ -112,7 +112,7 @@
      {% endif %}
   </table>
   <script src="{% static 'admin_homepage_other/script.js' %}"></script>
-  
+
 
 
 {% endblock %}
