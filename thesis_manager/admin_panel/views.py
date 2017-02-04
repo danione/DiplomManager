@@ -3,7 +3,7 @@
 # Archives
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Student, Teacher, Thesis, Reviewer
+from .models import Student, ManagmentAndReview, Thesis
 import csv
 import os
 
@@ -24,15 +24,15 @@ def admin_homepage(request):
     students_list_reviewer = init_list()
     students_list_commission  = init_list()
 
-    students_list_document = [student for student in students_list_document if student.has_document == False]
-    students_list_assignment = [student for student in students_list_assignment if student.has_assignment == False]
+    students_list_document = [student for student in students_list_document if student.handed_document_over == False]
+    students_list_assignment = [student for student in students_list_assignment if student.handed_assignment_over == False]
     students_list_reviewer = [student for student in students_list_reviewer if student.has_reviewer == False]
     students_list_commission = [student for student in students_list_commission if student.has_commission == False]
 
     context = {'students_list_document': students_list_document,'students_list_assignment' : students_list_assignment,
                'students_list_reviewer': students_list_reviewer,'students_list_commission' : students_list_commission}
     return render(request, 'admin_homepage.html', context)
-# We need to keep it secret, keep it safe! Every student gets a field -> graduated? and it is PUT! 
+# We need to keep it secret, keep it safe! Every student gets a field -> graduated? and it is PUT!
 def empty_tables(request):
     delete_information()
     return HttpResponseRedirect('redirection')
@@ -55,7 +55,7 @@ def load_database(request):
         with open(directory + request.POST.get('load'), 'r', newline='') as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
-                Student(student_name = row[1], student_class = row[2], student_number = row[0], system_programming = row[3], has_document = row[4], has_assignment = row[5],
+                Student(student_name = row[1], student_class = row[2], student_number = row[0], category = row[3], handed_document_over = row[4], handed_assignment_over = row[5],
                 has_commission = row[6], has_reviewer = row[7]).save()
             return HttpResponseRedirect('redirection')
     return (request, 'man_years.html')
@@ -74,7 +74,7 @@ def saving_database(request):
             writer = csv.writer(csvfile)
 
             for student in students_list:
-                writer.writerow([student.student_number,student.student_name, student.student_class, student.system_programming, student.has_document,student.has_assignment,
+                writer.writerow([student.student_number,student.student_name, student.student_class, student.category, student.handed_document_over,student.handed_assignment_over,
                 student.has_reviewer, student.has_commission])
             return HttpResponseRedirect('redirection')
 
@@ -173,6 +173,9 @@ def thesis_handler(request):
         return HttpResponseRedirect('redirection')
 
     return(request, 'upload_thesis.html')
+
+def assign_document(request):
+    return render(request, 'document_assign.html')
 
 
 def listing(request):

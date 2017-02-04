@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views
 from django.views.generic import RedirectView
 from django.core.urlresolvers import reverse_lazy
+from .models import Student
 
 urlpatterns = [
     url(r'^$', views.admin_homepage, name='admin_homepage'),
@@ -30,4 +31,5 @@ urlpatterns = [
     url(r'^deleting_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='deleting_database/redirection'),
     url(r'^load_database/$', views.load_database, name='load_database'),
     url(r'^load_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='load_database/redirection'),
+    url(r'^(?P<student_id>[0-9]+)/assign_document$', views.assign_document, name='assign_document'),
 ]
