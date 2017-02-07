@@ -25,8 +25,8 @@
     {% if students_list_document %}
       {% for student in students_list_document %}
       <tr>
-        <td>{{ student.student_name }}</td>
-        <td>{{ student.student_class }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.class_char }}</td>
         <td>
             <a><div class="assign">Assign</div></a>
         </td>
@@ -50,8 +50,8 @@
      {% if students_list_assignment %}
        {% for student in students_list_assignment %}
        <tr>
-         <td>{{ student.student_name }}</td>
-         <td>{{ student.student_class }}</td>
+         <td>{{ student.name }}</td>
+         <td>{{ student.class_char }}</td>
          <td>
              <a><div class="assign">Assign</div></a>
          </td>
@@ -60,6 +60,32 @@
 
      {% endif %}
   </table>
+
+  <h1 id="documentation-header"> Students without documentation </h1>
+  <div class="search">
+    <img id="search-icon" class="assignment" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+    <input id="documentation-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+  </div>
+  <table id="documentation" class="documentation">
+    <tr>
+      <th>Student Name</th>
+      <th>Class</th>
+      <th></th>
+    </tr>
+    {% if students_list_documentation %}
+      {% for student in students_list_documentation %}
+      <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.class_char }}</td>
+        <td>
+            <a><div class="assign">Assign</div></a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    {% endif %}
+ </table>
+
 
 
     <h1 id="reviewer-header"> Students without reviewer </h1>
@@ -76,8 +102,8 @@
       {% if students_list_reviewer %}
         {% for student in students_list_reviewer %}
         <tr>
-          <td>{{ student.student_name }}</td>
-          <td>{{ student.student_class }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.class_char }}</td>
           <td>
               <a><div class="assign">Assign</div></a>
           </td>
@@ -101,8 +127,8 @@
      {% if students_list_commission %}
        {% for student in students_list_commission %}
        <tr>
-         <td>{{ student.student_name }}</td>
-         <td>{{ student.student_class }}</td>
+         <td>{{ student.name }}</td>
+         <td>{{ student.class_char }}</td>
          <td>
              <a><div class="assign">Assign</div></a>
          </td>

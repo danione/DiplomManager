@@ -25,7 +25,7 @@
     </div>
     <div class="options">
       <div class="save-a-year">
-          <form  id='saving-form' action=" {% url 'saving_database' %}" method="post">
+          <form  id='saving-form' action=" {% url 'man_years' %}" method="post">
             {% csrf_token %}
             <label for="SaveYear">Choose a name and click submit:</label><br>
             <input id="SaveYear" type="text" name="SaveYear" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[^-\s][a-zA-Z0-9_\s-]+$"><br>
@@ -35,7 +35,7 @@
       </div>
       <div class="load-a-year">
         <p> If you load a year and you did not save the current progress, all current data will be lost!</p>
-        <form id="not-simple-form" action=" {% url 'load_database' %}" method="post">
+        <form id="not-simple-form" action=" {% url 'man_years' %}" method="post">
           {% csrf_token %}
           <table class="simple-table">
             <tr>
@@ -56,7 +56,7 @@
       </div>
       <div class="delete-a-year">
         <p> If you select and click "Delete" - there is no turning back and the selected year would be deleted!</p>
-        <form id="not-simple-form" action=" {% url 'deleting_database' %}" method="post">
+        <form id="not-simple-form" action=" {% url 'man_years' %}" method="post">
           {% csrf_token %}
           <table class="simple-table">
             <tr>
