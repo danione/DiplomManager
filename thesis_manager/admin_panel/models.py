@@ -42,7 +42,7 @@ class Commission(BasicModel):
     commissioners = models.ManyToManyField(ManagmentAndReview, related_name = "commissioners")
     place = models.CharField(max_length = 30, default = "none")
     time = models.DateTimeField(null = True)
-    students = models.ManyToManyField(Student, related_name = "students")
+    students = models.ManyToManyField(Student, related_name = "students_in_commission")
 
     def __str__(self):
         return self.name

@@ -13,7 +13,7 @@
 
   <h1 id="document-header"> Students without document </h1>
   <div class="search">
-    <img id="search-icon" class="document" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+    <img id="search-icon" class="document-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
     <input id="document-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
   </div>
   <table id="document" class="document">
@@ -38,7 +38,7 @@
 
    <h1 id="assignment-header"> Students without assignment </h1>
    <div class="search">
-     <img id="search-icon" class="assignment" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+     <img id="search-icon" class="assignment-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
      <input id="assignment-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
    </div>
    <table id="assignment" class="assignment">
@@ -61,36 +61,37 @@
      {% endif %}
   </table>
 
-  <h1 id="documentation-header"> Students without documentation </h1>
-  <div class="search">
-    <img id="search-icon" class="assignment" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
-    <input id="documentation-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
-  </div>
-  <table id="documentation" class="documentation">
-    <tr>
-      <th>Student Name</th>
-      <th>Class</th>
-      <th></th>
-    </tr>
-    {% if students_list_documentation %}
-      {% for student in students_list_documentation %}
+    <h1 id="documentation-header"> Students without documentation </h1>
+    <div class="search">
+      <img id="search-icon" class="documentation-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+      <input id="documentation-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+    </div>
+    <table id="documentation" class="documentation">
       <tr>
-        <td>{{ student.name }}</td>
-        <td>{{ student.class_char }}</td>
-        <td>
-            <a><div class="assign">Assign</div></a>
-        </td>
+        <th>Student Name</th>
+        <th>Class</th>
+        <th></th>
       </tr>
-      {% endfor %}
-
-    {% endif %}
- </table>
+      <div class="hide">
+      {% if students_list_documentation %}
+        {% for student in students_list_documentation %}
+        <tr>
+          <td>{{ student.name }}</td>
+          <td>{{ student.class_char }}</td>
+          <td>
+              <a><div class="assign">Assign</div></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </div>
+      {% endif %}
+   </table>
 
 
 
     <h1 id="reviewer-header"> Students without reviewer </h1>
     <div class="search">
-      <img id="search-icon" class="reviewer" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+      <img id="search-icon" class="reviewer-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
       <input id="reviewer-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
     </div>
     <table id="reviewer" class="reviewer">
@@ -115,7 +116,7 @@
 
    <h1 id="commission-header"> Students without commission </h1>
    <div class="search">
-     <img id="search-icon" class="commission" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+     <img id="search-icon" class="commission-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
      <input id="commission-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
    </div>
    <table id="commission" class="commission">

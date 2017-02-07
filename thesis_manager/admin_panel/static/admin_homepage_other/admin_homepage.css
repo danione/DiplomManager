@@ -1,5 +1,6 @@
 h1
 {
+  display: none;
   font-family: 'Roboto', sans-serif;
   margin-top: 1em;
   font-weight: normal;
@@ -18,7 +19,7 @@ h1
 {
   margin-bottom: -1em;
   padding-bottom: 0;
-  display: inline-block;
+  display: none;
   cursor: pointer;
 }
 
@@ -59,6 +60,7 @@ input[type=text]
 
 table
 {
+  display: none;
   width: 70%;
   margin: auto;
   border-collapse: collapse;

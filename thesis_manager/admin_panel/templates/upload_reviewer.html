@@ -27,11 +27,14 @@
             <form id="reviewer-form" action=" {% url 'reviewer_handler' %}" method="post">
               {% csrf_token %}
               <label for="FullName">Full Name:</label><br>
-              <input id="FullName" type="text" name="FullName" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <input id="FullName" type="text" name="FullName" data-validation="length custom" data-validation-length="max300" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <label for="Title">Titles:</label><br>
-              <input id="Title" type="text" name="Title" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <input id="Title" type="text" name="Title" data-validation="length custom" data-validation-length="max100" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <label for="Work">Place of Work:</label><br>
               <input id="Work" type="text" name="Work" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <label for="Category">Type of Thesis:</label><br>
+              <input id="Category" type="text" name="Category" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+
               <a><div class="submit">Submit</div></a>
             </form>
 

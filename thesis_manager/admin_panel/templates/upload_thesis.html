@@ -28,26 +28,9 @@
               {% csrf_token %}
               <label for="ThesisDescription">Descripion:</label><br>
               <input id="ThesisDescription" type="text" name="ThesisDescription" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
-              <section class="section">
-                <div class="bin">
-                  <input type="radio" name="software-hardware" id="sys" value="0" checked>
-                  <label for="sys">
-                    <span class="radio">System Programming</span>
-                  </label>
-                </div>
-                <div class="bin">
-                  <input type="radio" name="software-hardware" id="net" value="1">
-                  <label for="net">
-                    <span class="radio">Computer Networks</span>
-                  </label>
-                </div>
-                <div class="bin">
-                  <input type="radio" name="software-hardware" id="mix" value="2">
-                  <label for="mix">
-                    <span class="radio">Mixed</span>
-                  </label>
-                </div>
-              </section>
+              <label for="Category">Thesis Type:</label><br>
+              <input id="Category" type="text" name="Category" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+
               <a><div class="submit">Submit</div></a>
             </form>
 

@@ -12,14 +12,14 @@
 
   {% load static %}
         <h1> Oops...</h1>
-        <h2> Have you finished the previous year using "Manage Years" Option?</h2>
+        <h2> You are about to finish the current year</h2>
 
-        <p> If you have and you are certain, click "Yes", otherwise, click "No"! If you
-          click "Yes" and did not use the "Manage Years" option, the whole progress would be lost!
+        <p> If you are certain, click "Yes", otherwise, click "No"! You can always
+            return if you have maken a mistake. Just check Managing Years for loading.
         </p>
         <div class="buttons">
-          <div class="first"><a href="{% url 'empty_tables' %}"><div class="tick"></div></a></div>
-          <div class="second"><a href="{% url 'man_years' %}"><div class="cross"></div></a></div>
+          <div class="first"><a href="{% url 'graduate' %}"><div class="tick"></div></a></div>
+          <div class="second"><a href="{% url 'admin_homepage' %}"><div class="cross"></div></a></div>
         </div>
       </div>
 

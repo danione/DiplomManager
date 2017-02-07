@@ -22,18 +22,22 @@ def admin_homepage(request):
     students_list_reviewer = init_list()
     students_list_commission  = init_list()
 
-    students_list_document = [student for student in students_list_document if student.handed_document_over == False]
-    students_list_assignment = [student for student in students_list_assignment if student.handed_assignment_over == False]
-    students_list_documentation = [student for student in students_list_documentation if student.assigned_supervisor is None]
-    students_list_reviewer = [student for student in students_list_reviewer if student.assigned_reviewer is None]
-    students_list_commission = [student for student in students_list_commission if student.assigned_commission is None]
+    students_list_document = [student for student in students_list_document if student.handed_document_over == False and student.did_graduate == False]
+    students_list_assignment = [student for student in students_list_assignment if student.handed_assignment_over == False and student.did_graduate == False]
+    students_list_documentation = [student for student in students_list_documentation if student.assigned_supervisor is None and student.did_graduate == False]
+    students_list_reviewer = [student for student in students_list_reviewer if student.assigned_reviewer is None and student.did_graduate == False]
+    students_list_commission = [student for student in students_list_commission if not student.students_in_commission.all() and student.did_graduate == False]
 
     context = {'students_list_document': students_list_document,'students_list_assignment' : students_list_assignment,
                'students_list_documentation': students_list_documentation,'students_list_reviewer': students_list_reviewer,
                'students_list_commission' : students_list_commission}
     return render(request, 'admin_homepage.html', context)
 
-def empty_tables(request):
+def graduate(request):
+    current_students = init_list()
+    for student in current_students:
+        student.did_graduate = True;
+        student.save()
     return HttpResponseRedirect('redirection')
 
 def new_year(request):
