@@ -29,6 +29,11 @@ input[type="number"]
   text-align: center;
 }
 
+.non-existent
+{
+  display: none;
+}
+
 @media screen and (max-width:1024px)
 {
 

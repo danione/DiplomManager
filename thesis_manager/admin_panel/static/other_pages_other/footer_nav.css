@@ -145,6 +145,11 @@ ul.nav li a, .side a
   position: relative;
 }
 
+.clearing
+{
+  clear:both;
+}
+
 .main-content
 {
     transition: margin-left .5s;

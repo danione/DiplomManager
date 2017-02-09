@@ -9,44 +9,58 @@
 {% endblock %}
 
 {% block content %}
-  {% load static %}
 
   <h1 id="document-header"> Students without document </h1>
   <div class="search">
     <img id="search-icon" class="document-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
     <input id="document-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+    <div id="document-pointer" class="pointer"></div>
   </div>
   <table id="document" class="document">
-    <tr>
-      <th>Student Name</th>
-      <th>Class</th>
-      <th></th>
-    </tr>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Class</th>
+        <th></th>
+      </tr>
+    </thead>
+  </table>
+  <div style="display:none;">
+  <table id="document" class="document">
+    <tbody>
     {% if students_list_document %}
       {% for student in students_list_document %}
       <tr>
         <td>{{ student.name }}</td>
         <td>{{ student.class_char }}</td>
         <td>
-            <a><div class="assign">Assign</div></a>
+            <a href="{% url 'assign_document' student.id %}"><div class="assign">Assign</div></a>
         </td>
       </tr>
       {% endfor %}
-
     {% endif %}
-   </table>
+    </tbody>
+  </table>
+  </div>
 
    <h1 id="assignment-header"> Students without assignment </h1>
    <div class="search">
      <img id="search-icon" class="assignment-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
      <input id="assignment-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+     <div id="assignment-pointer" class="pointer"></div>
    </div>
    <table id="assignment" class="assignment">
+     <thead>
      <tr>
        <th>Student Name</th>
        <th>Class</th>
        <th></th>
      </tr>
+    </thead>
+   </table>
+   <div style="display:none">
+   <table id="assignment" class="assignment">
+     <tbody>
      {% if students_list_assignment %}
        {% for student in students_list_assignment %}
        <tr>
@@ -57,22 +71,29 @@
          </td>
        </tr>
        {% endfor %}
-
      {% endif %}
-  </table>
+    </tbody>
+   </table>
+    </div>
 
     <h1 id="documentation-header"> Students without documentation </h1>
     <div class="search">
       <img id="search-icon" class="documentation-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
       <input id="documentation-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      <div id="documentation-pointer" class="pointer"></div>
     </div>
     <table id="documentation" class="documentation">
-      <tr>
-        <th>Student Name</th>
-        <th>Class</th>
-        <th></th>
-      </tr>
-      <div class="hide">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Class</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+    <div style="display:none">
+    <table id="documentation" class="documentation">
+      <tbody>
       {% if students_list_documentation %}
         {% for student in students_list_documentation %}
         <tr>
@@ -83,9 +104,10 @@
           </td>
         </tr>
         {% endfor %}
-      </div>
       {% endif %}
-   </table>
+    </tbody>
+    </table>
+    </div>
 
 
 
@@ -93,13 +115,20 @@
     <div class="search">
       <img id="search-icon" class="reviewer-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
       <input id="reviewer-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      <div id="reviewer-pointer" class="pointer"></div>
     </div>
     <table id="reviewer" class="reviewer">
-      <tr>
-        <th>Student Name</th>
-        <th>Class</th>
-        <th></th>
-      </tr>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Class</th>
+          <th></th>
+        </tr>
+      <thead>
+    </table>
+    <div style="display:none">
+    <table id="reviewer" class="reviewer">
+      <tbody>
       {% if students_list_reviewer %}
         {% for student in students_list_reviewer %}
         <tr>
@@ -110,21 +139,29 @@
           </td>
         </tr>
         {% endfor %}
-
       {% endif %}
-   </table>
+      </tbody>
+    </table>
+    </div>
 
    <h1 id="commission-header"> Students without commission </h1>
    <div class="search">
      <img id="search-icon" class="commission-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
      <input id="commission-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+     <div id="commission-pointer" class="pointer"></div>
    </div>
    <table id="commission" class="commission">
-     <tr>
-       <th>Student Name</th>
-       <th>Class</th>
-       <th></th>
-     </tr>
+     <thead>
+       <tr>
+         <th>Student Name</th>
+         <th>Class</th>
+         <th></th>
+       </tr>
+     </thead>
+   </table>
+   <div style="display:none">
+   <table id="commission" class="commission">
+     <tbody>
      {% if students_list_commission %}
        {% for student in students_list_commission %}
        <tr>
@@ -135,11 +172,10 @@
          </td>
        </tr>
        {% endfor %}
-
      {% endif %}
+   </tbody>
   </table>
+  </div>
+
   <script src="{% static 'admin_homepage_other/script.js' %}"></script>
-
-
-
 {% endblock %}

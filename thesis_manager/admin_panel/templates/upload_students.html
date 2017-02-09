@@ -6,12 +6,11 @@
 {% block extra_head %}
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/upload_student.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/upload_students.css' %}">
 {% endblock %}
 
 {% block content %}
 
-  {% load static %}
         <h1>Uploading students</h1>
         <div class="option-buttons">
           <table class="table" id="a-student">
@@ -53,6 +52,5 @@
 
           </div>
       </div>
-    <script src="{% static 'other_pages_other/footer_nav.js' %}"></script>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>
 {% endblock %}

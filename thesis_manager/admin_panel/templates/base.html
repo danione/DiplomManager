@@ -26,7 +26,7 @@
 
       <div id="sidenav" class="sidenav">
         <a href="{% url 'upload_students'%}">Upload Students</a>
-        <a href="{% url 'upload_teachers'%}">Upload Teachers</a>
+        <a href="{% url 'upload_supervisors'%}">Upload Supervisors</a>
         <a href="{% url 'upload_thesis'%}">Upload Thesis Topics</a>
         <a href="{% url 'upload_reviewers'%}">Upload Reviewers</a>
         <a href="{% url 'listing'%}">Listing</a>
@@ -38,6 +38,7 @@
         </div>
       </div>
 
+      <div class="clearing">
       <div class="main-content" id="main">
         {% block content %}
         {% endblock %}
@@ -56,6 +57,7 @@
           &#169; Copyright 2016 - {% now "Y" %}. All Rights Reserved.
         </div>
       </div>
+    </div>
     </div>
     <script src="{% static 'other_pages_other/footer_nav.js' %}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>

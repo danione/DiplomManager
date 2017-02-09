@@ -7,6 +7,8 @@
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/upload_thesis.css' %}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 {% endblock %}
 
 {% block content %}
@@ -26,10 +28,21 @@
 
             <form id="thesis-form" action=" {% url 'thesis_handler' %}" method="post">
               {% csrf_token %}
+
+              <script>
+                var supervisors = [];
+              </script>
+              {% for supervisor in supervisors %}
+                <script>
+                 supervisor.push("{{supervisor.name}}");
+                </script>
+              {% endfor %}
               <label for="ThesisDescription">Descripion:</label><br>
               <input id="ThesisDescription" type="text" name="ThesisDescription" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
               <label for="Category">Thesis Type:</label><br>
               <input id="Category" type="text" name="Category" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
+              <label for="Supervisor">Supervisor:</label><br>
+              <input id="Supervisor" type="text" name="Supervisor" data-validation="length custom" data-validation-length="max300" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
 
               <a><div class="submit">Submit</div></a>
             </form>
@@ -52,4 +65,10 @@
           </div>
         </div>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $("#Supervisor").autocomplete({
+          source: supervisors
+        });
+    </script>
 {% endblock %}

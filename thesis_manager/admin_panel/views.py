@@ -4,6 +4,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Student, ManagmentAndReview, Thesis, Commission
+from django.shortcuts import get_object_or_404
 import csv
 import os
 
@@ -56,7 +57,7 @@ def new_year(request):
 #     return (request, 'man_years.html')
 
 def load_database(request):
-    return (request, 'man_years.html')
+    return render(request, 'man_years.html')
 
 def saving_database(request):
     if request.method == 'POST':
@@ -76,7 +77,7 @@ def saving_database(request):
         #     return HttpResponseRedirect('redirection')
 
         return HttpResponseRedirect('redirection')
-    return (request,'man_years.html')
+    return render(request,'man_years.html')
 
 def man_years(request):
     directory = get_archive_dir()
@@ -94,7 +95,7 @@ def student_handler(request):
         Student(name = name_ , class_char = class_ , number = number_ , category = category_).save()
         return HttpResponseRedirect('redirection')
 
-    return(request, 'upload_student.html')
+    return render(request, 'upload_students.html')
 
 def file_handler(request):
     if request.method == 'POST':
@@ -118,12 +119,12 @@ def file_handler(request):
                         student_ = information[1].replace(' ','',1)
                         Student(name=student_, category = category_ , class_char=class_, number = number_,).save()
         return HttpResponseRedirect('redirection')
-    return(request,'upload_student.html')
+    return render(request,'upload_students.html')
 
 def upload_students(request):
-    return render(request, 'upload_student.html')
+    return render(request, 'upload_students.html')
 
-def teacher_handler(request):
+def supervisor_handler(request):
     if request.method == 'POST':
         name_ = request.POST.get('FullName')
         category_ = request.POST.get('Category');
@@ -131,16 +132,16 @@ def teacher_handler(request):
         workpace_ = request.POST.get('Work')
         ManagmentAndReview(name = name_ , category = category_, titles = titles_ , workplace = work_ , ).save()
         return HttpResponseRedirect('redirection')
-    return(request, 'upload_teacher.html')
+    return render(request, 'upload_supervisors.html')
 
-def upload_teachers(request):
-    return render(request, 'upload_teacher.html')
+def upload_supervisors(request):
+    return render(request, 'upload_supervisors.html')
 
 def upload_thesis(request):
     return render(request, 'upload_thesis.html')
 
 def upload_reviewers(request):
-    return render(request, 'upload_reviewer.html')
+    return render(request, 'upload_reviewers.html')
 
 def reviewer_handler(request):
     if request.method == 'POST':
@@ -150,7 +151,7 @@ def reviewer_handler(request):
         workplace_ = request.POST.get('Work')
         ManagmentAndReview(name = name_ ,category = category_, titles = titles_ , workplace = workpace_).save()
         return HttpResponseRedirect('redirection')
-    return(request, 'upload_reviewer.html')
+    return render(request, 'upload_reviewers.html')
 
 
 
@@ -161,9 +162,16 @@ def thesis_handler(request):
         Thesis(name = description_, category = category_).save()
         return HttpResponseRedirect('redirection')
 
-    return(request, 'upload_thesis.html')
+    return render(request, 'upload_thesis.html')
 
-def assign_document(request):
+def assign_document(request, student_id):
+    student = get_object_or_404(Student, pk=student_id)
+    context = {'student':student, 'thesis_topics': Thesis.objects.all()}
+    return render(request, 'document_assign.html', context)
+
+def prearranged_handler(request):
+
+
     return render(request, 'document_assign.html')
 
 
