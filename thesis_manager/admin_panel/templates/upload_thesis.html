@@ -31,10 +31,17 @@
 
               <script>
                 var supervisors = [];
+                var thesis_topics = [];
               </script>
+              {% for thesis in thesis_topics %}
+                <script>
+                  thesis_topics.push("{{thesis.name}}");
+                </script>
+              {% endfor %}
+
               {% for supervisor in supervisors %}
                 <script>
-                 supervisor.push("{{supervisor.name}}");
+                 supervisors.push("{{supervisor.name}}");
                 </script>
               {% endfor %}
               <label for="ThesisDescription">Descripion:</label><br>
@@ -44,7 +51,7 @@
               <label for="Supervisor">Supervisor:</label><br>
               <input id="Supervisor" type="text" name="Supervisor" data-validation="length custom" data-validation-length="max300" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
 
-              <a><div class="submit">Submit</div></a>
+              <a><div class="submit-thesis">Submit</div></a>
             </form>
 
           </div>
@@ -66,9 +73,5 @@
         </div>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-      $("#Supervisor").autocomplete({
-          source: supervisors
-        });
-    </script>
+    <script src="{% static 'other_pages_other/upload_thesis.js' %}"></script>
 {% endblock %}

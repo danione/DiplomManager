@@ -127,18 +127,15 @@ def upload_students(request):
 def supervisor_handler(request):
     if request.method == 'POST':
         name_ = request.POST.get('FullName')
-        category_ = request.POST.get('Category');
+        category_ = request.POST.get('Category')
         titles_ = request.POST.get('Title')
-        workpace_ = request.POST.get('Work')
-        ManagmentAndReview(name = name_ , category = category_, titles = titles_ , workplace = work_ , ).save()
+        workplace_ = request.POST.get('Work')
+        ManagmentAndReview(name = name_ , category = category_, titles = titles_ , workplace = workplace_).save()
         return HttpResponseRedirect('redirection')
     return render(request, 'upload_supervisors.html')
 
 def upload_supervisors(request):
     return render(request, 'upload_supervisors.html')
-
-def upload_thesis(request):
-    return render(request, 'upload_thesis.html')
 
 def upload_reviewers(request):
     return render(request, 'upload_reviewers.html')
@@ -153,13 +150,19 @@ def reviewer_handler(request):
         return HttpResponseRedirect('redirection')
     return render(request, 'upload_reviewers.html')
 
+def upload_thesis(request):
+    supervisors = ManagmentAndReview.objects.all()
+    thesis_topics = Thesis.objects.all()
+    context = {'supervisors': supervisors, 'thesis_topics': thesis_topics}
+    return render(request, 'upload_thesis.html', context)
 
 
 def thesis_handler(request):
     if request.method == 'POST':
         description_ = request.POST.get('ThesisDescription')
         category_ = request.POST.get('Category')
-        Thesis(name = description_, category = category_).save()
+        supervisor_ = request.POST.get('Supervisor')
+        Thesis(name = description_, category = category_, supervisor = ManagmentAndReview.objects.get(name = supervisor_)).save()
         return HttpResponseRedirect('redirection')
 
     return render(request, 'upload_thesis.html')
@@ -167,11 +170,18 @@ def thesis_handler(request):
 def assign_document(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
     context = {'student':student, 'thesis_topics': Thesis.objects.all()}
+    request.session['student_id'] = student_id
     return render(request, 'document_assign.html', context)
 
 def prearranged_handler(request):
-
-
+    if request.method == 'POST':
+        student_id = request.session['student_id']
+        student = Student.objects.get(id = student_id)
+        thesis = Thesis.objects.get(name = request.POST.get('Thesis'))
+        student.assigned_thesis = thesis
+        student.handed_document_over = True
+        student.save()
+        return HttpResponseRedirect('redirection')
     return render(request, 'document_assign.html')
 
 

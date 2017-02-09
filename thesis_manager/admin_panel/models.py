@@ -11,14 +11,15 @@ class BasicModel(models.Model):
         abstract = True
 
 class ManagmentAndReview(BasicModel):
-    titles = models.CharField(max_length=100)
-    workplace = models.CharField(max_length=200)
+    titles = models.CharField(max_length = 100)
+    workplace = models.CharField(max_length = 200)
 
     def __str__(self):
         return self.name
 
 class Thesis(BasicModel):
     supervisor = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True)
+    is_prearranged = models.BooleanField(default = True)
 
     def __str__(self):
         return self.name
