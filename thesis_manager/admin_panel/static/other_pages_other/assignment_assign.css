@@ -3,6 +3,11 @@ caption
   font-size: 2em;
 }
 
+table
+{
+  text-align: center;
+}
+
 .table_three caption, .table_four caption
 {
   margin-top: 3%;
@@ -10,7 +15,7 @@ caption
 
 .student
 {
-  text-align: left;
+  text-align: center;
 }
 
 .tables

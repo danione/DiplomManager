@@ -1,14 +1,20 @@
+function exists(value)
+{
+  if(jQuery.inArray(value.val(),thesis_topics) != -1)
+    return true;
+  return false;
+}
+
 $(".submit-thesis").click(function()
 {
   $.validate({
     modules : 'file'
   });
 
-  if(jQuery.inArray($("#ThesisDescription").val(),thesis_topics) == -1)
+  var thesis = $("#ThesisDescription");
+  if(!exists(thesis))
     $(this).closest("form").submit();
 });
-
-
 
 $("#Supervisor").autocomplete({
     source: supervisors

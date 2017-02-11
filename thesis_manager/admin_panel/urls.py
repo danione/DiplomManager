@@ -35,4 +35,7 @@ urlpatterns = [
     # url(r'^load_database/$', views.load_database, name='load_database'),
     # url(r'^load_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='load_database/redirection'),
     url(r'^(?P<student_id>[0-9]+)/assign_document$', views.assign_document, name='assign_document'),
+    url(r'^(?P<student_id>[0-9]+)/standard_thesis$', views.standard_thesis, name='standard_thesis'),
+    url(r'^(?P<student_id>[0-9]+)/handed_assignment_over$', views.handed_assignment_over, name='handed_assignment_over'),
+
 ]

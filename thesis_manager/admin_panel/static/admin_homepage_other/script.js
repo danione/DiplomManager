@@ -11,6 +11,7 @@ $(document).ready(function(){
       $(class_ + "-search").css('display', 'inline-block');
       $(class_).css('display', 'inline-table');
       $(id + "-header").css('display', 'block');
+      $(id + "-pointer").parent().css('display', 'block');
     }
   }
   $("table").each(function(index, object)

@@ -1,61 +1,32 @@
-<html>
+{% extends 'base.html' %}
+
+
+{% block title %}Assigning assignment{% endblock %}
+
+{% block extra_head %}
   {% load static %}
-  <head>
-    <title> Assigning An Assignment </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/footer_nav.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/assignment_assign.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  </head>
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/assignment_assign.css' %}">
+{% endblock %}
 
-  <body class="none">
-    <div class="container">
-      <ul class="nav" id="navigation">
-        <li id="icon" class="icon" onclick="myFunction(this)">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-        </li>
-        <li id="finyear"><a href="#news">Manage Years</a></li>
-        <li id="newyear"><a href="#contact">Start A School Year</a></li>
-        <li id="greetings"><a href="#about">Welcome, ...</a></li>
-      </ul>
+{% block content %}
 
-      <div id="sidenav" class="sidenav">
-        <a href="#">Upload Students</a>
-        <a href="#">Upload Teachers</a>
-        <a href="#">Upload Thesis Topics</a>
-        <a href="#">Upload Reviewers</a>
-        <a href="#">Listing</a>
-        <a href="#">Exit</a>
-        <div class="document">
-          <div id="bubble1"></div>
-          <div id="bubble2"></div>
-          <div id="bubble3"></div>
-        </div>
-      </div>
-
-
-
-      <div class="main-content" id="main">
-        <h1> Assigning ...'s assignment</h1>
+  {% load static %}
+      <h1> Assigning {{ student.name }}'s assignment</h1>
         <div class="tables">
           <table class="simple-table table_one">
-            <caption>Students</caption>
+            <caption>Student</caption>
             <tr>
               <th>Number</th>
               <th>Name</th>
               <th>Class</th>
               <th>GPA</th>
             </tr>
-            <tr>
-              <td>Fredy</td>
-              <td>Fredy</td>
-              <td>Fredy</td>
-              <td>Fredy</td>
+            <tr class="chosen-one">
+              <td>{{ student.number }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.class_char }}</td>
+              <td>{{ student.progress }}</td>
             </tr>
             <table class="simple-table table_two">
               <caption>Place by first choice</caption>
@@ -152,26 +123,6 @@
           </table>
         </div>
 
-      </div>
-
-
-      <div class="footer">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <a href="http://www.elsys-bg.org/">
-          <img src="http://www.elsys-bg.org/wp-content/themes/elsys/images/logo.png" alt="Elsys Logo">
-        </a>
-        <div class="footer-text">
-
-          Technological School Electronic Systems - Sofia <br>
-          &#169; Copyright 2016 - 2017. All Rights Reserved.
-        </div>
-      </div>
-    </div>
     <script src="{% static 'other_pages_other/footer_nav.js' %}"></script>
     <script src="{% static 'other_pages_other/assignment_assign.js' %}"></script>
-  </body>
-
-
-
-</html>
+{% endblock %}

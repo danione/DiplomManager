@@ -19,7 +19,7 @@ class ManagmentAndReview(BasicModel):
 
 class Thesis(BasicModel):
     supervisor = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True)
-    is_prearranged = models.BooleanField(default = True)
+    place = models.CharField(max_length = 5, default = '1st')
 
     def __str__(self):
         return self.name
@@ -27,17 +27,29 @@ class Thesis(BasicModel):
 class Student(BasicModel):
     class_char = models.CharField(max_length = 1)
     number = models.IntegerField()
+    progress = models.FloatField(default = 0.00)
     handed_document_over = models.BooleanField(default = False)
     handed_assignment_over = models.BooleanField(default = False)
     handed_documentation_over = models.BooleanField(default = False)
     assigned_supervisor = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True, related_name = "supervisor")
-    assigned_thesis = models.ManyToManyField(Thesis, related_name = "thesis_topic")
+    current_thesis = models.ManyToManyField(Thesis, related_name = "thesis_topic")
     assigned_reviewer = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True, related_name = "reviewer")
     study_period = models.CharField(max_length = 30,default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1))
     did_graduate = models.BooleanField(default = False)
+    has_prearranged_thesis = models.BooleanField(default = True)
+
 
     def __str__(self):
         return self.name
+
+class Choice(models.Model):
+    id = models.AutoField(primary_key = True)
+    number = models.IntegerField()
+    student = models.ForeignKey(Student, on_delete = models.CASCADE, null = True)
+    thesis = models.ForeignKey(Thesis, on_delete = models.CASCADE, null = True)
+
+    def __str__(self):
+        return self.student.name + "'s choice"
 
 class Commission(BasicModel):
     chairman = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null = True)

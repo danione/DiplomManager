@@ -12,9 +12,9 @@
 {% block content %}
 
   {% load static %}
-        <h1>Uploading teachers</h1>
+        <h1>Uploading supervisors</h1>
         <div class="option-buttons">
-          <table class="table" id="a-teacher">
+          <table class="table" id="a-supervisor">
             <tr>
               <td><div class="add">Add</div></td>
               <td><div class="upload">Upload</div></td>
@@ -22,9 +22,9 @@
           </table>
         </div>
         <div class="options">
-          <div class="add-a-teacher">
+          <div class="add-a-supervisor">
 
-            <form id="teacher-form" action=" {% url 'supervisor_handler' %}" method="post">
+            <form id="supervisor-form" action=" {% url 'supervisor_handler' %}" method="post">
               {% csrf_token %}
               <label for="Title">Titles:</label><br>
               <input id="Title" type="text" name="Title" data-validation="length custom" data-validation-length="max100" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
@@ -38,7 +38,7 @@
             </form>
 
           </div>
-          <div class="upload-a-teacher">
+          <div class="upload-a-supervisor">
             <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
 
 

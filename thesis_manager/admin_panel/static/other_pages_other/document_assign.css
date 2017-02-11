@@ -34,6 +34,13 @@ input[type="number"]
   display: none;
 }
 
+.error-msg
+{
+  display: inline;
+  color: red;
+  display: none;
+}
+
 @media screen and (max-width:1024px)
 {
 
