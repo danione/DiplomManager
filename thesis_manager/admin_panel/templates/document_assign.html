@@ -36,7 +36,7 @@
               {% endfor %}
 
               <label for="Thesis">Thesis:</label><br>
-              <input id="Thesis" type="text" name="Thesis"><br>
+              <input id="Thesis" type="text" name="Thesis" class="thesis"><br>
               <a><div class="submit">Submit</div></a>
               </form>
           </div>
@@ -44,29 +44,34 @@
 
           </div>
           <div class="standard-topic">
-            <form>
+
+            <form id="standard-form" action=" {% url 'standard_handler' %}" method="post">
+              {% csrf_token %}
               <div class="heading">
                 1-st choice
               </div>
-              Topic:<br> <input type="text" name="Topic" required><br>
-              Supervisor:<br> <input type="text" name="Supervisor" required><br>
+              <label for="Thesis1">Thesis:</label><br>
+              <input id="Thesis1" type="text" name="Thesis" class="thesis"><br>
               <div class="heading">
                 2-nd choice
               </div>
-              Topic:<br> <input type="text" name="Topic" required><br>
-              Supervisor:<br> <input type="text" name="Supervisor" required><br>
+              <label for="Thesis2">Thesis:</label><br>
+              <input id="Thesis2" type="text" name="Thesis" class="thesis"><br>
               <div class="heading">
                 3-rd choice
               </div>
-              Topic:<br> <input type="text" name="Topic" required><br>
-              Supervisor:<br> <input type="text" name="Supervisor" required><br>
+              <label for="Thesis3">Thesis:</label><br>
+              <input id="Thesis3" type="text" name="Thesis" class="thesis"><br>
               <div class="heading">
                 Average progress between 9-th and 11-th grade
               </div>
-              Progress:<br> <input type="number" name="Progress" step="0.01"  min="2.00" max="6.00" required><br>
+              <label for="Progress">Progress:</label><br>
+              <input id="Progress"type="text" data-validation="number" data-validation-allowing="range[2.00;6.00],float"><br>
+              <a><div class="submit">Submit</div></a>
+              </form>
+            <form>
 
-              <a href="#"><div class="submit">Submit</div></a>
-            </form>
+
           </div>
         </div>
         <script src="{% static 'other_pages_other/container_js.js' %}"></script>

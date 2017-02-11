@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^reviewer_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_reviewer')), name='reviewer_handler/redirection'),
     url(r'^file_handler/$', views.file_handler, name='file_handler'),
     url(r'^file_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_students')), name='file_handler/redirection'),
+    url(r'^standard_handler/$', views.standard_handler, name='standard_handler'),
+    url(r'^standard_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='standard_handler/redirection'),
     url(r'^prearranged_handler/$', views.prearranged_handler, name='prearranged_handler'),
     url(r'^prearranged_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='prearranged_handler/redirection'),
     url(r'^graduate/$', views.graduate, name='graduate'),

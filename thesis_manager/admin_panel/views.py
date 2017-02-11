@@ -25,7 +25,7 @@ def admin_homepage(request):
 
     students_list_document = [student for student in students_list_document if student.handed_document_over == False and student.did_graduate == False]
     students_list_assignment = [student for student in students_list_assignment if student.handed_assignment_over == False and student.did_graduate == False]
-    students_list_documentation = [student for student in students_list_documentation if student.assigned_supervisor is None and student.did_graduate == False]
+    students_list_documentation = [student for student in students_list_documentation if student.handed_documentation_over == False and student.did_graduate == False]
     students_list_reviewer = [student for student in students_list_reviewer if student.assigned_reviewer is None and student.did_graduate == False]
     students_list_commission = [student for student in students_list_commission if not student.students_in_commission.all() and student.did_graduate == False]
 
@@ -183,6 +183,17 @@ def prearranged_handler(request):
         student.save()
         return HttpResponseRedirect('redirection')
     return render(request, 'document_assign.html')
+
+def standard_handler(request):
+    if request.method == 'POST':
+        student_id = request.session['student_id']
+        student = Student.objects.get(id = student_id)
+        thesis = Thesis.objects.get(name = request.POST.get('Thesis'))
+        student.assigned_thesis = thesis
+        student.handed_document_over = True
+        student.save()
+        return HttpResponseRedirect('redirection')
+    return render(request,'document_assign.html')
 
 
 def listing(request):

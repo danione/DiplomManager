@@ -1,3 +1,3 @@
-$("#Thesis").autocomplete({
+$(".thesis").autocomplete({
   source: thesis_topics
 });
