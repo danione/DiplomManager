@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Student, ManagmentAndReview, Thesis, Commission, Choice
 from django.shortcuts import get_object_or_404
+from operator import itemgetter,attrgetter
 import csv
 import os
 
@@ -17,15 +18,15 @@ def init_list():
 
 
 def admin_homepage(request):
-    students_list_document = init_list()
     students_list_thesis = init_list()
+    students_list_document = init_list()
     students_list_assignment = init_list()
     students_list_documentation = init_list()
     students_list_reviewer = init_list()
     students_list_commission  = init_list()
 
     students_list_document = [student for student in students_list_document if student.handed_document_over == False and student.did_graduate == False]
-    students_list_thesis = [student for student in students_list_thesis if student.has_prearranged_thesis == False]
+    students_list_thesis = [student for student in students_list_thesis if student.has_prearranged_thesis == False and student.current_thesis is None]
     students_list_assignment = [student for student in students_list_assignment if student.handed_assignment_over == False and student.did_graduate == False]
     students_list_documentation = [student for student in students_list_documentation if student.handed_documentation_over == False and student.did_graduate == False]
     students_list_reviewer = [student for student in students_list_reviewer if student.assigned_reviewer is None and student.did_graduate == False]
@@ -181,7 +182,7 @@ def prearranged_handler(request):
         student = Student.objects.get(id = student_id)
         thesis = Thesis.objects.get(name = request.POST.get('Thesis'))
 
-        student.assigned_thesis = thesis
+        student.current_thesis = thesis
         student.has_prearranged_thesis = True
         student.handed_document_over = True
         student.save()
@@ -214,23 +215,34 @@ def standard_handler(request):
 def standard_thesis(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
     choices = student.choice_set.all()
+    thesis = []
     students = []
-    other_choices = []
-    for choice in choices:
-        other_choices.extend(choice.thesis.choice_set.all())
+    students_output = {}
 
-    print (choices)
+    for index,choice in enumerate(choices):
+        sorted_choices = choice.thesis.get_sorted_by_number_thesis()
+        for sorted_choice in sorted_choices:
+            students.append(sorted_choice.student)
+        students_output[index] = students
+        students = []
+        thesis.append(choice.thesis)
+        sorted_choice = []
 
-    for other_choice in other_choices:
-        students.append(other_choice.student)
 
-    print (other_choices)
-    print (students)
-
-
-    context = {'student':student}
+    context = {'student':student, 'thesis' : thesis, 'students_output' : students_output}
     request.session['student_id'] = student_id
     return render(request, 'assignment_assign.html', context)
+
+def finilize(request, thesis_id):
+    student_id = request.session['student_id']
+    student = Student.objects.get(id = student_id)
+    thesis = Thesis.objects.get(id = thesis_id)
+
+    student.choice_set.clear()
+    student.current_thesis = thesis
+    student.save()
+    
+    return HttpResponseRedirect('redirection')
 
 def handed_assignment_over(request):
     return HttpResponseRedirect('redirection')

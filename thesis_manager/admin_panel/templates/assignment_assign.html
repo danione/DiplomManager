@@ -29,7 +29,7 @@
               <td>{{ student.progress }}</td>
             </tr>
             <table class="simple-table table_two">
-              <caption>Place by first choice</caption>
+              <caption>Place by {{ thesis.0.name }}</caption>
               <thead class="head">
                 <tr>
                   <th>Number</th>
@@ -37,34 +37,30 @@
                   <th>Class</th>
                   <th>GPA
                     <div class="button-assign">
-                      <div class="assign"><a href="#"><div class="tick"></div></a></div>
+                      <div class="assign"><a href="{% url 'finilize' thesis.0.id %}"><div class="tick"></div></a></div>
                     </div>
                   </th>
                 </tr>
               </thead>
               <tbody class="body">
-                <tr>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                </tr>
-                <tr class="chosen-one">
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                </tr>
-                <tr class="chosen-one">
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                  <td>Fredy</td>
-                </tr>
-            </tbody>
+                {% if students_output %}
+                  {% for student_choice in students_output.0 %}
+                    {% if student_choice.id == student.id %}
+                      <tr class="chosen-one">
+                    {% else %}
+                      <tr>
+                    {% endif %}
+                        <td>{{ student_choice.number }}</td>
+                        <td>{{ student_choice.name }}</td>
+                        <td>{{ student_choice.class_char }}</td>
+                        <td>{{ student_choice.progress }}</td>
+                      </tr>
+                  {% endfor %}
+                {% endif %}
+              </tbody>
             </table>
           <table class="simple-table table_three">
-            <caption>Place by second choice</caption>
+            <caption>Place by {{ thesis.1.name }}</caption>
             <thead class="head">
               <tr>
                 <th>Number</th>
@@ -72,34 +68,30 @@
                 <th>Class</th>
                 <th>GPA
                   <div class="button-assign">
-                    <div class="assign"><a href="#"><div class="tick"></div></a></div>
+                    <div class="assign"><a href="{% url 'finilize' thesis.1.id %}"><div class="tick"></div></a></div>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody class="body">
-              <tr>
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-              </tr>
-              <tr class="chosen-one">
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-              </tr>
-              <tr class="chosen-one">
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-              </tr>
-          </tbody>
+              {% if students_output %}
+                {% for student_choice in students_output.1 %}
+                  {% if student_choice.id == student.id %}
+                    <tr class="chosen-one">
+                  {% else %}
+                    <tr>
+                  {% endif %}
+                      <td>{{ student_choice.number }}</td>
+                      <td>{{ student_choice.name }}</td>
+                      <td>{{ student_choice.class_char }}</td>
+                      <td>{{ student_choice.progress }}</td>
+                    </tr>
+                {% endfor %}
+              {% endif %}
+            </tbody>
           </table>
           <table class="simple-table table_four">
-            <caption>Place by third choice</caption>
+            <caption>Place by {{ thesis.2.name }}</caption>
             <thead class="head">
               <tr>
                 <th>Number</th>
@@ -107,18 +99,26 @@
                 <th>Class</th>
                 <th>GPA
                   <div class="button-assign">
-                    <div class="assign"><a href="#"><div class="tick"></div></a></div>
+                    <div class="assign"><a href="{% url 'finilize' thesis.2.id %}"><div class="tick"></div></a></div>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody class="body">
-              <tr>
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-                <td>Fredy</td>
-              </tr>
+              {% if students_output %}
+                {% for student_choice in students_output.2 %}
+                  {% if student_choice.id == student.id %}
+                    <tr class="chosen-one">
+                  {% else %}
+                    <tr>
+                  {% endif %}
+                      <td>{{ student_choice.number }}</td>
+                      <td>{{ student_choice.name }}</td>
+                      <td>{{ student_choice.class_char }}</td>
+                      <td>{{ student_choice.progress }}</td>
+                    </tr>
+                {% endfor %}
+              {% endif %}
             </tbody>
           </table>
         </div>

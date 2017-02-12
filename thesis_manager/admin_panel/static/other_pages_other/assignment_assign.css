@@ -85,7 +85,10 @@ table
   height: 1.5em;
   border-radius: 50%;
   background-color: #002240;
+  cursor: pointer;
 }
+
+
 
 a
 {

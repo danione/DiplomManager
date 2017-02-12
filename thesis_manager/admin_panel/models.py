@@ -21,6 +21,9 @@ class Thesis(BasicModel):
     supervisor = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True)
     place = models.CharField(max_length = 5, default = '1st')
 
+    def get_sorted_by_number_thesis(self):
+        return self.choice_set.order_by('number', '-student__progress')
+
     def __str__(self):
         return self.name
 
@@ -32,7 +35,7 @@ class Student(BasicModel):
     handed_assignment_over = models.BooleanField(default = False)
     handed_documentation_over = models.BooleanField(default = False)
     assigned_supervisor = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True, related_name = "supervisor")
-    current_thesis = models.ManyToManyField(Thesis, related_name = "thesis_topic")
+    current_thesis = models.ForeignKey(Thesis,on_delete=models.CASCADE, null=True)
     assigned_reviewer = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null=True, related_name = "reviewer")
     study_period = models.CharField(max_length = 30,default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1))
     did_graduate = models.BooleanField(default = False)
@@ -57,6 +60,7 @@ class Commission(BasicModel):
     place = models.CharField(max_length = 30, default = "none")
     time = models.DateTimeField(null = True)
     students = models.ManyToManyField(Student, related_name = "students_in_commission")
+
 
     def __str__(self):
         return self.name
