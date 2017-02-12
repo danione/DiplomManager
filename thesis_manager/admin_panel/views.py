@@ -222,7 +222,8 @@ def standard_thesis(request, student_id):
     for index,choice in enumerate(choices):
         sorted_choices = choice.thesis.get_sorted_by_number_thesis()
         for sorted_choice in sorted_choices:
-            students.append(sorted_choice.student)
+            if sorted_choice.student:
+                students.append(sorted_choice.student)
         students_output[index] = students
         students = []
         thesis.append(choice.thesis)
@@ -241,10 +242,38 @@ def finilize(request, thesis_id):
     student.choice_set.clear()
     student.current_thesis = thesis
     student.save()
-    
+
     return HttpResponseRedirect('redirection')
 
-def handed_assignment_over(request):
+def handed_assignment_over(request, student_id):
+    student = Student.objects.get(id = student_id)
+    student.handed_assignment_over = True
+    student.save()
+
+    return HttpResponseRedirect('redirection')
+
+def handed_documentation_over(request, student_id):
+    student = Student.objects.get(id = student_id)
+    student.handed_documentation_over = True
+    student.save()
+
+    return HttpResponseRedirect('redirection')
+
+def reviewer_assign(request, student_id):
+    reviewers = ManagmentAndReview.objects.all()
+    request.session['student_id'] = student_id
+
+    context = {'reviewers': reviewers}
+    return render(request, 'reviewer_assign.html', context)
+
+def reviewer_connect(request):
+    if request.method == 'POST':
+        reviewer = request.POST.get('Reviewer')
+        student_id = request.session['student_id']
+        student = Student.objects.get(id = student_id)
+        student.assigned_reviewer = ManagmentAndReview.objects.get(name = reviewer)
+        student.save()
+
     return HttpResponseRedirect('redirection')
 
 def listing(request):

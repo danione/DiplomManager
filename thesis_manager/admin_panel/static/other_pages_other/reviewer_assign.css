@@ -4,3 +4,10 @@
   margin: auto;
   margin-top: 5%;
 }
+
+.error-msg
+{
+  display: inline;
+  color: red;
+  display: none;
+}

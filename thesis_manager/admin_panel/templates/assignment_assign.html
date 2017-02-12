@@ -112,11 +112,13 @@
                   {% else %}
                     <tr>
                   {% endif %}
+                    {% if student_choice %}
                       <td>{{ student_choice.number }}</td>
                       <td>{{ student_choice.name }}</td>
                       <td>{{ student_choice.class_char }}</td>
                       <td>{{ student_choice.progress }}</td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
               {% endif %}
             </tbody>

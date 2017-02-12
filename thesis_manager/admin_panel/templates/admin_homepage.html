@@ -44,6 +44,41 @@
   </div>
 
 
+
+     <h1 id="assignment-header"> Students without assignment </h1>
+     <div class="search">
+       <img id="search-icon" class="assignment-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
+       <input id="assignment-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+       <div id="assignment-pointer" class="pointer"></div>
+     </div>
+     <table id="assignment" class="assignment">
+       <thead>
+       <tr>
+         <th>Student Name</th>
+         <th>Class</th>
+         <th></th>
+       </tr>
+      </thead>
+     </table>
+     <div style="display:none">
+     <table id="assignment" class="assignment">
+       <tbody>
+       {% if students_list_assignment %}
+         {% for student in students_list_assignment %}
+         <tr>
+           <td>{{ student.name }}</td>
+           <td>{{ student.class_char }}</td>
+           <td>
+               <a href="{% url 'handed_assignment_over' student.id %}"><div class="assign">Assign</div></a>
+           </td>
+         </tr>
+         {% endfor %}
+       {% endif %}
+      </tbody>
+     </table>
+    </div>
+
+
    <h1 id="thesis-header"> Students without assigned thesis </h1>
    <div class="search">
      <img id="search-icon" class="thesis-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
@@ -77,38 +112,6 @@
    </table>
   </div>
 
-   <!-- <h1 id="assignment-header"> Students without assignment </h1>
-   <div class="search">
-     <img id="search-icon" class="assignment-search" src="{% static 'admin_homepage_other/search-icon.png' %}" alt="search-icon">
-     <input id="assignment-search" type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
-     <div id="assignment-pointer" class="pointer"></div>
-   </div>
-   <table id="assignment" class="assignment">
-     <thead>
-     <tr>
-       <th>Student Name</th>
-       <th>Class</th>
-       <th></th>
-     </tr>
-    </thead>
-   </table>
-   <div style="display:none">
-   <table id="assignment" class="assignment">
-     <tbody>
-     {% if students_list_assignment %}
-       {% for student in students_list_assignment %}
-       <tr>
-         <td>{{ student.name }}</td>
-         <td>{{ student.class_char }}</td>
-         <td>
-             <a href="{% url 'handed_assignment_over' student.id %}"><div class="assign">Assign</div></a>
-         </td>
-       </tr>
-       {% endfor %}
-     {% endif %}
-    </tbody>
-   </table>
-  </div> -->
 
     <h1 id="documentation-header"> Students without documentation </h1>
     <div class="search">
@@ -134,7 +137,7 @@
           <td>{{ student.name }}</td>
           <td>{{ student.class_char }}</td>
           <td>
-              <a><div class="assign">Assign</div></a>
+              <a href="{% url 'handed_documentation_over' student.id %}"><div class="assign">Assign</div></a>
           </td>
         </tr>
         {% endfor %}
@@ -169,7 +172,7 @@
           <td>{{ student.name }}</td>
           <td>{{ student.class_char }}</td>
           <td>
-              <a><div class="assign">Assign</div></a>
+              <a href="{% url 'reviewer_assign' student.id %}"><div class="assign">Assign</div></a>
           </td>
         </tr>
         {% endfor %}
