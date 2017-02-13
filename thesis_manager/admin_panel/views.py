@@ -276,5 +276,15 @@ def reviewer_connect(request):
 
     return HttpResponseRedirect('redirection')
 
+def commission_assign(request, student_id):
+    student = Student.objects.get(id = student_id)
+    people_in_system = ManagmentAndReview.objects.all()
+
+    context = {'student': student, 'members': people_in_system}
+    return render(request, 'commission_assign.html', context)
+
+def new_commission_handler(request):
+    return HttpResponseRedirect('redirection')
+
 def listing(request):
     return HttpResponse("listing")

@@ -1,47 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> Commission Assignment</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="other_pages_other/footer_nav.css">
-    <link rel="stylesheet" type="text/css" href="other_pages_other/container_css.css">
-    <link rel="stylesheet" type="text/css" href="other_pages_other/commission_assign.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  </head>
-
-  <body class="none">
-    <div class="container">
-      <ul class="nav" id="navigation">
-        <li id="icon" class="icon" onclick="myFunction(this)">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-        </li>
-        <li id="finyear"><a href="#news">Manage Years</a></li>
-        <li id="newyear"><a href="#contact">Start A School Year</a></li>
-        <li id="greetings"><a href="#about">Welcome, ...</a></li>
-      </ul>
-
-      <div id="sidenav" class="sidenav">
-        <a href="#">Upload Students</a>
-        <a href="#">Upload Teachers</a>
-        <a href="#">Upload Reviewers</a>
-        <a href="#">Listing</a>
-        <a href="#">Exit</a>
-        <div class="document">
-          <div id="bubble1"></div>
-          <div id="bubble2"></div>
-          <div id="bubble3"></div>
-        </div>
-      </div>
+{% extends 'base.html' %}
 
 
+{% block title %}Commission Assign{% endblock %}
 
-      <div class="main-content" id="main">
-        <h1>Assigning ...'s commission</h1>
+{% block extra_head %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/commission_assign.css' %}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+
+{% block content %}
+
+  {% load static %}
+        <h1>Assigning {{student.name}}'s commission</h1>
         <div class="option-buttons">
           <table class="table" id="commission">
             <tr>
@@ -52,65 +25,83 @@
         </div>
         <div class="options">
           <div class="new-commission">
+              <form id="new-form" action=" {% url 'new_commission_handler' %}" method="post">
+                {% csrf_token %}
+                <script>
+                  var members_ = [];
+                </script>
+                {% for member in members %}
+                <script>
+                 members_.push("{{member.name}}");
+                </script>
+                {% endfor %}
 
-            <form>
-              <div class="hide-seek">
-                Chairman of the commission:<br> <input type="text" name="Chairman" required><br>
-                Member №1:<br> <input type="text" name="Members" required><br>
-                Member №2:<br> <input type="text" name="Members" required><br>
-                Member №3:<br> <input type="text" name="Members" required><br>
-              </div>
-              Automatic or manual date:
-              <section class="section">
-                <div class="bin">
-                  <input type="radio" name="auto/manual" id="automatic" required>
-                  <label for="automatic">
-                    <span class="radio">Automatic Date</span>
-                  </label>
+                <div class="hide-seek">
+                  <label for="Chairman">Chairman:</label><br>
+                  <input id="Chairman" type="text" name="Chairman" class="member"><br>
+                  <label for="Member1">Member №1:</label><br>
+                  <input id="Member1" type="text" name="Member1" class="member"><br>
+                  <label for="Member2">Member №2:</label><br>
+                  <input id="Member2" type="text" name="Member2" class="member"><br>
+                  <label for="Member3">Member №3:</label><br>
+                  <input id="Member3" type="text" name="Member3" class="member"><br>
+                  <label for="Place">Place: (only class room)</label><br>
+                  <input id="Place" type="text" name="Place" data-validation="number required" data-validation-allowing="range[21;27]"><br>
+
+                  <h3 class="heading">Automatic or manual date:</h3>
+                  <section class="section">
+                    <div class="bin">
+                      <input type="radio" name="auto/manual" id="automatic">
+                      <label for="automatic">
+                        <span class="radio">Automatic Date</span>
+                      </label>
+                    </div>
+                    <div class="bin">
+                      <input type="radio" name="auto/manual" id="manual">
+                      <label for="manual">
+                        <span class="radio">Manual Date</span>
+                      </label>
+                    </div>
+                  </section>
+                  <p class="error-msg"> Input value duplicates or doesn't exist </p>
                 </div>
-                <div class="bin">
-                  <input type="radio" name="auto/manual" id="manual" required>
-                  <label for="manual">
-                    <span class="radio">Manual Date</span>
-                  </label>
-                </div>
-              </section>
-              <div class="automatic-date">
-                <div class="steps">
-                  <div class="step-1">
-                    <div class="symbol"><span>1</span></div>
-                      <div class="date">Date: <input type="text" id="datepicker"></div>
+                <div class="automatic-date">
+                  <div class="steps">
+                    <div class="step-1">
+                      <div class="symbol"><span>1</span></div>
+                        <div class="date">Date: <input type="text" id="datepicker"></div>
+                        <div class="date-selected"></div>
+                        Morning or Afternoon:
+                        <div class="checkbox">
+                          <input id="check1" type="checkbox" name="check" value="check1">
+                          <label for="check1">Morning</label>
+                          <br>
+                          <input id="check2" type="checkbox" name="check" value="check2">
+                          <label for="check2">Afternoon</label>
+                        </div>
+                    </div>
+                    <div class="step-2">
+                      <div class="symbol"><span>2</span></div>
                       Morning or Afternoon:
-                      <div class="checkbox">
-                        <input id="check1" type="checkbox" name="check" value="check1">
-                        <label for="check1">Checkbox No. 1</label>
-                        <br>
-                        <input id="check2" type="checkbox" name="check" value="check2">
-                        <label for="check2">Checkbox No. 2</label>
-                      </div>
+                    </div>
+                    <div class="step-3">
+                      <div class="symbol"><span>3</span></div>
+                      Morning or Afternoon:
+                    </div>
+                    <div class="step-4">
+                      <div class="symbol"><span>4</span></div>
+                      Morning or Afternoon:
+                    </div>
                   </div>
-                  <div class="step-2">
-                    <div class="symbol"><span>2</span></div>
-                    Morning or Afternoon:
-                  </div>
-                  <div class="step-3">
-                    <div class="symbol"><span>3</span></div>
-                    Morning or Afternoon:
-                  </div>
-                  <div class="step-4">
-                    <div class="symbol"><span>4</span></div>
-                    Morning or Afternoon:
-                  </div>
-                </div>
-                <a href="#"><div class="next">Next</div></a>
-                <a href="#"><div class="submit">Submit</div></a>
-
               </div>
-
               <div class="manual-date">
                 Man
               </div>
-
+              <div class="buttons-down">
+                <a><div class="prev">Back</div></a>
+                <a><div class="next">Next</div></a>
+                <a><div class="submit">Submit</div></a>
+              </div>
             </form>
 
           </div>
@@ -118,28 +109,7 @@
 
           </div>
         </div>
-
-      </div>
-
-
-      <div class="footer">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <a href="http://www.elsys-bg.org/">
-          <img src="http://www.elsys-bg.org/wp-content/themes/elsys/images/logo.png" alt="Elsys Logo">
-        </a>
-        <div class="footer-text">
-
-          Technological School Electronic Systems - Sofia <br>
-          &#169; Copyright 2016 - 2017. All Rights Reserved.
-        </div>
-      </div>
-    </div>
-    <script src="other_pages_other/footer_nav.js"></script>
-    <script src="other_pages_other/container_js.js"></script>
-    <script src="other_pages_other/commission_assign.js"></script>
-  </body>
-
-
-
-</html>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'other_pages_other/container_js.js' %}"></script>
+    <script src="{% static 'other_pages_other/commission_assign.js' %}"></script>
+{% endblock %}

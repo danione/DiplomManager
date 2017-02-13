@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^standard_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='standard_handler/redirection'),
     url(r'^prearranged_handler/$', views.prearranged_handler, name='prearranged_handler'),
     url(r'^prearranged_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='prearranged_handler/redirection'),
+    url(r'^new_commission_handler/$', views.new_commission_handler, name='new_commission_handler'),
+    url(r'^new_commission_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='new_commission_handler/redirection'),
     url(r'^reviewer_connect/$', views.reviewer_connect, name='reviewer_connect'),
     url(r'^reviewer_connect/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='reviewer_connect/redirection'),
     url(r'^graduate/$', views.graduate, name='graduate'),
@@ -45,6 +47,5 @@ urlpatterns = [
     url(r'^(?P<student_id>[0-9]+)/finilize/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='finilize/redirection'),
     url(r'^(?P<student_id>[0-9]+)/finilize/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='finilize/redirection'),
     url(r'^(?P<student_id>[0-9]+)/reviewer_assign/$', views.reviewer_assign, name='reviewer_assign'),
-
-
+    url(r'^(?P<student_id>[0-9]+)/commission_assign/$', views.commission_assign, name='commission_assign'),
 ]

@@ -15,6 +15,7 @@
 }
 
 
+
 .bin
 {
   margin-bottom: 20%;
@@ -132,7 +133,7 @@ input[type=checkbox]:checked + label:before {
     line-height: 15px;
 }
 
-.step-1, .step-2, .step-3, .step-4
+.steps > div
 {
   display: none;
 }
@@ -157,4 +158,49 @@ input[type=checkbox]:checked + label:before {
 .submit
 {
   display: none;
+}
+
+.error-msg
+{
+  display: none;
+  color: red;
+}
+
+.buttons-down
+{
+  width: 100%;
+}
+
+.prev
+{
+  width: 49%;
+  float: left;
+  display: none;
+}
+
+.date-selected
+{
+  padding-bottom: 1em;
+}
+
+.date-chosen
+{
+  background-color: #002240;
+  color: white;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  display: inline;
+  padding-left: 0.4em;
+  padding-right: 1.5em;
+}
+
+.date-chosen span
+{
+  color: #fff;
+  padding-left: 1em;
+  margin-right: -1em;
 }

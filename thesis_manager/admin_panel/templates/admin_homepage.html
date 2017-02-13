@@ -205,7 +205,7 @@
          <td>{{ student.name }}</td>
          <td>{{ student.class_char }}</td>
          <td>
-             <a><div class="assign">Assign</div></a>
+             <a href="{% url 'commission_assign' student.id %}"><div class="assign">Assign</div></a>
          </td>
        </tr>
        {% endfor %}
