@@ -120,18 +120,52 @@ input[type="radio"]:checked + label span.radio:after
   margin-top: 3%;
 }
 
-.checkbox label:before {
-  border-radius: 3px;
+.checkboxes {
+  padding-right: 50%;
+  padding-top: 0;
+  padding-left: 50%;
 }
 
-input[type=checkbox]:checked + label:before {
-  content: "\2713";
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-  font-size: 15px;
-  color: #002240;
-  text-align: center;
-    line-height: 15px;
+.checkbox-container label {
+  position: relative;
 }
+
+.checkbox-container
+{
+  padding-top: .6em;
+}
+
+.checkbox-container span::before, .checkbox-container span::after
+ {
+  content: '';
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  position: absolute;
+}
+
+.checkbox-container span::before {
+  width: 1em;
+  height: 1em;
+  background-color: #fff;
+  left: -2.2em;
+  box-sizing: border-box;
+  transition: border-color .2s;
+  border: 1px solid #002280;
+
+}
+
+.checkbox-container span::after {
+  content: '\2713';
+  left: -2.1em;
+  top: -0.1em;
+  color: #fff;
+  transition: color .2s;
+}
+input[type="checkbox"]:checked + label span::after {
+  color: #002240;
+}
+
 
 .steps > div
 {
@@ -193,9 +227,10 @@ input[type=checkbox]:checked + label:before {
   border-bottom-right-radius: 1em;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
-  display: inline;
+  display: inline-flex;
   padding-left: 0.4em;
   padding-right: 1.5em;
+  cursor: pointer;
 }
 
 .date-chosen span

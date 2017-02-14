@@ -262,8 +262,9 @@ def handed_documentation_over(request, student_id):
 def reviewer_assign(request, student_id):
     reviewers = ManagmentAndReview.objects.all()
     request.session['student_id'] = student_id
+    student = Student.objects.get(id = student_id)
 
-    context = {'reviewers': reviewers}
+    context = {'reviewers': reviewers,'student': student}
     return render(request, 'reviewer_assign.html', context)
 
 def reviewer_connect(request):

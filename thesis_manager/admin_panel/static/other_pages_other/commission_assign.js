@@ -4,54 +4,8 @@ function exists(value, array)
     return true;
   return false;
 }
-$( function() {
-   $( "#datepicker" ).datepicker(
-     {
-      dateFormat: "dd-mm-yy",
-      onClose:function(date_selected)
-      {
-        if(date_selected)
-        {
-          if(jQuery.inArray(date_selected,dates) == -1)
-            $(".date-selected").append("<div class=\"date-chosen\">" + date_selected + "<span class=\"delete\">X</span></div>")
-        }
-        $(this).val('');
-      }
-     });
- } );
 
-
-  var dates = [];
-  var people = [];
-  $("body").on('click', '.date-chosen',function(){
-    var value = $(this).html().split('<')[0];
-    $("#datepicker").val(value);
-    if(!exists($("#datepicker"), dates))
-    {
-      dates.push($("#datepicker").val());
-      var day =
-      {
-        val: value,
-        morning: true,
-        afternoon: false
-      }
-      if(day.morning == true)
-      {
-        $("#check1").prop('checked', true);
-      }
-
-    }
-  });
-
-  $("body").on('click', '.delete',function(e){
-    e.stopPropagation();
-    data = this;
-    dates = jQuery.grep(dates, function(value) {
-      return value != $(data).parent().val().split('<')[0];
-    });
-    $(this).parent().remove();
-    $("#datepicker").val('');
-  });
+var dates = [];
 
 
 
@@ -61,6 +15,24 @@ $( function() {
 
 
  var steps = 0;
+
+ $( function() {
+     $( ".datepicker" ).datepicker(
+       {
+        dateFormat: "dd-mm-yy",
+        onClose:function(date_selected)
+        {
+          if(date_selected)
+          {
+            if(jQuery.inArray(date_selected,dates) == -1)
+              $('.step-' + steps + ' > .date-selected').append("<div class=\"date-chosen\">" + date_selected + "<span class=\"delete\">X</span></div>");
+          }
+          $(this).val('');
+        }
+       });
+
+  } );
+
  var max_steps = parseInt($(".steps").children().last().attr('class').split('-')[1]);
 
  function hide_components()
@@ -85,7 +57,117 @@ function fix_value(value)
 }
 
 
+function get_person(getter)
+{
+  return getter.parent().parent().attr('class').split('-')[1];
+}
+
+function exists_dict(value, array)
+{
+  var is_in_array = false;
+  $.each(array,function(index,obj)
+  {
+    if(obj.val == value)
+    {
+      is_in_array = true;
+      return false;
+    }
+  });
+  if(is_in_array)
+    return true;
+  else
+    return false;
+}
+
+
 var current_selections = [];
+var people = [];
+
+$("body").on('click', '.date-chosen',function(){
+  var value = $(this).html().split('<')[0];
+  // .closest
+  var datepicker = $('#' + steps);
+  datepicker.val(value);
+  if(!exists_dict(datepicker.val(), dates))
+  {
+    var day =
+    {
+      val: value,
+      morning: false,
+      afternoon: false
+      // person: current_selections[get_person($(this)) - 1]
+    }
+
+    dates.push(day.val);
+  }
+  else
+  {
+    var day = {};
+    $.each(dates,function(index,obj)
+    {
+      if(obj.val == datepicker.val())
+      {
+        day =
+        {
+          val: obj.val,
+          morning: obj.morning,
+          afternoon: obj.afternoon
+        }
+        return false;
+      }
+    });
+    widow.alert("hello");
+    if(day.morning == true)
+      $(this).parent().closest('.morning').prop('checked', true);
+    else
+      $(this).parent().closest('.morning').prop('checked', false);
+    if(day.afternoon == true)
+      $(this).parent().closest('.afternoon').prop('checked', true);
+    else
+      $(this).parent().closest('.afternoon').prop('checked', false);
+  }
+});
+
+$(".morning").click(function()
+{
+  var value = $('#' + steps);
+
+  $.each(dates, function(index, obj)
+  {
+    if(obj.val == value.val())
+    {
+      obj.morning = true;
+      return false;
+    }
+  });
+});
+
+$(".afternoon").click(function()
+{
+  var value = $('#' + steps);
+
+  $.each(dates, function(index, obj)
+  {
+    if(obj.val == value.val())
+    {
+      obj.afternoon = true;
+      return false;
+    }
+  });
+});
+
+$("body").on('click', '.delete',function(e){
+  e.stopPropagation();
+  data = this;
+  dates = jQuery.grep(dates, function(value) {
+    return value.val != $(data).parent().val().split('<')[0];
+  });
+  $(this).parent().remove();
+  $(".datepicker").val('');
+  window.alert(dates);
+});
+
+
 
  $(".next").click(function()
  {
@@ -111,7 +193,7 @@ var current_selections = [];
     //        submitting = false;
     //      }
     //    });
-    //  }
+    //   }
      if(submitting)
      {
 

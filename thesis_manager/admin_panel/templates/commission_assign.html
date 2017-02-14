@@ -69,16 +69,19 @@
                   <div class="steps">
                     <div class="step-1">
                       <div class="symbol"><span>1</span></div>
-                        <div class="date">Date: <input type="text" id="datepicker"></div>
-                        <div class="date-selected"></div>
-                        Morning or Afternoon:
-                        <div class="checkbox">
-                          <input id="check1" type="checkbox" name="check" value="check1">
-                          <label for="check1">Morning</label>
-                          <br>
-                          <input id="check2" type="checkbox" name="check" value="check2">
-                          <label for="check2">Afternoon</label>
-                        </div>
+                      <div class="date">Date: <input type="text" class="datepicker" id="1"></div>
+                      <div class="date-selected"></div>
+                      Morning or Afternoon:
+                      <section class="checkboxes">
+                          <div class="checkbox-container">
+                            <input id="morning" class="morning" type="checkbox" name="check" value="morning">
+                            <label for="morning"><span class="checkboxes">Morning</span></label>
+                          </div>
+                          <div class="checkbox-container">
+                            <input id="afternoon" class="afternoon" type="checkbox" name="check" value="afternoon">
+                            <label for="afternoon"><span class="checkboxes">Afternoon</span></label>
+                          </div>
+                      </section>
                     </div>
                     <div class="step-2">
                       <div class="symbol"><span>2</span></div>
