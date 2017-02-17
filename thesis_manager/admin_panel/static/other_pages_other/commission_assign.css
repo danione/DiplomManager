@@ -239,3 +239,9 @@ input[type="checkbox"]:checked + label span::after {
   padding-left: 1em;
   margin-right: -1em;
 }
+
+.final-message
+{
+  display: inline;
+  
+}

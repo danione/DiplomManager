@@ -25,12 +25,18 @@ def admin_homepage(request):
     students_list_reviewer = init_list()
     students_list_commission  = init_list()
 
-    students_list_document = [student for student in students_list_document if student.handed_document_over == False and student.did_graduate == False]
-    students_list_thesis = [student for student in students_list_thesis if student.has_prearranged_thesis == False and student.current_thesis is None]
-    students_list_assignment = [student for student in students_list_assignment if student.handed_assignment_over == False and student.did_graduate == False]
-    students_list_documentation = [student for student in students_list_documentation if student.handed_documentation_over == False and student.did_graduate == False]
-    students_list_reviewer = [student for student in students_list_reviewer if student.assigned_reviewer is None and student.did_graduate == False]
-    students_list_commission = [student for student in students_list_commission if not student.students_in_commission.all() and student.did_graduate == False]
+    students_list_document = [student for student in students_list_document
+                              if student.handed_document_over == False and student.did_graduate == False]
+    students_list_thesis = [student for student in students_list_thesis
+                            if student.has_prearranged_thesis == False and student.current_thesis is None]
+    students_list_assignment = [student for student in students_list_assignment
+                                if student.handed_assignment_over == False and student.did_graduate == False]
+    students_list_documentation = [student for student in students_list_documentation
+                                   if student.handed_documentation_over == False and student.did_graduate == False]
+    students_list_reviewer = [student for student in students_list_reviewer
+                              if student.assigned_reviewer is None and student.did_graduate == False]
+    students_list_commission = [student for student in students_list_commission
+                                if not student.students_in_commission.all() and student.did_graduate == False]
 
     context = {'students_list_document': students_list_document,'students_list_thesis' : students_list_thesis,
                'students_list_assignment' : students_list_assignment,'students_list_documentation': students_list_documentation,

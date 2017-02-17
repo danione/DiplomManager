@@ -19,6 +19,7 @@ var dates = [];
  $( function() {
      $( ".datepicker" ).datepicker(
        {
+        minDate: 0,
         dateFormat: "dd-mm-yy",
         onClose:function(date_selected)
         {
@@ -67,7 +68,7 @@ function exists_dict(value, array)
   var is_in_array = false;
   $.each(array,function(index,obj)
   {
-    if(obj.val == value)
+    if(obj.val == value.val && obj.person == value.person)
     {
       is_in_array = true;
       return false;
@@ -81,62 +82,69 @@ function exists_dict(value, array)
 
 
 var current_selections = [];
-var people = [];
 
 $("body").on('click', '.date-chosen',function(){
   var value = $(this).html().split('<')[0];
-  // .closest
   var datepicker = $('#' + steps);
   datepicker.val(value);
-  if(!exists_dict(datepicker.val(), dates))
+  var day =
   {
-    var day =
-    {
-      val: value,
-      morning: false,
-      afternoon: false
-      // person: current_selections[get_person($(this)) - 1]
-    }
+    val: value,
+    morning: false,
+    afternoon: false,
+    person: current_selections[get_person($(this)) - 1]
+  };
+  if(!exists_dict(day, dates))
+  {
+    if(day.morning == true)
+      $(this).parent().next('.checkboxes').find('.morning').prop('checked', true);
+    else
+      $(this).parent().next('.checkboxes').find('.morning').prop('checked', false);
+    if(day.afternoon == true)
+      $(this).parent().next('.checkboxes').find('.afternoon').prop('checked', true);
+    else
+      $(this).parent().next('.checkboxes').find('.afternoon').prop('checked', false);
+    dates.push(day);
 
-    dates.push(day.val);
   }
   else
   {
-    var day = {};
     $.each(dates,function(index,obj)
     {
-      if(obj.val == datepicker.val())
+      if(obj.val == day.val && obj.person == day.person)
       {
         day =
         {
-          val: obj.val,
           morning: obj.morning,
           afternoon: obj.afternoon
-        }
+        };
         return false;
       }
     });
-    widow.alert("hello");
+
+
     if(day.morning == true)
-      $(this).parent().closest('.morning').prop('checked', true);
+      $(this).parent().next('.checkboxes').find('.morning').prop('checked', true);
     else
-      $(this).parent().closest('.morning').prop('checked', false);
+      $(this).parent().next('.checkboxes').find('.morning').prop('checked', false);
     if(day.afternoon == true)
-      $(this).parent().closest('.afternoon').prop('checked', true);
+      $(this).parent().next('.checkboxes').find('.afternoon').prop('checked', true);
     else
-      $(this).parent().closest('.afternoon').prop('checked', false);
+      $(this).parent().next('.checkboxes').find('.afternoon').prop('checked', false);
   }
 });
 
 $(".morning").click(function()
 {
   var value = $('#' + steps);
+  var current_state = $(this).prop('checked');
 
+  var current_member = $(this).parents().eq(2).prop('className').split('-')[1];
   $.each(dates, function(index, obj)
   {
-    if(obj.val == value.val())
+    if(obj.val == value.val() && current_selections[current_member - 1] == obj.person)
     {
-      obj.morning = true;
+      obj.morning = current_state;
       return false;
     }
   });
@@ -145,12 +153,15 @@ $(".morning").click(function()
 $(".afternoon").click(function()
 {
   var value = $('#' + steps);
+  var current_state = $(this).prop('checked');
+  var current_member = $(this).parents().eq(2).prop('className').split('-')[1];
+
 
   $.each(dates, function(index, obj)
   {
-    if(obj.val == value.val())
+    if(obj.val == value.val() && current_selections[current_member - 1] == obj.person)
     {
-      obj.afternoon = true;
+      obj.afternoon = current_state;
       return false;
     }
   });
@@ -164,9 +175,72 @@ $("body").on('click', '.delete',function(e){
   });
   $(this).parent().remove();
   $(".datepicker").val('');
-  window.alert(dates);
 });
 
+function choose_date()
+{
+  var first_person = current_selections[0];
+  var first_person_array = [];
+  $.each(dates,function(index,obj)
+  {
+    if(obj.person == first_person)
+    {
+      var day =
+      {
+        val: obj.val,
+        morning: obj.morning,
+        afternoon: obj.afternoon,
+        person : obj.person
+      };
+      first_person_array.push(day);
+    }
+  });
+
+  var equals = 1;
+  var chosen_date = {};
+
+  $.each(first_person_array,function(index,obj)
+  {
+    equals = 1;
+    $.each(dates,function(index,obj1)
+    {
+      if((obj.person != obj1.person
+        && obj.val == obj1.val)
+        && ( obj.morning == obj1.morning
+        || obj.afternoon == obj1.afternoon))
+        equals++;
+      if (equals == 4)
+      {
+        if(obj.morning == true)
+        {
+          chosen_date = {
+             date: obj.val,
+             when: 'Morning'
+          };
+        }
+        else if (obj.afternoon == true)
+        {
+          chosen_date = {
+            date: obj.val,
+            when: 'Afternoon'
+          };
+        }
+        return false;
+      }
+    });
+    if(equals == 4)
+    {
+      return false;
+    }
+  });
+
+  if(equals != 4)
+  {
+    return -1;
+  }
+  first_person_array = [];
+  return chosen_date;
+}
 
 
  $(".next").click(function()
@@ -175,25 +249,25 @@ $("body").on('click', '.delete',function(e){
    {
      var submitting = true;
 
-    //  if(current_selections.length != $("#new-form .member").length)
-    //  {
-    //    $("#new-form .member").each(function()
-    //    {
-    //      if(!exists($(this),current_selections) && exists($(this), members_))
-    //      {
-    //        $(this).css('border-color','green');
-    //        $('.error-msg').css('display', 'none');
-    //        current_selections.push($(this).val());
-    //      }
-    //      else
-    //      {
-    //        $(this).css('border-color','red');
-    //        $('.error-msg').css('display', 'inline');
-    //        current_selections = [];
-    //        submitting = false;
-    //      }
-    //    });
-    //   }
+     if(current_selections.length != $("#new-form .member").length)
+     {
+       $("#new-form .member").each(function()
+       {
+         if(!exists($(this),current_selections) && exists($(this), members_))
+         {
+           $(this).css('border-color','green');
+           $('.error-msg').css('display', 'none');
+           current_selections.push($(this).val());
+         }
+         else
+         {
+           $(this).css('border-color','red');
+           $('.error-msg').css('display', 'inline');
+           current_selections = [];
+           submitting = false;
+         }
+       });
+      }
      if(submitting)
      {
 
@@ -237,6 +311,18 @@ $("body").on('click', '.delete',function(e){
      {
        $(this).css('display', 'none');
        update_value($('.submit'));
+       var message = choose_date();
+       if(message == -1)
+       {
+         $(".final-message").css('color', 'red');
+         $(".final-message").html('The date undefined. Please, chose a manual date or go back and add dates');
+       }
+       else
+       {
+         $(".final-message").css('color', 'green');
+         $(".final-message").html('The chosen date is  ' + message.date + ' ' + message.when + ' . Click submit, please!');
+       }
+
      }
    }
  });
