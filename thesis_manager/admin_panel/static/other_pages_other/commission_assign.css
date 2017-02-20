@@ -37,6 +37,18 @@
   padding-left: 50%;
 }
 
+#man-date-section
+{
+  padding-right: 35%;
+  padding-top: 0%;
+  padding-left: 50%;
+}
+
+.ids
+{
+  display: none;
+}
+
 .bin span::before, .bin span::after
  {
   content: '';
@@ -243,5 +255,5 @@ input[type="checkbox"]:checked + label span::after {
 .final-message
 {
   display: inline;
-  
+
 }

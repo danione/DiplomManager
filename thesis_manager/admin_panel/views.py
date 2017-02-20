@@ -287,10 +287,26 @@ def commission_assign(request, student_id):
     student = Student.objects.get(id = student_id)
     people_in_system = ManagmentAndReview.objects.all()
 
+    request.session['student_id'] = student_id
+
     context = {'student': student, 'members': people_in_system}
     return render(request, 'commission_assign.html', context)
 
 def new_commission_handler(request):
+    chairman_ = ManagmentAndReview.objects.get(id = int(request.POST.get('ChairmanId')))
+    members = []
+    student_id = request.session['student_id']
+
+    members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member1Id'))))
+    members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member2Id'))))
+    members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member3Id'))))
+    place_ = request.POST.get('Place')
+    date_ = request.POST.get('ManualDate')
+    when_ = request.POST.get('morning/afternoon')
+
+
+    Commission(chairman = chairman_, place = place_, time = date_, when = when_).save()
+    print(Commission.objects.all())
     return HttpResponseRedirect('redirection')
 
 def listing(request):

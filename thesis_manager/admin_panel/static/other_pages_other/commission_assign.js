@@ -5,13 +5,34 @@ function exists(value, array)
   return false;
 }
 
+function exists_overall(value, array)
+{
+  var exists_in_array = false;
+  $.each(array,function(index,obj)
+  {
+    if(obj.value == value.val() && obj.id == parseInt(value.nextAll('input').first().val()))
+    {
+      exists_in_array = true;
+      return false;
+    }
+  });
+  return exists_in_array;
+}
+
 var dates = [];
 
 
 
- $(".member").autocomplete({
-   source: members_
- });
+$( function() {
+  $(".member").autocomplete({
+    source: all_members,
+   select: function(event, ui) {
+     $(this).nextAll('input').first().val(ui.item.id);
+  }
+   });
+
+});
+
 
 
  var steps = 0;
@@ -23,23 +44,28 @@ var dates = [];
         dateFormat: "dd-mm-yy",
         onClose:function(date_selected)
         {
-          if(date_selected)
+          if(steps != 0)
           {
-            if(jQuery.inArray(date_selected,dates) == -1)
-              $('.step-' + steps + ' > .date-selected').append("<div class=\"date-chosen\">" + date_selected + "<span class=\"delete\">X</span></div>");
+            if(date_selected)
+            {
+              if(jQuery.inArray(date_selected,dates) == -1)
+                $('.step-' + steps + ' > .date-selected').append("<div class=\"date-chosen\">" + date_selected + "<span class=\"delete\">X</span></div>");
+            }
+            $(this).val('');
+
           }
-          $(this).val('');
         }
        });
+
 
   } );
 
  var max_steps = parseInt($(".steps").children().last().attr('class').split('-')[1]);
 
- function hide_components()
+ function hide_components(section)
  {
    $(".hide-seek").css('display', 'none');
-   $(".section").css('display', 'none');
+   $(section).css('display', 'none');
    $(".prev").css('display', 'inline');
  }
 
@@ -92,7 +118,7 @@ $("body").on('click', '.date-chosen',function(){
     val: value,
     morning: false,
     afternoon: false,
-    person: current_selections[get_person($(this)) - 1]
+    person: current_selections[get_person($(this)) - 1].value
   };
   if(!exists_dict(day, dates))
   {
@@ -142,7 +168,7 @@ $(".morning").click(function()
   var current_member = $(this).parents().eq(2).prop('className').split('-')[1];
   $.each(dates, function(index, obj)
   {
-    if(obj.val == value.val() && current_selections[current_member - 1] == obj.person)
+    if(obj.val == value.val() && current_selections[current_member - 1].value == obj.person)
     {
       obj.morning = current_state;
       return false;
@@ -159,7 +185,7 @@ $(".afternoon").click(function()
 
   $.each(dates, function(index, obj)
   {
-    if(obj.val == value.val() && current_selections[current_member - 1] == obj.person)
+    if(obj.val == value.val() && current_selections[current_member - 1].value == obj.person)
     {
       obj.afternoon = current_state;
       return false;
@@ -179,7 +205,7 @@ $("body").on('click', '.delete',function(e){
 
 function choose_date()
 {
-  var first_person = current_selections[0];
+  var first_person = current_selections[0].value;
   var first_person_array = [];
   $.each(dates,function(index,obj)
   {
@@ -248,37 +274,37 @@ function choose_date()
    if(steps == 0)
    {
      var submitting = true;
+     current_selections = [];
 
-     if(current_selections.length != $("#new-form .member").length)
+     $("#new-form .member").each(function()
      {
-       $("#new-form .member").each(function()
+       if(!exists_overall($(this),current_selections) && exists_overall($(this), all_members))
        {
-         if(!exists($(this),current_selections) && exists($(this), members_))
-         {
-           $(this).css('border-color','green');
-           $('.error-msg').css('display', 'none');
-           current_selections.push($(this).val());
-         }
-         else
-         {
-           $(this).css('border-color','red');
-           $('.error-msg').css('display', 'inline');
-           current_selections = [];
-           submitting = false;
-         }
-       });
-      }
+         $(this).css('border-color','green');
+         $('.error-msg').css('display', 'none');
+         var value_this = {id:$(this).nextAll('input').first().val(), value: $(this).val() }
+         current_selections.push(value_this);
+       }
+       else
+       {
+         $(this).css('border-color','red');
+         $('.error-msg').css('display', 'inline');
+         current_selections = [];
+         submitting = false;
+       }
+     });
      if(submitting)
      {
 
        if($("#Place").val())
        {
+         $("#Place").css('border-color', 'green');
          if($("#automatic").is(":checked"))
          {
            $(".heading").css('color', '');
            steps++;
            update_value($(this));
-           hide_components();
+           hide_components('#date-section');
            $(".automatic-date").css('display', 'block');
            $(".manual-date").css('display', 'none');
            $(".step-"+steps).css('display','block');
@@ -286,9 +312,12 @@ function choose_date()
          else if($("#manual").is(":checked"))
          {
            $(".heading").css('color', '');
-           hide_components();
+           hide_components('#date-section');
+           $('#man-date-section').css('display', 'block');
            $(".automatic-date").css('display', 'none');
            $(".manual-date").css('display', 'block');
+           update_value($('.submit'));
+           $(this).css('display', 'none');
          }
          else
          {
@@ -321,6 +350,11 @@ function choose_date()
        {
          $(".final-message").css('color', 'green');
          $(".final-message").html('The chosen date is  ' + message.date + ' ' + message.when + ' . Click submit, please!');
+         $("#ManualDate").val(message.date);
+         if(message.when == 'Morning')
+          $("#man_morning").prop('checked', true);
+         else
+          $("#man_afternoon").prop('checked', true);
        }
 
      }
@@ -329,26 +363,40 @@ function choose_date()
 
 $(".prev").click(function()
 {
-  $(".step-" + steps).css('display','none');
-  steps--;
-  if( steps == 0)
+  var is_manual = $("#manual").is(":checked");
+  if(is_manual)
   {
-    $(".section").css('display', 'block');
+    $("#date-section").css('display', 'block');
     $(".hide-seek").css('display', 'block');
     fix_value($(".next"));
+    $('#man-date-section').css('display', 'none');
     $(this).css('display', 'none');
+    $(".manual-date").css('display', 'none');
+    $(".submit").css('display', 'none');
     return;
   }
-  else if(steps == max_steps - 1)
+  else
   {
-    fix_value($(".submit"));
-    update_value($(".next"));
-    $(".submit").css('display', 'none');
+    $(".step-" + steps).css('display','none');
+    steps--;
+    if( steps == 0)
+    {
+      $("#date-section").css('display', 'block');
+      $(".hide-seek").css('display', 'block');
+      fix_value($(".next"));
+      $(this).css('display', 'none');
+      return;
+    }
+    else if(steps == max_steps - 1)
+    {
+      fix_value($(".submit"));
+      update_value($(".next"));
+      $(".submit").css('display', 'none');
+    }
+    $(".step-" + steps).css('display','block');
+
   }
-  $(".step-" + steps).css('display','block');
 });
-
-
 
 $(".submit").click(function()
 {

@@ -57,8 +57,9 @@ class Choice(models.Model):
 class Commission(BasicModel):
     chairman = models.ForeignKey(ManagmentAndReview, on_delete=models.CASCADE, null = True)
     commissioners = models.ManyToManyField(ManagmentAndReview, related_name = "commissioners")
-    place = models.CharField(max_length = 30, default = "none")
-    time = models.DateTimeField(null = True)
+    place = models.CharField(max_length = 300, default = "none")
+    time = models.CharField(max_length = 60,default = "none")
+    when = models.CharField(max_length = 30, default = "never")
     students = models.ManyToManyField(Student, related_name = "students_in_commission")
 
 

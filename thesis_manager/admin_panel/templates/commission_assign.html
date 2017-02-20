@@ -28,28 +28,36 @@
               <form id="new-form" action=" {% url 'new_commission_handler' %}" method="post">
                 {% csrf_token %}
                 <script>
-                  var members_ = [];
+                  var all_members = [];
                 </script>
                 {% for member in members %}
                 <script>
-                 members_.push("{{member.name}}");
+                 var mem ={
+                    id: "{{member.id}}",
+                    value: "{{member.name}}"
+                 };
+                 all_members.push(mem);
                 </script>
                 {% endfor %}
 
                 <div class="hide-seek">
                   <label for="Chairman">Chairman:</label><br>
                   <input id="Chairman" type="text" name="Chairman" class="member"><br>
+                  <input name="ChairmanId" class="ids"/>
                   <label for="Member1">Member №1:</label><br>
-                  <input id="Member1" type="text" name="Member1" class="member"><br>
+                  <input id="Member1" type="text" name="Member1Id" class="member"><br>
+                  <input name="Member1Id" class="ids"/>
                   <label for="Member2">Member №2:</label><br>
-                  <input id="Member2" type="text" name="Member2" class="member"><br>
+                  <input id="Member2" type="text" name="Member2Id" class="member"><br>
+                  <input name="Member2Id" class="ids"/>
                   <label for="Member3">Member №3:</label><br>
-                  <input id="Member3" type="text" name="Member3" class="member"><br>
-                  <label for="Place">Place: (only class room)</label><br>
-                  <input id="Place" type="text" name="Place" data-validation="number required" data-validation-allowing="range[21;27]"><br>
+                  <input id="Member3" type="text" name="Member3Id" class="member"><br>
+                  <input name="Member3Id" class="ids"/>
+                  <label for="Place">Place:</label><br>
+                  <input id="Place" type="text" name="Place" data-validation="length custom" data-validation-length="max300" data-validation-regexp="^[\wа-яА-Я]\D+$"><br>
 
                   <h3 class="heading">Automatic or manual date:</h3>
-                  <section class="section">
+                  <section class="section" id="date-section">
                     <div class="bin">
                       <input type="radio" name="auto/manual" id="automatic">
                       <label for="automatic">
@@ -138,7 +146,22 @@
                   </div>
               </div>
               <div class="manual-date">
-                Man
+                <label for="ManualDate">Manual Date:</label><br>
+                <input id="ManualDate" type="text" name="ManualDate" class="datepicker" data-validation="length custom" data-validation-length="max300" data-validation-regexp="^[0-9-]+$"><br>
+                <section class="section" id="man-date-section">
+                  <div class="bin">
+                    <input type="radio" name="morning/afternoon" id="man_morning" value="morning" checked>
+                    <label for="man_morning">
+                      <span class="radio">Morning</span>
+                    </label>
+                  </div>
+                  <div class="bin">
+                    <input type="radio" name="morning/afternoon" id="man_afternoon" value="afternoon">
+                    <label for="man_afternoon">
+                      <span class="radio">Afternoon</span>
+                    </label>
+                  </div>
+                </section>
               </div>
               <div class="buttons-down">
                 <a><div class="prev">Back</div></a>
