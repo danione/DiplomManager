@@ -296,17 +296,31 @@ def new_commission_handler(request):
     chairman_ = ManagmentAndReview.objects.get(id = int(request.POST.get('ChairmanId')))
     members = []
     student_id = request.session['student_id']
-
+    student = Student.objects.get(id = student_id)
     members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member1Id'))))
     members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member2Id'))))
     members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member3Id'))))
     place_ = request.POST.get('Place')
     date_ = request.POST.get('ManualDate')
     when_ = request.POST.get('morning/afternoon')
+    category_ = student.current_thesis.category
 
+    commission = Commission(name = category_ +
+                            " " + date_ +
+                            " " + when_ +
+                            " " + place_,
+                            category = category_,
+                            chairman = chairman_,
+                            place = place_,
+                            time = date_,
+                            when = when_)
+    commission.save()
+    for member in members:
+        commission.commissioners.add(member)
+    commission.students.add(student)
+    commission.save()
 
-    Commission(chairman = chairman_, place = place_, time = date_, when = when_).save()
-    print(Commission.objects.all())
+    print(commission)
     return HttpResponseRedirect('redirection')
 
 def listing(request):
