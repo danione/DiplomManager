@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^prearranged_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='prearranged_handler/redirection'),
     url(r'^new_commission_handler/$', views.new_commission_handler, name='new_commission_handler'),
     url(r'^new_commission_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='new_commission_handler/redirection'),
+    url(r'^existing_commission_handler/$', views.existing_commission_handler, name='existing_commission_handler'),
+    url(r'^existing_commission_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='existing_commission_handler/redirection'),
     url(r'^reviewer_connect/$', views.reviewer_connect, name='reviewer_connect'),
     url(r'^reviewer_connect/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='reviewer_connect/redirection'),
     url(r'^graduate/$', views.graduate, name='graduate'),

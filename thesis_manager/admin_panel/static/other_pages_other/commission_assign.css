@@ -1,20 +1,18 @@
 .new-commission, .existing-commission
 {
-  position: relative;
+  position: absolute;
   width: 20%;
-  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
-  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
-  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
-  transition: visibility 0s, opacity 0.5s ease-in-out;
+  -webkit-transition: visibility 0s, opacity 0.5s , position 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s, position 0.5s  ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s, position 0.5s  ease-in-out;
+  transition: visibility 0s, opacity 0.5s, position 0.5s  ease-in-out;
   visibility: hidden;
   opacity: 0;
   margin: auto;
   margin-top: 4%;
-  height: 0;
   text-align: center;
+  height: 0;
 }
-
-
 
 .bin
 {
@@ -256,4 +254,41 @@ input[type="checkbox"]:checked + label span::after {
 {
   display: inline;
 
+}
+
+
+.simple-table, .simple-table th, .simple-table td
+{
+  border-collapse: collapse;
+  margin: auto;
+  border: 1px solid black;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+.simple-table th,td
+{
+  padding-top: 1em;
+  padding-bottom: 1em;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.simple-table td
+{
+  text-align: center;
+  cursor: pointer;
+}
+.simple-table td:hover
+{
+  background-color: #002240 !important;
+  color: #fff !important;
+}
+
+
+.load-field
+{
+  display: none;
 }

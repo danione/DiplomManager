@@ -286,10 +286,10 @@ def reviewer_connect(request):
 def commission_assign(request, student_id):
     student = Student.objects.get(id = student_id)
     people_in_system = ManagmentAndReview.objects.all()
-
+    commissions = Commission.objects.filter(category = student.current_thesis.category)
     request.session['student_id'] = student_id
 
-    context = {'student': student, 'members': people_in_system}
+    context = {'student': student, 'members': people_in_system, 'commissions': commissions}
     return render(request, 'commission_assign.html', context)
 
 def new_commission_handler(request):
@@ -303,8 +303,8 @@ def new_commission_handler(request):
     place_ = request.POST.get('Place')
     date_ = request.POST.get('ManualDate')
     when_ = request.POST.get('morning/afternoon')
-    category_ = student.current_thesis.category
 
+    category_ = student.current_thesis.category
     commission = Commission(name = category_ +
                             " " + date_ +
                             " " + when_ +
@@ -320,7 +320,16 @@ def new_commission_handler(request):
     commission.students.add(student)
     commission.save()
 
-    print(commission)
+    return HttpResponseRedirect('redirection')
+
+def existing_commission_handler(request):
+    student_id = request.session['student_id']
+    student = Student.objects.get(id = student_id)
+    commission = Commission.objects.get(id = int(request.POST.get('load')))
+
+    commission.students.add(student)
+    commission.save()
+
     return HttpResponseRedirect('redirection')
 
 def listing(request):

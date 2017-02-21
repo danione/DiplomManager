@@ -33,13 +33,19 @@ function find_name(current_name)
         current = $(current).parent().get(0).tagName;
   }
 }
-
+var first_time = true;
 $(".table td").click(function()
-  {
+{
+
+
     if(has_previous)
     {
+      $(previous_content).css('left', '0');
+      $(previous_content).css('right', '0');
       $(previous_content).css('visibility', 'hidden');
       $(previous_content).css('opacity', '0');
+      $(previous_content).css('height', '0');
+      $(previous_content).css('position', 'absolute');
     }
     content = this;
     has_previous = click_change(content, has_previous, previous);
@@ -48,6 +54,15 @@ $(".table td").click(function()
     var appearing_content = "." + current_class + "-" + find_name(current_class);
     $(appearing_content).css('visibility', 'visible');
     $(appearing_content).css('opacity', '1');
+    $(appearing_content).css('height', 'inherit');
+    $(appearing_content).css('position','relative');
+    $(appearing_content).css('left', '');
+    $(appearing_content).css('right', '');
+    if(first_time && appearing_content == '.new-commission' )
+    {
+      first_time = false;
+      $(".new-commission").css('margin-bottom', "-" + $(".new-commission").outerHeight(true));
+    }
     previous = content;
     previous_content = appearing_content;
   }
