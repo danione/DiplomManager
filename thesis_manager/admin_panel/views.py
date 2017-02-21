@@ -333,4 +333,4 @@ def existing_commission_handler(request):
     return HttpResponseRedirect('redirection')
 
 def listing(request):
-    return HttpResponse("listing")
+    return render(request, 'listing.html')
