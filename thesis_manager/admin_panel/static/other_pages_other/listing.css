@@ -1,0 +1,15 @@
+.managment-listing, .students-listing, .commissions-listing, .thesis-listing
+{
+  position: relative;
+  width: 20%;
+  -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
+  -o-transition: visibility 0s, opacity 0.5s ease-in-out;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin: auto;
+  margin-top: 4%;
+  height: 0;
+  text-align: center;
+}
