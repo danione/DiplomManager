@@ -333,4 +333,10 @@ def existing_commission_handler(request):
     return HttpResponseRedirect('redirection')
 
 def listing(request):
-    return render(request, 'listing.html')
+    students = init_list()
+    man_review = ManagmentAndReview.objects.all()
+    thesis_topics = Thesis.objects.all()
+    commissions = Commission.objects.all()
+
+    context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
+    return render(request, 'listing.html', context)

@@ -27,18 +27,142 @@
     </table>
   </div>
   <div class="options">
-    <div class="students-listing">
-      Students
+    <div class=" table-des students-listing">
+      <table>
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>See more</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if students %}
+            {% for student in students %}
+            <tr>
+              <td>{{ student.number }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.class_char }}</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td colspan="4" class="border">
+                <div class="box">
+                  <hr>
+                </div>
+              </td>
+            <tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
     </div>
-    <div class="managment-listing">
-      ManagmentAndReview
+    <div class="table-des managment-listing">
+      <table>
+        <thead>
+          <tr>
+            <th>Titles</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>See more</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if man_review %}
+            {% for person in man_review %}
+            <tr>
+              <td>{{ person.titles }}</td>
+              <td>{{ person.name }}</td>
+              <td>{{ person.category }}</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td colspan="4" class="border">
+                <div class="box">
+                  <hr>
+                </div>
+              </td>
+            <tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
     </div>
-    <div class="thesis-listing">
-      Thesis
+    <div class="table-des thesis-listing">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Teacher</th>
+            <th>See more</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if thesis_topics %}
+            {% for thesis in thesis_topics %}
+            <tr>
+              <td>{{ thesis.name }}</td>
+              <td>{{ thesis.category }}</td>
+              <td>{{ thesis.supervisor }}</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td colspan="4" class="border">
+                <div class="box">
+                  <hr>
+                </div>
+              </td>
+            <tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
     </div>
 
-    <div class="commissions-listing">
-      Commissions
+    <div class="table-des commissions-listing">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Place</th>
+            <th>Date</th>
+            <th>See more</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if commissions %}
+            {% for commission in commissions %}
+            <tr>
+              <td>{{ commission.category }}</td>
+              <td>{{ commission.place }}</td>
+              <td>{{ commission.time}} {{ commission.when}}</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td colspan="4" class="border">
+                <div class="box">
+                  <hr>
+                </div>
+              </td>
+            <tr>  <tr>
+                <td>{{ commission.category }}</td>
+                <td>{{ commission.place }}</td>
+                <td>{{ commission.time}} {{ commission.when}}</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td colspan="4" class="border">
+                  <div class="box">
+                    <hr>
+                  </div>
+                </td>
+              <tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

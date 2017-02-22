@@ -1,7 +1,7 @@
 .managment-listing, .students-listing, .commissions-listing, .thesis-listing
 {
   position: relative;
-  width: 20%;
+  width: 60%;
   -webkit-transition: visibility 0s, opacity 0.5s ease-in-out;
   -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
   -o-transition: visibility 0s, opacity 0.5s ease-in-out;
@@ -13,3 +13,82 @@
   height: 0;
   text-align: center;
 }
+
+
+.table-des table
+{
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+
+}
+
+.table-des th
+{
+  font-weight: normal;
+  border-bottom: 1px solid #0073D9;
+  color: #0073D9;
+  text-align: center;
+  padding-bottom: 1em;
+  padding-left: 0.5em;
+  padding-top: 1em;
+  text-transform: uppercase;
+  width: 25%;
+}
+
+
+
+.table-des td
+{
+  text-align: center;
+  padding-left: 0.15em;
+  padding-left: 0.5em;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  color: #0065BF;
+}
+
+.border
+{
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.box
+{
+  width: 100%;
+}
+
+.box hr
+{
+  width: 70%;
+  border-top: 1px;
+  border-color: #0065BF;
+  -webkit-transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -o-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out;
+}
+
+
+.table-des tr:hover, .table-des tr:hover + tr .box hr {
+  width: 100%;
+
+}
+
+
+
+
+
+
+/*
+tbody tr:nth-child(even) {
+   background-color: #0065BF;
+}
+
+tbody tr:nth-child(odd) {
+   background-color: #007AE6;
+}*/
