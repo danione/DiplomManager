@@ -20,13 +20,14 @@
     <table class="table" id="listing">
       <tr>
         <td><div class="students">Students</div></td>
-        <td><div class="managment">Managment and Review</div></td>
+        <td><div class="management">Management and Review</div></td>
         <td><div class="thesis">Thesis</div></td>
         <td><div class="commissions">Commissions</div></td>
       </tr>
     </table>
   </div>
   <div class="options">
+    {% if students %}
     <div class=" table-des students-listing">
       <table>
         <thead>
@@ -38,27 +39,71 @@
           </tr>
         </thead>
         <tbody>
-          {% if students %}
             {% for student in students %}
             <tr>
               <td>{{ student.number }}</td>
               <td>{{ student.name }}</td>
               <td>{{ student.class_char }}</td>
-              <td>Yes</td>
+              <td>Click</td>
             </tr>
             <tr>
               <td colspan="4" class="border">
                 <div class="box">
                   <hr>
                 </div>
+
               </td>
             <tr>
+            <tr>
+              <td colspan="4" class="information-cell">
+                <div class="information">
+                  <div class="first_row">
+                    <span class="heading_row">Number:</span>
+                    {{ student.number }}<br>
+                    <span class="heading_row">Name:</span>
+                    {{ student.name }}<br>
+                    <span class="heading_row">Class:</span>
+                    {{ student.class_char }}<br>
+                    <span class="heading_row">Progress:</span>
+                    {{ student.progress }}<br>
+                    <span class="heading_row">Did hand the document:</span>
+                    {{ student.handed_document_over }}<br>
+                    <span class="heading_row">Did hand the assignment:</span>
+                    {{ student.handed_assignment_over }}<br>
+                    <span class="heading_row">Did hand the documentation:</span>
+                    {{ student.handed_documentation_over }}<br>
+                  </div>
+                  <div class="second_row">
+                    <span class="heading_row">Class Type:</span>
+                    {{ student.category }}<br>
+                    <span class="heading_row">Assigned Supervisor:</span>
+                    {{ student.current_thesis.supervisor }}<br>
+                    <span class="heading_row">Thesis:</span>
+                    {{ student.current_thesis }}<br>
+                    <span class="heading_row">Assigned Reviewer:</span>
+                    {{ student.assigned_reviewer }}<br>
+                    <span class="heading_row">Current Period Of Studying:</span>
+                    {{ student.study_period }}<br>
+                    {% if student.choice_set.all %}
+                      {% for choice in student.choice_set.all %}
+                        <span class="heading_row">Choice {{ choice.number }} :</span>
+                        {{ choice.thesis }}<br>
+
+                      {% endfor %}
+                    {% endif %}
+
+
+                  </div>
+                </div>
+              </td>
+            </tr>
             {% endfor %}
-          {% endif %}
         </tbody>
       </table>
     </div>
-    <div class="table-des managment-listing">
+    {% endif %}
+    {% if man_review %}
+    <div class="table-des management-listing">
       <table>
         <thead>
           <tr>
@@ -69,13 +114,12 @@
           </tr>
         </thead>
         <tbody>
-          {% if man_review %}
             {% for person in man_review %}
             <tr>
               <td>{{ person.titles }}</td>
               <td>{{ person.name }}</td>
               <td>{{ person.category }}</td>
-              <td>Yes</td>
+              <td>Click</td>
             </tr>
             <tr>
               <td colspan="4" class="border">
@@ -84,11 +128,53 @@
                 </div>
               </td>
             <tr>
+              <tr>
+                <td colspan="4" class="information-cell">
+                  <div class="information">
+                    <div class="first_row">
+                      <span class="heading_row">Number:</span>
+                      {{ student.number }}<br>
+                      <span class="heading_row">Name:</span>
+                      {{ student.name }}<br>
+                      <span class="heading_row">Class:</span>
+                      {{ student.class_char }}<br>
+                      <span class="heading_row">Progress:</span>
+                      {{ student.progress }}<br>
+                      <span class="heading_row">Did hand the document:</span>
+                      {{ student.handed_document_over }}<br>
+                      <span class="heading_row">Did hand the assignment:</span>
+                      {{ student.handed_assignment_over }}<br>
+                      <span class="heading_row">Did hand the documentation:</span>
+                      {{ student.handed_documentation_over }}<br>
+                    </div>
+                    <div class="second_row">
+                      <span class="heading_row">Assigned Supervisor:</span>
+                      {{ student.current_thesis.supervisor }}<br>
+                      <span class="heading_row">Thesis:</span>
+                      {{ student.current_thesis }}<br>
+                      <span class="heading_row">Assigned Reviewer:</span>
+                      {{ student.assigned_reviewer }}<br>
+                      <span class="heading_row">Current Period Of Studying:</span>
+                      {{ student.study_period }}<br>
+                      {% if student.choice_set.all %}
+                        {% for choice in student.choice_set.all %}
+                          <span class="heading_row">Choice {{ choice.number }} :</span>
+                          {{ choice.thesis }}<br>
+
+                        {% endfor %}
+                      {% endif %}
+
+
+                    </div>
+                  </div>
+                </td>
+              </tr>
             {% endfor %}
-          {% endif %}
         </tbody>
       </table>
     </div>
+    {% endif %}
+    {% if thesis_topics %}
     <div class="table-des thesis-listing">
       <table>
         <thead>
@@ -100,13 +186,12 @@
           </tr>
         </thead>
         <tbody>
-          {% if thesis_topics %}
             {% for thesis in thesis_topics %}
             <tr>
               <td>{{ thesis.name }}</td>
               <td>{{ thesis.category }}</td>
               <td>{{ thesis.supervisor }}</td>
-              <td>Yes</td>
+              <td>Click</td>
             </tr>
             <tr>
               <td colspan="4" class="border">
@@ -116,11 +201,12 @@
               </td>
             <tr>
             {% endfor %}
-          {% endif %}
         </tbody>
       </table>
     </div>
+    {% endif %}
 
+    {% if commissions %}
     <div class="table-des commissions-listing">
       <table>
         <thead>
@@ -132,13 +218,12 @@
           </tr>
         </thead>
         <tbody>
-          {% if commissions %}
             {% for commission in commissions %}
             <tr>
               <td>{{ commission.category }}</td>
               <td>{{ commission.place }}</td>
               <td>{{ commission.time}} {{ commission.when}}</td>
-              <td>Yes</td>
+              <td>Click</td>
             </tr>
             <tr>
               <td colspan="4" class="border">
@@ -146,24 +231,12 @@
                   <hr>
                 </div>
               </td>
-            <tr>  <tr>
-                <td>{{ commission.category }}</td>
-                <td>{{ commission.place }}</td>
-                <td>{{ commission.time}} {{ commission.when}}</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td colspan="4" class="border">
-                  <div class="box">
-                    <hr>
-                  </div>
-                </td>
-              <tr>
+            <tr>
             {% endfor %}
-          {% endif %}
         </tbody>
       </table>
     </div>
+    {% endif %}
   </div>
 </div>
 

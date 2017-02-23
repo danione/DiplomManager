@@ -3,7 +3,7 @@
 # Archives
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Student, ManagmentAndReview, Thesis, Commission, Choice
+from .models import Student, ManagementAndReview, Thesis, Commission, Choice
 from django.shortcuts import get_object_or_404
 from operator import itemgetter,attrgetter
 import csv
@@ -139,7 +139,7 @@ def supervisor_handler(request):
         category_ = request.POST.get('Category')
         titles_ = request.POST.get('Title')
         workplace_ = request.POST.get('Work')
-        ManagmentAndReview(name = name_ , category = category_, titles = titles_ , workplace = workplace_).save()
+        ManagementAndReview(name = name_ , category = category_, titles = titles_ , workplace = workplace_).save()
         return HttpResponseRedirect('redirection')
     return render(request, 'upload_supervisors.html')
 
@@ -155,12 +155,12 @@ def reviewer_handler(request):
         category_ = request.POST.get('Category')
         titles_ = request.POST.get('Title')
         workplace_ = request.POST.get('Work')
-        ManagmentAndReview(name = name_ ,category = category_, titles = titles_ , workplace = workpace_).save()
+        ManagementAndReview(name = name_ ,category = category_, titles = titles_ , workplace = workpace_).save()
         return HttpResponseRedirect('redirection')
     return render(request, 'upload_reviewers.html')
 
 def upload_thesis(request):
-    supervisors = ManagmentAndReview.objects.all()
+    supervisors = ManagementAndReview.objects.all()
     thesis_topics = Thesis.objects.all()
     context = {'supervisors': supervisors, 'thesis_topics': thesis_topics}
     return render(request, 'upload_thesis.html', context)
@@ -171,7 +171,7 @@ def thesis_handler(request):
         description_ = request.POST.get('ThesisDescription')
         category_ = request.POST.get('Category')
         supervisor_ = request.POST.get('Supervisor')
-        Thesis(name = description_, category = category_, supervisor = ManagmentAndReview.objects.get(name = supervisor_)).save()
+        Thesis(name = description_, category = category_, supervisor = ManagementAndReview.objects.get(name = supervisor_)).save()
         return HttpResponseRedirect('redirection')
 
     return render(request, 'upload_thesis.html')
@@ -266,7 +266,7 @@ def handed_documentation_over(request, student_id):
     return HttpResponseRedirect('redirection')
 
 def reviewer_assign(request, student_id):
-    reviewers = ManagmentAndReview.objects.all()
+    reviewers = ManagementAndReview.objects.all()
     request.session['student_id'] = student_id
     student = Student.objects.get(id = student_id)
 
@@ -278,14 +278,14 @@ def reviewer_connect(request):
         reviewer = request.POST.get('Reviewer')
         student_id = request.session['student_id']
         student = Student.objects.get(id = student_id)
-        student.assigned_reviewer = ManagmentAndReview.objects.get(name = reviewer)
+        student.assigned_reviewer = ManagementAndReview.objects.get(name = reviewer)
         student.save()
 
     return HttpResponseRedirect('redirection')
 
 def commission_assign(request, student_id):
     student = Student.objects.get(id = student_id)
-    people_in_system = ManagmentAndReview.objects.all()
+    people_in_system = ManagementAndReview.objects.all()
     commissions = Commission.objects.filter(category = student.current_thesis.category)
     request.session['student_id'] = student_id
 
@@ -293,13 +293,13 @@ def commission_assign(request, student_id):
     return render(request, 'commission_assign.html', context)
 
 def new_commission_handler(request):
-    chairman_ = ManagmentAndReview.objects.get(id = int(request.POST.get('ChairmanId')))
+    chairman_ = ManagementAndReview.objects.get(id = int(request.POST.get('ChairmanId')))
     members = []
     student_id = request.session['student_id']
     student = Student.objects.get(id = student_id)
-    members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member1Id'))))
-    members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member2Id'))))
-    members.append(ManagmentAndReview.objects.get(id = int(request.POST.get('Member3Id'))))
+    members.append(ManagementAndReview.objects.get(id = int(request.POST.get('Member1Id'))))
+    members.append(ManagementAndReview.objects.get(id = int(request.POST.get('Member2Id'))))
+    members.append(ManagementAndReview.objects.get(id = int(request.POST.get('Member3Id'))))
     place_ = request.POST.get('Place')
     date_ = request.POST.get('ManualDate')
     when_ = request.POST.get('morning/afternoon')
@@ -334,9 +334,9 @@ def existing_commission_handler(request):
 
 def listing(request):
     students = init_list()
-    man_review = ManagmentAndReview.objects.all()
+    man_review = ManagementAndReview.objects.all()
     thesis_topics = Thesis.objects.all()
     commissions = Commission.objects.all()
-
+    
     context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
     return render(request, 'listing.html', context)
