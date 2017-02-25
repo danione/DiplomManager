@@ -27,6 +27,19 @@ class Thesis(BasicModel):
     def __str__(self):
         return self.name
 
+
+class Commission(BasicModel):
+    chairman = models.ForeignKey(ManagementAndReview, on_delete=models.CASCADE, null = True)
+    commissioners = models.ManyToManyField(ManagementAndReview, related_name = "commissioners")
+    place = models.CharField(max_length = 50, default = "none")
+    date = models.CharField(max_length = 60,default = "none")
+    time = models.CharField(max_length = 30, default = "never")
+
+
+    def __str__(self):
+        return self.name
+
+
 class Student(BasicModel):
     class_char = models.CharField(max_length = 1)
     number = models.IntegerField()
@@ -40,7 +53,7 @@ class Student(BasicModel):
     study_period = models.CharField(max_length = 30,default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1))
     did_graduate = models.BooleanField(default = False)
     has_prearranged_thesis = models.BooleanField(default = True)
-
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, null=True, related_name = "commission")
 
     def __str__(self):
         return self.name
@@ -53,15 +66,3 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.student.name + "'s choice"
-
-class Commission(BasicModel):
-    chairman = models.ForeignKey(ManagementAndReview, on_delete=models.CASCADE, null = True)
-    commissioners = models.ManyToManyField(ManagementAndReview, related_name = "commissioners")
-    place = models.CharField(max_length = 50, default = "none")
-    time = models.CharField(max_length = 60,default = "none")
-    when = models.CharField(max_length = 30, default = "never")
-    students = models.ManyToManyField(Student, related_name = "students_in_commission")
-
-
-    def __str__(self):
-        return self.name

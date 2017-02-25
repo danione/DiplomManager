@@ -36,7 +36,7 @@ def admin_homepage(request):
     students_list_reviewer = [student for student in students_list_reviewer
                               if student.assigned_reviewer is None and student.did_graduate == False]
     students_list_commission = [student for student in students_list_commission
-                                if not student.students_in_commission.all() and student.did_graduate == False]
+                                if not student.commission  and student.did_graduate == False]
 
     context = {'students_list_document': students_list_document,'students_list_thesis' : students_list_thesis,
                'students_list_assignment' : students_list_assignment,'students_list_documentation': students_list_documentation,
@@ -304,22 +304,23 @@ def new_commission_handler(request):
     members.append(ManagementAndReview.objects.get(id = int(request.POST.get('Member3Id'))))
     place_ = request.POST.get('Place')
     date_ = request.POST.get('ManualDate')
-    when_ = request.POST.get('morning/afternoon')
+    time_ = request.POST.get('morning/afternoon')
 
     category_ = student.current_thesis.category
     commission = Commission(name = category_ +
                             " " + date_ +
-                            " " + when_ +
+                            " " + time_ +
                             " " + place_,
                             category = category_,
                             chairman = chairman_,
                             place = place_,
-                            time = date_,
-                            when = when_)
+                            date = date_,
+                            time = time_)
     commission.save()
     for member in members:
         commission.commissioners.add(member)
-    commission.students.add(student)
+    student.commission = commission
+    student.save()
     commission.save()
 
     return HttpResponseRedirect('redirection')
@@ -329,7 +330,8 @@ def existing_commission_handler(request):
     student = Student.objects.get(id = student_id)
     commission = Commission.objects.get(id = int(request.POST.get('load')))
 
-    commission.students.add(student)
+    student.commission = commission
+    student.save()
     commission.save()
 
     return HttpResponseRedirect('redirection')
