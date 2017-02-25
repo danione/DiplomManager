@@ -28,7 +28,7 @@
   </div>
   <div class="options">
     {% if students %}
-    <div class=" table-des students-listing">
+    <div class="table-des students-listing">
       <table>
         <thead>
           <tr>
@@ -40,7 +40,7 @@
         </thead>
         <tbody>
             {% for student in students %}
-            <tr>
+            <tr class="info">
               <td>{{ student.number }}</td>
               <td>{{ student.name }}</td>
               <td>{{ student.class_char }}</td>
@@ -53,8 +53,8 @@
                 </div>
 
               </td>
-            <tr>
-            <tr>
+            </tr>
+            <tr class="information-row">
               <td colspan="4" class="information-cell">
                 <div class="information">
                   <div class="first_row">
@@ -127,42 +127,71 @@
                   <hr>
                 </div>
               </td>
-            <tr>
-              <tr>
+              <tr class="information-row">
                 <td colspan="4" class="information-cell">
                   <div class="information">
                     <div class="first_row">
-                      <span class="heading_row">Number:</span>
-                      {{ student.number }}<br>
+                      <span class="heading_row">Personal Titles:</span>
+                      {{ person.titles }}<br>
                       <span class="heading_row">Name:</span>
-                      {{ student.name }}<br>
-                      <span class="heading_row">Class:</span>
-                      {{ student.class_char }}<br>
-                      <span class="heading_row">Progress:</span>
-                      {{ student.progress }}<br>
+                      {{ person.name }}<br>
+                      <span class="heading_row">Speciality:</span>
+                      {{ person.category }}<br>
+                      <span class="heading_row">Workplace:</span>
+                      {{ person.workplace }}<br>
                       <span class="heading_row">Did hand the document:</span>
                       {{ student.handed_document_over }}<br>
-                      <span class="heading_row">Did hand the assignment:</span>
-                      {{ student.handed_assignment_over }}<br>
-                      <span class="heading_row">Did hand the documentation:</span>
-                      {{ student.handed_documentation_over }}<br>
+
+                      {% if person.reviewer.all %}
+                        <span class="heading_row">Reviewer to :</span><br>
+                        {% for student in person.reviewer.all %}
+                          {{ student.name }}<br>
+                        {% endfor %}
+
+
+                        <span class="heading_row">Sum :</span>
+                        {% if person.reviewer.all.count == 1 %}
+                          {{ person.reviewer.all.count }} student<br>
+                        {% else %}
+                          {{ person.reviewer.all.count }} students<br>
+                        {% endif %}
+
+                      {% endif %}
+
+
+
+                      {% if person.commission_set.all or person.commissioners.all %}
+                        <span class="heading_row">In :</span>
+                        {{ person.commission_set.all.count}} commissions - chairman<br>
+                        {{ person.commissioners.all.count}} commissions - commissioner<br>
+
+                      {% endif %}
+
                     </div>
                     <div class="second_row">
-                      <span class="heading_row">Assigned Supervisor:</span>
-                      {{ student.current_thesis.supervisor }}<br>
-                      <span class="heading_row">Thesis:</span>
-                      {{ student.current_thesis }}<br>
-                      <span class="heading_row">Assigned Reviewer:</span>
-                      {{ student.assigned_reviewer }}<br>
-                      <span class="heading_row">Current Period Of Studying:</span>
-                      {{ student.study_period }}<br>
-                      {% if student.choice_set.all %}
-                        {% for choice in student.choice_set.all %}
-                          <span class="heading_row">Choice {{ choice.number }} :</span>
-                          {{ choice.thesis }}<br>
+                      {% if person.supervisor.all %}
+                        <span class="heading_row">Supervisor to :</span><br>
+                        {% for student in person.supervisor.all %}
+                          {{ student.name }}<br>
+                        {% endfor %}
+
+                        <span class="heading_row">Sum:</span>
+                        {% if person.supervisor.all.count == 1 %}
+                          {{ person.supervisor.all.count }} student<br>
+                        {% else %}
+                          {{ person.supervisor.all.count }} students<br>
+                        {% endif %}
+                      {% endif %}
+
+
+                      {% if person.thesis_set.all %}
+                      <span class="heading_row">Thesis Descriptions:</span><br>
+                        {% for thesis in person.thesis_set.all %}
+                          {{ thesis.name }}<br>
 
                         {% endfor %}
                       {% endif %}
+
 
 
                     </div>
@@ -241,6 +270,8 @@
 </div>
 
 <script src="{% static 'other_pages_other/container_js.js' %}"></script>
+<script src="{% static 'other_pages_other/listing.js' %}"></script>
+
 
 
 

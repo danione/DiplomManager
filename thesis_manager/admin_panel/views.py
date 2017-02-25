@@ -191,6 +191,7 @@ def prearranged_handler(request):
         student.current_thesis = thesis
         student.has_prearranged_thesis = True
         student.handed_document_over = True
+        student.assigned_supervisor = thesis.supervisor
         student.save()
 
         return HttpResponseRedirect('redirection')
@@ -247,6 +248,7 @@ def finilize(request, thesis_id):
 
     student.choice_set.clear()
     student.current_thesis = thesis
+    student.assigned_supervisor = thesis.supervisor
     student.save()
 
     return HttpResponseRedirect('redirection')
@@ -337,6 +339,6 @@ def listing(request):
     man_review = ManagementAndReview.objects.all()
     thesis_topics = Thesis.objects.all()
     commissions = Commission.objects.all()
-    
+
     context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
     return render(request, 'listing.html', context)

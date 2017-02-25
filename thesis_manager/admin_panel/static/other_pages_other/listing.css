@@ -92,7 +92,9 @@
   border: 1px solid #002240;
   background-color: #F2F3F5;
   color: #002240 !important;
+  display: none;
 }
+
 
 .first_row
 {
