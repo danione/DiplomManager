@@ -13,6 +13,8 @@ h1
   margin: auto;
   width: 70%;
   text-align: right;
+  -webkit-transition: margin 0.5s ease-in-out; /* Safari  */
+  transition: margin  0.5s ease-in-out;
 }
 
 #search-icon
@@ -54,8 +56,8 @@ input[type=text]
   border: none;
   color: #fff;
   font-family: 'Roboto', sans-serif;
-  -webkit-transition: width 0.5s ease-in-out; /* Safari  */
-  transition: width  0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out; /* Safari  */
+  transition: all  0.5s ease-in-out;
 }
 
 
@@ -157,5 +159,41 @@ table td:last-child
   .assign
   {
     width: 100%;
+  }
+}
+
+@media screen and (max-width:660px)
+{
+  table th
+  {
+    font-size: .9em;
+  }
+
+  table td
+  {
+    font-size: .9em;
+  }
+
+  h1
+  {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width:430px)
+{
+  table th
+  {
+    font-size: .7em;
+  }
+
+  table td
+  {
+    font-size: .7em;
+  }
+
+  h1
+  {
+    font-size: 1.2em;
   }
 }

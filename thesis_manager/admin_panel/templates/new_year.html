@@ -14,27 +14,21 @@
         <h1> Oops...</h1>
         <h2> You are about to finish the current year</h2>
 
-        <p> If you are certain, click "Yes", otherwise, click "No"! You can always
+        <p> If you are certain,enter the new year period in the field below and click "Yes" and , otherwise, click "No"! You can always
             return if you have maken a mistake. Just check Managing Years for loading.
         </p>
-        <div class="buttons">
-          <div class="first"><a href="{% url 'graduate' %}"><div class="tick"></div></a></div>
-          <div class="second"><a href="{% url 'admin_homepage' %}"><div class="cross"></div></a></div>
-        </div>
-      </div>
+
+        <form action=" {% url 'graduate' %}" method="post">
+          {% csrf_token %}
+         <input type="text" name="Period" data-validation="length custom" data-validation-length="max15" data-validation-regexp="^[0-9-]+$"><br>
+
+         <div class="buttons">
+            <div class="first"><a><div class="tick"></div></a></div>
+            <div class="second"><a href="{% url 'admin_homepage' %}"><div class="cross"></div></a></div>
+          </div>
+        </form>
 
 
-      <div class="footer">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <a href="http://www.elsys-bg.org/">
-          <img src="http://www.elsys-bg.org/wp-content/themes/elsys/images/logo.png" alt="Elsys Logo">
-        </a>
-        <div class="footer-text">
+        <script src="{% static 'other_pages_other/new_year.js' %}"></script>
 
-          Technological School Electronic Systems - Sofia <br>
-          &#169; Copyright 2016 - 2017. All Rights Reserved.
-        </div>
-      </div>
-    </div>
 {% endblock %}

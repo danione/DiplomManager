@@ -1,6 +1,9 @@
 from django.db import models
 import datetime
 
+class CurrentPeriod(models.Model):
+    id = models.AutoField(primary_key = True)
+    period = models.CharField(max_length = 15, default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1) )
 
 class BasicModel(models.Model):
     id = models.AutoField(primary_key = True)

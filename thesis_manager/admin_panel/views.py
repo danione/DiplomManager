@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Student, ManagementAndReview, Thesis, Commission, Choice
+from .models import Student, ManagementAndReview, Thesis, Commission, Choice, CurrentPeriod
 from django.shortcuts import get_object_or_404
 from operator import itemgetter,attrgetter
 import csv
@@ -25,7 +25,7 @@ def admin_homepage(request):
     students_list_document = [student for student in students_list_document
                               if student.handed_document_over == False and student.did_graduate == False]
     students_list_thesis = [student for student in students_list_thesis
-                            if student.has_prearranged_thesis == False and student.current_thesis is None]
+                            if student.has_prearranged_thesis == False and student.current_thesis is None and student.did_graduate == False]
     students_list_assignment = [student for student in students_list_assignment
                                 if student.handed_assignment_over == False and student.did_graduate == False]
     students_list_documentation = [student for student in students_list_documentation
@@ -45,6 +45,11 @@ def graduate(request):
     for student in current_students:
         student.did_graduate = True;
         student.save()
+    CurrentPeriod.objects.none()
+
+    period = CurrentPeriod(period = request.POST.get('Period'))
+    period.save()
+
     return HttpResponseRedirect('redirection')
 
 def new_year(request):
@@ -93,15 +98,14 @@ def man_years(request):
 
 
 def student_handler(request):
-    if request.method == 'POST':
-        name_ = request.POST.get('FullName')
-        class_ = request.POST.get('Class')
-        number_ = request.POST.get('Number')
-        category_ = request.POST.get('Category')
-        Student(name = name_ , class_char = class_ , number = number_ , category = category_).save()
-        return HttpResponseRedirect('redirection')
+    name_ = request.POST.get('FullName')
+    class_ = request.POST.get('Class')
+    number_ = request.POST.get('Number')
+    category_ = request.POST.get('Category')
+    period_ = CurrentPeriod.objects.first()
+    Student(name = name_ , class_char = class_ , number = number_ , category = category_, period = period_.period).save()
+    return HttpResponseRedirect('redirection')
 
-    return render(request, 'upload_students.html')
 
 def file_handler(request):
     if request.method == 'POST':

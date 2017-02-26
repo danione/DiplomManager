@@ -99,3 +99,22 @@ a
 {
   background: #002240;
 }
+
+@media screen and (max-width:370px)
+{
+  .buttons
+  {
+    padding-top: 15em;
+  }
+
+  .buttons div
+  {
+    width: 3em;
+    height: 3em;
+  }
+
+  .tick::before, .cross::before
+  {
+    font-size: 2.5em;
+  }
+}
