@@ -50,6 +50,10 @@ urlpatterns = [
     url(r'^(?P<thesis_id>[0-9]+)/update_thesis$', views.update_thesis, name='update_thesis'),
     url(r'^(?P<thesis_id>[0-9]+)/update_thesis/redirection/$', RedirectView.as_view(url=reverse_lazy('listing')), name='update_thesis/redirection'),
 
+
+    url(r'^(?P<commission_id>[0-9]+)/update_commission$', views.update_commission, name='update_commission'),
+    url(r'^(?P<commission_id>[0-9]+)/update_commission/redirection/$', RedirectView.as_view(url=reverse_lazy('listing')), name='update_commission/redirection'),
+
     url(r'^(?P<student_id>[0-9]+)/standard_thesis/$', views.standard_thesis, name='standard_thesis'),
     url(r'^(?P<student_id>[0-9]+)/handed_assignment_over/$', views.handed_assignment_over, name='handed_assignment_over'),
     url(r'^(?P<student_id>[0-9]+)/handed_documentation_over/$', views.handed_documentation_over, name='handed_documentation_over'),

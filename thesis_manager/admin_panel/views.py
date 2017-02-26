@@ -335,9 +335,9 @@ def existing_commission_handler(request):
 
 def listing(request):
     students = init_list()
-    man_review = ManagementAndReview.objects.all()
-    thesis_topics = Thesis.objects.all()
-    commissions = Commission.objects.all()
+    man_review = ManagementAndReview.objects.order_by('name')
+    thesis_topics = Thesis.objects.order_by('name')
+    commissions = Commission.objects.order_by('place')
 
     context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
     return render(request, 'listing.html', context)
@@ -380,3 +380,18 @@ def update_thesis(request, thesis_id):
     thesis.save()
 
     return HttpResponseRedirect('update_thesis/redirection')
+
+def update_commission(request, commission_id):
+    commission = Commission.objects.get(id = commission_id)
+    commission.place = request.POST.get('Place')
+    commission.date = request.POST.get('Date')
+    commission.time = request.POST.get(str(commission.id) + '-morning/afternoon')
+
+    for student in commission.commission.all():
+        if request.POST.get(str(student.id) + '-remove') == 'true':
+            commission.commission.remove(student)
+
+
+    commission.save()
+
+    return HttpResponseRedirect('update_commission/redirection')

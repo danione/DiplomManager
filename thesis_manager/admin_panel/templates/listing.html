@@ -7,6 +7,8 @@
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/container_css.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'other_pages_other/listing.css' %}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 
 {% endblock %}
@@ -29,6 +31,9 @@
   <div class="options">
     {% if students %}
     <div class="table-des students-listing">
+      <div class="search">
+        <input type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      </div>
       <table>
         <thead>
           <tr>
@@ -288,7 +293,7 @@
                 <div class="information">
                   <form action=" {% url 'update_thesis' thesis.id %}"  method="post">
                     {% csrf_token %}
-                    
+
                   <div class="first_row">
 
 
@@ -358,6 +363,9 @@
                   <img class="edit-icon" src="{% static 'other_pages_other/edit-icon.png' %}" alt="edit-icon">
                 </div>
                 <div class="information">
+                  <form action=" {% url 'update_commission' commission.id %}"  method="post">
+                    {% csrf_token %}
+
                   <div class="first_row">
                     <span class="heading_row">Chairman:</span>
                     {{ commission.chairman }}<br>
@@ -370,11 +378,25 @@
                     {{ commission.category }}<br>
 
                     <span class="heading_row">Place:</span>
-                    <input class="input-valid" type="text" name="Place" data-validation="length custom" data-validation-length="max50" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ commission.place }}"><br>
+                    <input class="input-valid" type="text" name="Place" data-validation="length custom" data-validation-length="max50" data-validation-regexp="^[\wа-яА-Я 0-9]+$" value="{{ commission.place }}"><br>
                     <text class="text-valid">{{ commission.place }}</text><br>
 
                     <span class="heading_row">When:</span>
-                    <input class="input-valid" type="text" class="datepicker" name="Date" id="4">
+                    <input class="input-valid datepicker" type="text" name="Date" readonly>
+                    <section class="input-valid section">
+                      <div class="bin">
+                        <input type="radio" name="{{commission.id}}-morning/afternoon" id="{{commission.id}}-man_morning" value="morning" checked>
+                        <label for="{{commission.id}}-man_morning">
+                          <span class="radio">Morning</span>
+                        </label>
+                      </div>
+                      <div class="bin">
+                        <input type="radio" name="{{commission.id}}-morning/afternoon" id="{{commission.id}}-man_afternoon" value="afternoon">
+                        <label for="{{commission.id}}-man_afternoon">
+                          <span class="radio">Afternoon</span>
+                        </label>
+                      </div>
+                    </section>
                     <text class="text-valid">{{ commission.date }} {{ commission.time }}</text><br>
                   </div>
 
@@ -384,7 +406,9 @@
                         <input class="remove" name="{{student.id}}-remove" value="false">
                         <div class="student-commission-information">{{ student.name }}</div><div class="remove-icon">X</div> <br>
                       {% endfor %}
+                      <a><div class="submit-form">Submit</div></a>
                   </div>
+                </form>
                 </div>
               </td>
             </tr>
@@ -397,7 +421,9 @@
 </div>
 
 <script src="{% static 'other_pages_other/container_js.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{% static 'other_pages_other/listing.js' %}"></script>
+
 
 
 

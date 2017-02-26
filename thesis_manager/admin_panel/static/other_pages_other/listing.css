@@ -155,4 +155,98 @@ form
   margin: auto;
   margin-top: 1em;
   display: none;
+  min-width: 4em;
+}
+
+.bin
+{
+  margin-bottom: 20%;
+}
+
+.bin label
+{
+  position: relative;
+}
+
+.section input[type="radio"], input[type="checkbox"]
+{
+  display: none;
+}
+
+.section {
+  padding-right: 38%;
+  padding-top: 0;
+  padding-left: 38%;
+}
+
+.bin span::before, .bin span::after
+ {
+  content: '';
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  position: absolute;
+}
+
+.bin span.radio:hover
+{
+  cursor: pointer;
+}
+
+.bin span.radio::before
+{
+  height: 1.5em;
+  width: 2.8em;
+  left: -3.2em;
+  border-radius: 3.1em;
+  background-color: #fff;
+  border: 1px solid #84868C;
+  -webkit-transition: background 0.5s ease;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  transition: background 0.5s;
+}
+
+.bin span.radio::after
+{
+  box-shadow: 0 4px 5px -3px #3C3D40;
+  -moz-box-shadow: 0 4px 5px -3px #3C3D40;
+  -webkit-box-shadow: 0 4px 5px -3px #3C3D40;
+  left: -3.05em;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 0.6em;
+  background-color: #002240;
+  -webkit-transition: left 0.5s ease, background 0.5s ease;
+  -moz-transition: left 0.5s ease, background 0.5s ease;
+  -o-transition: left 0.5s ease,background 0.5s ease;
+  transition: left 0.5s ease, background 0.5s ease;
+}
+input[type="radio"]:checked + label span.radio:before
+{
+  background-color: #002240;
+}
+
+input[type="radio"]:checked + label span.radio:after
+{
+  left: -1.7em;
+  background-color: #fff;
+}
+
+
+.search
+{
+  display: inline;
+  margin: auto;
+  width: 70%;
+  text-align: right;
+}
+
+
+.search input
+{
+  width: 100%;
+  border: 1px solid #0065BF;
+  padding: 1em;
+  color: #0065BF;
 }
