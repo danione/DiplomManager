@@ -1,6 +1,3 @@
-# Look up the methods POST/PUT/DELETE
-# Delete or Not?!
-# Archives
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Student, ManagementAndReview, Thesis, Commission, Choice
@@ -344,3 +341,42 @@ def listing(request):
 
     context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
     return render(request, 'listing.html', context)
+
+
+def update_student(request, student_id):
+    student = Student.objects.get(id = student_id)
+    student.number = request.POST.get('Number')
+    student.name = request.POST.get('Name')
+    student.class_char = request.POST.get('Class')
+    student.progress = request.POST.get('Progress')
+    student.category = request.POST.get('Category')
+    if request.POST.get('thesis-remove') == 'true':
+        student.current_thesis = None
+    if request.POST.get('reviewer-remove') == 'true':
+        student.assigned_reviewer = None
+    student.save()
+
+    return HttpResponseRedirect('update_student/redirection')
+
+def update_man_review(request, man_rev_id):
+    man_rev = ManagementAndReview.objects.get(id = man_rev_id)
+    man_rev.titles = request.POST.get('Title')
+    man_rev.name = request.POST.get('FullName')
+    man_rev.category = request.POST.get('Category')
+    man_rev.workplace = request.POST.get('Work')
+    for student in man_rev.reviewer.all():
+        if request.POST.get(str(student.id) + '-remove') == 'true':
+            man_rev.reviewer.remove(student)
+
+    man_rev.save()
+
+    return HttpResponseRedirect('update_man_review/redirection')
+
+
+def update_thesis(request, thesis_id):
+    thesis = Thesis.objects.get(id = thesis_id)
+    thesis.name = request.POST.get('ThesisDescription')
+    thesis.category = request.POST.get('Category')
+    thesis.save()
+
+    return HttpResponseRedirect('update_thesis/redirection')

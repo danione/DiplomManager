@@ -56,16 +56,32 @@
             </tr>
             <tr class="information-row">
               <td colspan="4" class="information-cell">
+                <div class="edit">
+                  <img class="edit-icon" src="{% static 'other_pages_other/edit-icon.png' %}" alt="edit-icon">
+                </div>
                 <div class="information">
+                  <form action=" {% url 'update_student' student.id %}"  method="post">
+                    {% csrf_token %}
+
+
                   <div class="first_row">
                     <span class="heading_row">Number:</span>
-                    {{ student.number }}<br>
+                    <input class="input-valid" type="text" name="Number" data-validation="number" data-validation-allowing="range[1;50]" value="{{ student.number }}"><br>
+                    <text class="text-valid">{{ student.number }}</text><br>
+
                     <span class="heading_row">Name:</span>
-                    {{ student.name }}<br>
+                    <input class="input-valid" type="text" name="Name" data-validation="custom length" data-validation-regexp="^[\wа-яА-Я]\D+$"  data-validation-length="max300" value="{{ student.name }}"><br>
+                    <text class="text-valid">{{ student.name }}</text><br>
+
                     <span class="heading_row">Class:</span>
-                    {{ student.class_char }}<br>
+                    <input class="input-valid" type="text" name="Class" data-validation="custom" data-validation-regexp="^[АБВГ]$" value="{{ student.class_char }}"><br>
+                    <text class="text-valid">{{ student.class_char }}</text><br>
+
                     <span class="heading_row">Progress:</span>
-                    {{ student.progress }}<br>
+                    <input class="input-valid" name="Progress" type="text" data-validation="number" data-validation-allowing="range[2.00;6.00],float" value="{{ student.progress }}"><br>
+                    <text class="text-valid">{{ student.progress }}</text><br>
+
+
                     <span class="heading_row">Did hand the document:</span>
                     {{ student.handed_document_over }}<br>
                     <span class="heading_row">Did hand the assignment:</span>
@@ -73,22 +89,25 @@
                     <span class="heading_row">Did hand the documentation:</span>
                     {{ student.handed_documentation_over }}<br>
                   </div>
+
                   <div class="second_row">
                     <span class="heading_row">Class Type:</span>
-                    {{ student.category }}<br>
-                    {% if student.current_thesis %}
+                    <input class="input-valid" type="text" name="Category" data-validation="custom length" data-validation-regexp="^[\wа-яА-Я]\D+$"  data-validation-length="max60" value="{{ student.category }}"><br>
+                    <text class="text-valid">{{ student.category }}</text><br>
 
+                    {% if student.current_thesis %}
                       <span class="heading_row">Assigned Supervisor:</span>
                       {{ student.current_thesis.supervisor }}<br>
 
                       <span class="heading_row">Thesis:</span>
-                      {{ student.current_thesis }}<br>
-
+                      <input class="remove" name="thesis-remove" value="false">
+                      <div class="thesis-information">{{ student.current_thesis }}</div><div class="remove-icon">X</div><br>
                     {% endif %}
 
                     {% if student.assigned_reviewer %}
                       <span class="heading_row">Assigned Reviewer:</span>
-                      {{ student.assigned_reviewer }}<br>
+                      <input class="remove" name="reviewer-remove" value="false">
+                      <div class="reviewer-information">{{ student.assigned_reviewer }}</div><div class="remove-icon">X</div><br>
                     {% endif %}
 
                     <span class="heading_row">Current Period Of Studying:</span>
@@ -107,9 +126,12 @@
                         {{ student.commission.name }}<br>
                     {% endif %}
 
+                    <a><div class="submit-form">Submit</div></a>
 
                   </div>
                 </div>
+
+              </form>
               </td>
             </tr>
             {% endfor %}
@@ -145,73 +167,86 @@
             </tr>
             <tr class="information-row">
               <td colspan="4" class="information-cell">
-                <div class="information">
-                  <div class="first_row">
-                    <span class="heading_row">Personal Titles:</span>
-                    {{ person.titles }}<br>
-                    <span class="heading_row">Name:</span>
-                    {{ person.name }}<br>
-                    <span class="heading_row">Speciality:</span>
-                    {{ person.category }}<br>
-                    <span class="heading_row">Workplace:</span>
-                    {{ person.workplace }}<br>
-                    <span class="heading_row">Did hand the document:</span>
-                    {{ student.handed_document_over }}<br>
-
-                    {% if person.reviewer.all %}
-                      <span class="heading_row">Reviewer to :</span><br>
-                      {% for student in person.reviewer.all %}
-                        {{ student.name }}<br>
-                      {% endfor %}
-
-
-                      <span class="heading_row">Sum :</span>
-                      {% if person.reviewer.all.count == 1 %}
-                        {{ person.reviewer.all.count }} student<br>
-                      {% else %}
-                        {{ person.reviewer.all.count }} students<br>
-                      {% endif %}
-
-                    {% endif %}
-
-
-
-                    {% if person.commission_set.all or person.commissioners.all %}
-                      <span class="heading_row">In :</span>
-                      {{ person.commission_set.all.count}} commissions - chairman<br>
-                      {{ person.commissioners.all.count}} commissions - commissioner<br>
-
-                    {% endif %}
-
-                  </div>
-                  <div class="second_row">
-                    {% if person.supervisor.all %}
-                      <span class="heading_row">Supervisor to :</span><br>
-                      {% for student in person.supervisor.all %}
-                        {{ student.name }}<br>
-                      {% endfor %}
-
-                      <span class="heading_row">Sum:</span>
-                      {% if person.supervisor.all.count == 1 %}
-                        {{ person.supervisor.all.count }} student<br>
-                      {% else %}
-                        {{ person.supervisor.all.count }} students<br>
-                      {% endif %}
-                    {% endif %}
-
-
-                    {% if person.thesis_set.all %}
-                    <span class="heading_row">Thesis Descriptions:</span><br>
-                      {% for thesis in person.thesis_set.all %}
-                        {{ thesis.name }}<br>
-
-                      {% endfor %}
-                    {% endif %}
-
-
-
-                  </div>
+                <div class="edit">
+                  <img class="edit-icon" src="{% static 'other_pages_other/edit-icon.png' %}" alt="edit-icon">
                 </div>
+                <div class="information">
+                  <form action=" {% url 'update_man_review' person.id %}"  method="post">
+                  <div class="first_row">
+                      {% csrf_token %}
+                      <span class="heading_row">Personal Titles:</span>
+                      <input class="input-valid" type="text" name="Title" data-validation="length custom" data-validation-length="max100" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ person.titles }}"><br>
+                      <text class="text-valid">{{ person.titles }}</text><br>
+
+                      <span class="heading_row">Name:</span>
+                      <input class="input-valid" type="text" name="FullName" data-validation="length custom" data-validation-length="max300" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ person.name }}"><br>
+                      <text class="text-valid">{{ person.name }}</text><br>
+
+                      <span class="heading_row">Speciality:</span>
+                      <input class="input-valid" type="text" name="Work" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ person.category }}"><br>
+                      <text class="text-valid">{{ person.category }}</text><br>
+
+                      <span class="heading_row">Workplace:</span>
+                      <input class="input-valid" type="text" name="Category" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ person.workplace }}"><br>
+                      <text class="text-valid">{{ person.workplace }}</text><br>
+
+                      {% if person.reviewer.all %}
+                        <span class="heading_row">Reviewer to :</span><br>
+                        {% for student in person.reviewer.all %}
+                          <input class="remove" name="{{student.id}}-remove" value="false">
+                          <div class="student-reviewer-information">{{ student.name }}</div><div class="remove-icon">X</div><br>
+                        {% endfor %}
+
+
+                        <span class="heading_row">Sum :</span>
+                        {% if person.reviewer.all.count == 1 %}
+                          {{ person.reviewer.all.count }} student<br>
+                        {% else %}
+                          {{ person.reviewer.all.count }} students<br>
+                        {% endif %}
+
+                      {% endif %}
+
+
+
+                      {% if person.commission_set.all or person.commissioners.all %}
+                        <span class="heading_row">In :</span>
+                        {{ person.commission_set.all.count}} commissions - chairman<br>
+                        {{ person.commissioners.all.count}} commissions - commissioner<br>
+
+                      {% endif %}
+
+                    </div>
+                    <div class="second_row">
+                      {% if person.supervisor.all %}
+                        <span class="heading_row">Supervisor to :</span><br>
+                        {% for student in person.supervisor.all %}
+                          {{ student.name }}<br>
+                        {% endfor %}
+
+                        <span class="heading_row">Sum:</span>
+                        {% if person.supervisor.all.count == 1 %}
+                          {{ person.supervisor.all.count }} student<br>
+                        {% else %}
+                          {{ person.supervisor.all.count }} students<br>
+                        {% endif %}
+                      {% endif %}
+
+
+                      {% if person.thesis_set.all %}
+                      <span class="heading_row">Thesis Descriptions:</span><br>
+                        {% for thesis in person.thesis_set.all %}
+                          {{ thesis.name }}<br>
+
+                        {% endfor %}
+                      {% endif %}
+
+
+                      <a><div class="submit-form">Submit</div></a>
+
+                    </div>
+                  </form>
+                  </div>
               </td>
             </tr>
             {% endfor %}
@@ -247,12 +282,25 @@
             </tr>
             <tr class="information-row">
               <td colspan="4" class="information-cell">
+                <div class="edit">
+                  <img class="edit-icon" src="{% static 'other_pages_other/edit-icon.png' %}" alt="edit-icon">
+                </div>
                 <div class="information">
+                  <form action=" {% url 'update_thesis' thesis.id %}"  method="post">
+                    {% csrf_token %}
+                    
                   <div class="first_row">
+
+
                     <span class="heading_row">Description:</span>
-                    {{ thesis.name }}<br>
+                    <input class="input-valid" type="text" name="ThesisDescription" data-validation="length custom" data-validation-length="max200" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ thesis.name }}"><br>
+                    <text class="text-valid">{{ thesis.name }}</text><br>
+
+
                     <span class="heading_row">Type:</span>
-                    {{ thesis.category }}<br>
+                    <input class="input-valid" type="text" name="Category" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ thesis.category }}"><br>
+                    <text class="text-valid">{{ thesis.category }}</text><br>
+
                     <span class="heading_row">Assigned Supervisor:</span>
                     {{ thesis.supervisor }}<br>
                     </div>
@@ -265,7 +313,10 @@
                       {% endfor %}
                     {% endif %}
 
+                    <a><div class="submit-form">Submit</div></a>
                   </div>
+
+                </form>
                 </div>
               </td>
             </tr>
@@ -303,6 +354,9 @@
             </tr>
             <tr class="information-row">
               <td colspan="4" class="information-cell">
+                <div class="edit">
+                  <img class="edit-icon" src="{% static 'other_pages_other/edit-icon.png' %}" alt="edit-icon">
+                </div>
                 <div class="information">
                   <div class="first_row">
                     <span class="heading_row">Chairman:</span>
@@ -311,18 +365,24 @@
                       {% for commissioner in commission.commissioners.all %}
                         {{ commissioner.name }}<br>
                       {% endfor %}
+
                     <span class="heading_row">Type:</span>
                     {{ commission.category }}<br>
+
                     <span class="heading_row">Place:</span>
-                    {{ commission.place }}<br>
+                    <input class="input-valid" type="text" name="Place" data-validation="length custom" data-validation-length="max50" data-validation-regexp="^[\wа-яА-Я]\D+$" value="{{ commission.place }}"><br>
+                    <text class="text-valid">{{ commission.place }}</text><br>
+
                     <span class="heading_row">When:</span>
-                    {{ commission.date }} {{ commission.time }}<br>
+                    <input class="input-valid" type="text" class="datepicker" name="Date" id="4">
+                    <text class="text-valid">{{ commission.date }} {{ commission.time }}</text><br>
                   </div>
 
                   <div class="second_row">
                     <span class="heading_row">Students:</span><br>
                       {% for student in commission.commission.all %}
-                        {{ student.name }}<br>
+                        <input class="remove" name="{{student.id}}-remove" value="false">
+                        <div class="student-commission-information">{{ student.name }}</div><div class="remove-icon">X</div> <br>
                       {% endfor %}
                   </div>
                 </div>

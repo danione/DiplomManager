@@ -40,10 +40,19 @@ urlpatterns = [
     # url(r'^deleting_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='deleting_database/redirection'),
     # url(r'^load_database/$', views.load_database, name='load_database'),
     # url(r'^load_database/redirection/$', RedirectView.as_view(url=reverse_lazy('man_years')), name='load_database/redirection'),
-    url(r'^(?P<student_id>[0-9]+)/assign_document$', views.assign_document, name='assign_document'),
-    url(r'^(?P<student_id>[0-9]+)/standard_thesis$', views.standard_thesis, name='standard_thesis'),
-    url(r'^(?P<student_id>[0-9]+)/handed_assignment_over$', views.handed_assignment_over, name='handed_assignment_over'),
-    url(r'^(?P<student_id>[0-9]+)/handed_documentation_over$', views.handed_documentation_over, name='handed_documentation_over'),
+    url(r'^(?P<student_id>[0-9]+)/assign_document/$', views.assign_document, name='assign_document'),
+    url(r'^(?P<student_id>[0-9]+)/update_student/$', views.update_student, name='update_student'),
+    url(r'^(?P<student_id>[0-9]+)/update_student/redirection/$', RedirectView.as_view(url=reverse_lazy('listing')), name='update_student/redirection'),
+
+    url(r'^(?P<man_rev_id>[0-9]+)/update_man_review$', views.update_man_review, name='update_man_review'),
+    url(r'^(?P<man_rev_id>[0-9]+)/update_man_review/redirection/$', RedirectView.as_view(url=reverse_lazy('listing')), name='update_man_review/redirection'),
+
+    url(r'^(?P<thesis_id>[0-9]+)/update_thesis$', views.update_thesis, name='update_thesis'),
+    url(r'^(?P<thesis_id>[0-9]+)/update_thesis/redirection/$', RedirectView.as_view(url=reverse_lazy('listing')), name='update_thesis/redirection'),
+
+    url(r'^(?P<student_id>[0-9]+)/standard_thesis/$', views.standard_thesis, name='standard_thesis'),
+    url(r'^(?P<student_id>[0-9]+)/handed_assignment_over/$', views.handed_assignment_over, name='handed_assignment_over'),
+    url(r'^(?P<student_id>[0-9]+)/handed_documentation_over/$', views.handed_documentation_over, name='handed_documentation_over'),
     url(r'^(?P<student_id>[0-9]+)/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='redirection'),
     url(r'^(?P<thesis_id>[0-9]+)/finilize/$', views.finilize, name='finilize'),
     url(r'^(?P<student_id>[0-9]+)/finilize/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='finilize/redirection'),
