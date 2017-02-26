@@ -59,14 +59,27 @@ $( function() {
    var table = $(element).parent().nextAll('table').first();
    $(table).find(' tbody tr').each(function()
    {
-     var td = $(this).find("td");
-     if(td.html().toLowerCase().indexOf(current_value_element) > -1)
+     var td = $(this).find("td").each(function()
      {
-       $(this).show();
-     }
-     else
-     {
-       $(this).hide();
-     }
+       if(($(this).attr('class') != 'border') && ($(this).attr('class') != 'information-cell'))
+       {
+         if($(this).html().toLowerCase().indexOf(current_value_element) > -1)
+         {
+           $(this).parent().show();
+           $(this).parent().nextAll('.border-row').first().show();
+           $(this).parent().nextAll('.information-row').first().show();
+           return false;
+         }
+         else
+         {
+
+           $(this).parent().nextAll('.border-row').first().hide();
+           $(this).parent().nextAll('.information-row').first().hide();
+           $(this).parent().hide();
+         }
+       }
+     });
+
+
    });
  }

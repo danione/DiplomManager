@@ -51,7 +51,7 @@
               <td>{{ student.class_char }}</td>
               <td>Click</td>
             </tr>
-            <tr>
+            <tr class="border-row">
               <td colspan="4" class="border">
                 <div class="box">
                   <hr>
@@ -146,6 +146,9 @@
     {% endif %}
     {% if man_review %}
     <div class="table-des management-listing">
+      <div class="search">
+        <input type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      </div>
       <table>
         <thead>
           <tr>
@@ -163,7 +166,7 @@
               <td>{{ person.category }}</td>
               <td>Click</td>
             </tr>
-            <tr>
+            <tr class="border-row">
               <td colspan="4" class="border">
                 <div class="box">
                   <hr>
@@ -261,6 +264,9 @@
     {% endif %}
     {% if thesis_topics %}
     <div class="table-des thesis-listing">
+      <div class="search">
+        <input type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      </div>
       <table>
         <thead>
           <tr>
@@ -278,7 +284,7 @@
               <td>{{ thesis.supervisor }}</td>
               <td>Click</td>
             </tr>
-            <tr>
+            <tr class="border-row">
               <td colspan="4" class="border">
                 <div class="box">
                   <hr>
@@ -333,6 +339,9 @@
 
     {% if commissions %}
     <div class="table-des commissions-listing">
+      <div class="search">
+        <input type="text" onkeyup="filter_function(this)" name="search" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'">
+      </div>
       <table>
         <thead>
           <tr>
@@ -350,7 +359,7 @@
               <td>{{ commission.date}} {{ commission.time}} </td>
               <td>Click</td>
             </tr>
-            <tr>
+            <tr class="border-row">
               <td colspan="4" class="border">
                 <div class="box">
                   <hr>
