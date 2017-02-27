@@ -91,23 +91,5 @@ $(".submit").click(function()
   $.validate({
     modules : 'file'
   });
-  var error_naming = false;
-  if($(this).closest("form").attr('id') == 'not-simple-form')
-  {
-    $(".hide").val($('.selected').html());
-  }
-  else if($(this).closest("form").attr('id') == 'saving-form')
-  {
-    $("#not-simple-form td").each(function()
-    {
-      if($(this).html().split(".")[0] == $('#SaveYear').val())
-      {
-        error_naming = true;
-        $(".error_msg").css('display', 'inline')
-        return
-      }
-    });
-  }
-  if( error_naming == false)
-    $(this).closest("form").submit();
+  $(this).closest("form").submit();
 });

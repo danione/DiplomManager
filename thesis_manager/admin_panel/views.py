@@ -1,14 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
-from .models import Student, ManagementAndReview, Thesis, Commission, Choice, CurrentPeriod
+from django.http import HttpResponseRedirect, HttpResponseNotFound
+from .models import Student, ManagementAndReview, Thesis, Commission, Choice, Period
 from django.shortcuts import get_object_or_404
-from operator import itemgetter,attrgetter
 import csv
-import os
 
-
-def get_archive_dir():
-    return os.getcwd() + '/archives/'
 
 def init_list():
     return list(Student.objects.order_by('class_char','name'))
@@ -22,18 +17,24 @@ def admin_homepage(request):
     students_list_reviewer = init_list()
     students_list_commission  = init_list()
 
+    print(Student.objects.filter(study_period = '2016-2017'))
+    period = None
+    if Period.objects.filter(is_current_period = 'True'):
+        period = Period.objects.get(is_current_period = 'True')
+
     students_list_document = [student for student in students_list_document
-                              if student.handed_document_over == False and student.did_graduate == False]
+                              if student.handed_document_over == False and (student.did_graduate == False or student.study_period == period.period)]
+
     students_list_thesis = [student for student in students_list_thesis
-                            if student.has_prearranged_thesis == False and student.current_thesis is None and student.did_graduate == False]
+                            if student.has_prearranged_thesis == False and student.current_thesis is None and (student.did_graduate == False or student.study_period == period.period)]
     students_list_assignment = [student for student in students_list_assignment
-                                if student.handed_assignment_over == False and student.did_graduate == False]
+                                if student.handed_assignment_over == False and (student.did_graduate == False or student.study_period == period.period)]
     students_list_documentation = [student for student in students_list_documentation
-                                   if student.handed_documentation_over == False and student.did_graduate == False]
+                                   if student.handed_documentation_over == False and (student.did_graduate == False or student.study_period == period.period)]
     students_list_reviewer = [student for student in students_list_reviewer
-                              if student.assigned_reviewer is None and student.did_graduate == False]
+                              if student.assigned_reviewer is None and (student.did_graduate == False or student.study_period == period.period)]
     students_list_commission = [student for student in students_list_commission
-                                if not student.commission  and student.did_graduate == False]
+                                if not student.commission  and (student.did_graduate == False or student.study_period == period.period)]
 
     context = {'students_list_document': students_list_document,'students_list_thesis' : students_list_thesis,
                'students_list_assignment' : students_list_assignment,'students_list_documentation': students_list_documentation,
@@ -45,120 +46,148 @@ def graduate(request):
     for student in current_students:
         student.did_graduate = True;
         student.save()
-    CurrentPeriod.objects.none()
+    if Period.objects.filter(is_current_period = True):
+        period = Period.objects.get(is_current_period = True)
+        period.is_current_period = False
+        period.save()
 
-    period = CurrentPeriod(period = request.POST.get('Period'))
-    period.save()
+    current_period = Period(period = request.POST.get('Period'), is_current_period = True)
+    current_period.save()
 
     return HttpResponseRedirect('redirection')
 
 def new_year(request):
     return render(request, 'new_year.html')
 
-# def load_database(request):
-#     if request.method == 'POST':
-#         directory = get_archive_dir()
-#         delete_information()
-#         with open(directory + request.POST.get('load'), 'r', newline='') as csvfile:
-#             reader = csv.reader(csvfile)
-#             for row in reader:
-#                 Student(student_name = row[1], student_class = row[2], student_number = row[0], category = row[3], handed_document_over = row[4], handed_assignment_over = row[5],
-#                 has_commission = row[6], has_reviewer = row[7]).save()
-#             return HttpResponseRedirect('redirection')
-#     return (request, 'man_years.html')
-
-def load_database(request):
-    return render(request, 'man_years.html')
-
-def saving_database(request):
-    if request.method == 'POST':
-        # raw_name = request.POST.get('SaveYear')
-        # students_list = init_list()
-        # directory = get_archive_dir()
-        #
-        # if not os.path.exists(directory):
-        #     os.makedirs(directory)
-        #
-        # with open(directory + raw_name + '.csv', 'w+', newline='') as csvfile:
-        #     writer = csv.writer(csvfile)
-        #
-        #     for student in students_list:
-        #         writer.writerow([student.student_number,student.student_name, student.student_class, student.category, student.handed_document_over,student.handed_assignment_over,
-        #         student.has_reviewer, student.has_commission])
-        #     return HttpResponseRedirect('redirection')
-
-        return HttpResponseRedirect('redirection')
-    return render(request,'man_years.html')
 
 def man_years(request):
-    directory = get_archive_dir()
-    archives = [files for files in os.listdir(directory) if os.path.isfile(os.path.join(directory, files))]
-    context = {'archives' : archives}
+    periods = Period.objects.filter(is_current_period = 'False').order_by('period')
+    current_period = None
+    if Period.objects.filter(is_current_period = 'True'):
+        current_period = Period.objects.get(is_current_period = 'True')
+    context = {'periods': periods, 'current_period': current_period}
     return render(request, 'man_years.html', context)
 
+def period_change(request):
+    new_period = Period.objects.get(id = int(request.POST.get('load')))
+    current_period = Period.objects.get(is_current_period = 'True')
+
+    current_period.is_current_period = False
+    current_period.save()
+
+    new_period.is_current_period = True
+    new_period.save()
+
+    return HttpResponseRedirect('redirection')
+
+
+def upload_students(request):
+    return render(request, 'upload_students.html')
 
 def student_handler(request):
     name_ = request.POST.get('FullName')
     class_ = request.POST.get('Class')
     number_ = request.POST.get('Number')
     category_ = request.POST.get('Category')
-    period_ = CurrentPeriod.objects.first()
-    Student(name = name_ , class_char = class_ , number = number_ , category = category_, period = period_.period).save()
+    period_ = Period.objects.get(is_current_period = 'True')
+
+    Student(name = name_ , class_char = class_ , number = number_ , category = category_, study_period = period_.period).save()
     return HttpResponseRedirect('redirection')
 
 
-def file_handler(request):
-    if request.method == 'POST':
-        extension = request.FILES['text_csv'].name.split('.')[1]
-        if extension == 'txt':
-            my_file = request.FILES['text_csv'].read().decode('cp1251')
-            rows = my_file.split('\r\n')
-            class_ = None
-            category_ = None
-            for row in rows:
-                if row[:1] == 'X':
-                    class_ = row[-1:].upper()
-                elif row[:1] == 'S':
-                    category_ = 'System Programming'
-                elif row[:1] == 'H':
-                    category_ = 'Computer Networks'
-                else:
-                    if len(row) > 1:
-                        information = row.split('.')
-                        number_ = information[0]
-                        student_ = information[1].replace(' ','',1)
-                        Student(name=student_, category = category_ , class_char=class_, number = number_,).save()
-        return HttpResponseRedirect('redirection')
-    return render(request,'upload_students.html')
+def is_int(string):
+    try:
+        int(string)
+        return True
+    except ValueError:
+        return False
 
-def upload_students(request):
-    return render(request, 'upload_students.html')
+def is_proper_length_and_type(length, string):
+    if len(string) > length:
+        return False
+    else:
+        if all(letter.isalpha() or letter.isspace() for letter in string):
+            return True
+        else:
+            return False
+
+def is_only_char(char):
+    if len(char) == 1 and char.isalpha():
+        return True
+    else:
+        return False
+
+def file_handler(request):
+    extension = request.FILES['text_csv'].name.split('.')[1]
+    if extension == 'csv':
+        my_file = request.FILES['text_csv'].read().decode('utf-8')
+        rows = my_file.split('\n')
+        for row in rows:
+            if len(row) <= 1:
+                break
+            data = row.split(',')
+            if is_int(data[0]) == False:
+                return HttpResponseNotFound('<h1>Data in first field is not in proper type</h1><p>' + data[0] + '</p>')
+            if is_proper_length_and_type(300, data[1]) == False:
+                return HttpResponseNotFound('<h1>Data in second field is not in proper type or is longer</h1><p>' + data[1] + '</p>')
+            if is_only_char(data[2]) == False:
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[2] + '</p>')
+            if is_proper_length_and_type(60, data[3]) == False:
+                return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[3] + '</p>')
+
+
+            period_ = Period.objects.get(is_current_period = 'True')
+            if data[0] and data[1] and data[2] and data[3]:
+                Student(number = int(data[0]), name = data[1], class_char = data[2], category = data[3] , study_period = period_.period ).save()
+    return HttpResponseRedirect('redirection')
+
 
 def supervisor_handler(request):
-    if request.method == 'POST':
-        name_ = request.POST.get('FullName')
-        category_ = request.POST.get('Category')
-        titles_ = request.POST.get('Title')
-        workplace_ = request.POST.get('Work')
-        ManagementAndReview(name = name_ , category = category_, titles = titles_ , workplace = workplace_).save()
-        return HttpResponseRedirect('redirection')
-    return render(request, 'upload_supervisors.html')
+    name_ = request.POST.get('FullName')
+    category_ = request.POST.get('Category')
+    titles_ = request.POST.get('Title')
+    workplace_ = request.POST.get('Work')
+    ManagementAndReview(name = name_ , category = category_, titles = titles_ , workplace = workplace_).save()
+    return HttpResponseRedirect('redirection')
+
+def is_proper_length_type_and_symbols(length,string):
+    if len(string) >= length:
+        return False
+    else:
+        if all(letter.isalpha() or letter.isspace() or letter == '.' for letter in string):
+            return True
+        else:
+            return False
+
+
+def supervisor_file_handler(request):
+    extension = request.FILES['text_csv'].name.split('.')[1]
+    if extension == 'csv':
+        my_file = request.FILES['text_csv'].read().decode('utf-8')
+        rows = my_file.split('\n')
+        for row in rows:
+            if len(row) <= 1:
+                break
+            data = row.split(',')
+
+            if is_proper_length_type_and_symbols(100,data[0]) == False:
+                return HttpResponseNotFound('<h1>Data in first field is not in proper type</h1><p>' + data[0] + '</p>')
+            if is_proper_length_and_type(300, data[1]) == False:
+                return HttpResponseNotFound('<h1>Data in second field is not in proper type or is longer</h1><p>' + data[1] + '</p>')
+            if is_proper_length_and_type(60, data[2]) == False:
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[2] + '</p>')
+            if is_proper_length_and_type(200, data[3]) == False:
+                return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[3] + '</p>')
+
+
+            if data[0] and data[1] and data[2] and data[3]:
+                ManagementAndReview(titles = data[0], name = data[1], category = data[2] , workplace = data[3]).save()
+
+    return HttpResponseRedirect('redirection')
+
 
 def upload_supervisors(request):
     return render(request, 'upload_supervisors.html')
-
-def upload_reviewers(request):
-    return render(request, 'upload_reviewers.html')
-
-def reviewer_handler(request):
-    if request.method == 'POST':
-        name_ = request.POST.get('FullName')
-        category_ = request.POST.get('Category')
-        titles_ = request.POST.get('Title')
-        workplace_ = request.POST.get('Work')
-        ManagementAndReview(name = name_ ,category = category_, titles = titles_ , workplace = workpace_).save()
-        return HttpResponseRedirect('redirection')
-    return render(request, 'upload_reviewers.html')
 
 def upload_thesis(request):
     supervisors = ManagementAndReview.objects.all()
@@ -168,14 +197,47 @@ def upload_thesis(request):
 
 
 def thesis_handler(request):
-    if request.method == 'POST':
-        description_ = request.POST.get('ThesisDescription')
-        category_ = request.POST.get('Category')
-        supervisor_ = request.POST.get('Supervisor')
-        Thesis(name = description_, category = category_, supervisor = ManagementAndReview.objects.get(name = supervisor_)).save()
-        return HttpResponseRedirect('redirection')
+    description_ = request.POST.get('ThesisDescription')
+    category_ = request.POST.get('Category')
+    supervisor_ = request.POST.get('Supervisor')
 
-    return render(request, 'upload_thesis.html')
+    period = None
+    if Period.objects.filter(is_current_period = 'True'):
+        period = Period.objects.get(is_current_period = 'True')
+
+    Thesis(name = description_, category = category_, supervisor = ManagementAndReview.objects.get(name = supervisor_), period_given = period_ ).save()
+    return HttpResponseRedirect('redirection')
+
+def thesis_file_handler(request):
+    extension = request.FILES['text_csv'].name.split('.')[1]
+    if extension == 'csv':
+        my_file = request.FILES['text_csv'].read().decode('utf-8')
+        rows = my_file.split('\n')
+        for row in rows:
+            if len(row) <= 1:
+                break
+            data = row.split(',')
+
+            if is_proper_length_and_type(300, data[0]) == False:
+                return HttpResponseNotFound('<h1>Data in first field is not in proper type</h1><p>' + data[0] + '</p>')
+            if is_proper_length_and_type(60, data[1]) == False:
+                return HttpResponseNotFound('<h1>Data in second field is not in proper type or is longer</h1><p>' + data[1] + '</p>')
+            if is_proper_length_type_and_symbols(100, data[2]) == False:
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[2] + '</p>')
+            if is_proper_length_and_type(300, data[3]) == False:
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[3] + '</p>')
+            if is_proper_length_and_type(60, data[4]) == False:
+                return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[4] + '</p>')
+
+
+            if data[0] and data[1] and data[2] and data[3]:
+                if ManagementAndReview.objects.filter(titles = data[2], name = data[3], workplace = data[4]):
+                    Thesis(name = data[0], category = data[1], supervisor = ManagementAndReview.objects.get(titles = data[2], name = data[3], workplace = data[4])).save()
+                else:
+                    return HttpResponseNotFound('<h1>Supervisor does not exist</h1><p>' + data[2] + data[3] + data[4] + '</p>')
+
+    return HttpResponseRedirect('redirection')
+
 
 def assign_document(request, student_id):
     student = get_object_or_404(Student, pk=student_id)

@@ -28,7 +28,7 @@
               <label for="FullName">Full Name:</label><br>
               <input id="FullName" type="text" name="FullName" data-validation="custom length" data-validation-regexp="^[\wа-яА-Я]\D+$"  data-validation-length="max300"><br>
               <label for="Class">Class: (Just enter the correct letter of the class)</label><br>
-              <input id="Class" type="text" name="Class" data-validation="custom" data-validation-regexp="^[АБВГ]$"><br>
+              <input id="Class" type="text" name="Class" data-validation="custom" data-validation-regexp="^[\wа-яА-Яa-zA-Z]$"><br>
               <label for="Number">Number:</label><br>
               <input id="Number" type="text" name="Number" data-validation="number" data-validation-allowing="range[1;50]"><br>
               <label for="Category">Class Type:</label><br>
@@ -39,13 +39,13 @@
 
           </div>
           <div class="upload-a-student">
-            <p> Select a file you wish to upload. Be sure that the file is in csv format or txt and less than 500MB!</p>
+            <p> Select a file you wish to upload. Be sure that the file is in csv format and less than 500MB!</p>
 
             <form enctype="multipart/form-data" action=" {% url 'file_handler' %}" method="post" >
               {% csrf_token %}
-              <input type="file" name="text_csv" data-validation="required size extension" data-validation-max-size="500M" data-validation-allowing="txt, csv"
+              <input type="file" name="text_csv" data-validation="required size extension" data-validation-max-size="500M" data-validation-allowing="csv"
               data-validation-error-msg-required="Required field!"
-              data-validation-error-msg-extension="Upload either text or csv"
+              data-validation-error-msg-extension="Upload csv"
               data-validation-error-msg-size="You cannot upload more than 500mb file">
               <a><div class="submit">Submit</div></a>
             </form>

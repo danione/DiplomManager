@@ -1,10 +1,6 @@
 from django.db import models
 import datetime
 
-class CurrentPeriod(models.Model):
-    id = models.AutoField(primary_key = True)
-    period = models.CharField(max_length = 15, default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1) )
-
 class BasicModel(models.Model):
     id = models.AutoField(primary_key = True)
     name = models.CharField(max_length = 300, default = "none")
@@ -12,6 +8,13 @@ class BasicModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Period(models.Model):
+    id = models.AutoField(primary_key = True)
+    period = models.CharField(max_length = 15, default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1) )
+    is_current_period = models.BooleanField(default = False)
+
 
 class ManagementAndReview(BasicModel):
     titles = models.CharField(max_length = 100)
@@ -23,6 +26,7 @@ class ManagementAndReview(BasicModel):
 class Thesis(BasicModel):
     supervisor = models.ForeignKey(ManagementAndReview, on_delete=models.CASCADE, null=True)
     place = models.CharField(max_length = 5, default = '1st')
+    period_given = models.CharField(max_length=15, default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1) )
 
     def get_sorted_by_number_thesis(self):
         return self.choice_set.order_by('number', '-student__progress')

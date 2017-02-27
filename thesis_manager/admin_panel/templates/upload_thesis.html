@@ -57,18 +57,16 @@
           </div>
           <div class="upload-a-thesis">
 
+              <p> Select a file you wish to upload. Be sure that the file is in csv format and less than 500MB!</p>
 
+              <form enctype="multipart/form-data" action=" {% url 'thesis_file_handler' %}" method="post" >
+                {% csrf_token %}
+                <input type="file" name="text_csv" data-validation="required size extension" data-validation-max-size="500M" data-validation-allowing="csv"
+                data-validation-error-msg-required="Required field!"
+                data-validation-error-msg-extension="Upload csv"
+                data-validation-error-msg-size="You cannot upload more than 500mb file">
+                <a><div class="submit">Submit</div></a>
 
-            <p>Chose a teacher you wish to link the thesis topic with:</p>
-
-            <input type="text" name="search" >
-            <div class="bottom-p">
-              <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
-            </div>
-            <input type="file">
-
-
-            <a href="#"><div class="submit upload-button">Upload</div></a>
           </div>
         </div>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 
-{% block title %}Manage Years{% endblock %}
+{% block title %}Managing Years{% endblock %}
 
 {% block extra_head %}
   {% load static %}
@@ -10,71 +10,28 @@
 {% endblock %}
 
 {% block content %}
-    <h1> Managing school years</h1>
-    <div class="option-buttons">
-      <table class="table" id="a-year">
-        <tr>
-          <td><div class="save">Save</div></td>
-          <td><div class="load">Load</div></td>
-          <td><div class="delete">Delete</div></td>
-        </tr>
-      </table>
-    </div>
-    <div class="options">
-      <div class="save-a-year">
-          <form  id='saving-form' action=" {% url 'man_years' %}" method="post">
-            {% csrf_token %}
-            <label for="SaveYear">Choose a name and click submit:</label><br>
-            <input id="SaveYear" type="text" name="SaveYear" data-validation="length custom" data-validation-length="max60" data-validation-regexp="^[^-\s][a-zA-Z0-9_\s-]+$"><br>
-            <a><div class="submit">Submit</div></a>
-          </form>
-          <p class="error_msg"> Error! Please, choose another name!</p>
-      </div>
+    <h1>Changing period - {{current_period.period}}</h1>
       <div class="load-a-year">
-        <p> If you load a year and you did not save the current progress, all current data will be lost!</p>
-        <form id="not-simple-form" action=" {% url 'man_years' %}" method="post">
+        <form id="not-simple-form" action=" {% url 'period_change' %}" method="post">
           {% csrf_token %}
           <table class="simple-table">
             <tr>
-              <th>Name</th>
+              <th>Period</th>
             </tr>
-            {% if archives %}
-              {% for archive in archives %}
+            {% if periods %}
+              {% for period in periods %}
               <tr>
-                <td>{{ archive }}</td>
+                <td id="{{period.id}}">{{ period.period }}</td>
               </tr>
               {% endfor %}
             {% endif %}
           </table>
-          <input class="hide load-field" type="text" name="load">
-          <a><div class="submit">Load</div></a>
+          <input class="hide load-field" type="text" name="load" readonly>
+          <a><div class="submit-load">Load</div></a>
         </form>
 
       </div>
-      <div class="delete-a-year">
-        <p> If you select and click "Delete" - there is no turning back and the selected year would be deleted!</p>
-        <form id="not-simple-form" action=" {% url 'man_years' %}" method="post">
-          {% csrf_token %}
-          <table class="simple-table">
-            <tr>
-              <th>Name</th>
-            </tr>
-            {% if archives %}
-              {% for archive in archives %}
-              <tr>
-                <td>{{ archive }}</td>
-              </tr>
-              {% endfor %}
 
-            {% endif %}
-
-          </table>
-          <input class="hide del-field" type="text" name="delete">
-          <a><div class="submit">Delete</div></a>
-
-        </form>
-
-      </div>
+      <script src="{% static 'other_pages_other/man_years.js' %}"></script>
       <script src="{% static 'other_pages_other/container_js.js' %}"></script>
-    </div>
 {% endblock %}

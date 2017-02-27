@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 
-{% block title %}Upload Supervisors{% endblock %}
+{% block title %}Upload Supervisors And Reviewers{% endblock %}
 
 {% block extra_head %}
   {% load static %}
@@ -12,7 +12,7 @@
 {% block content %}
 
   {% load static %}
-        <h1>Uploading supervisors</h1>
+        <h1>Uploading supervisors and reviewers</h1>
         <div class="option-buttons">
           <table class="table" id="a-supervisor">
             <tr>
@@ -39,9 +39,15 @@
 
           </div>
           <div class="upload-a-supervisor">
-            <p> Select a file you wish to upload. Be sure that the file is in csv format!</p>
+            <p> Select a file you wish to upload. Be sure that the file is in csv format and less than 500MB!</p>
 
-
+            <form enctype="multipart/form-data" action=" {% url 'supervisor_file_handler' %}" method="post" >
+              {% csrf_token %}
+              <input type="file" name="text_csv" data-validation="required size extension" data-validation-max-size="500M" data-validation-allowing="csv"
+              data-validation-error-msg-required="Required field!"
+              data-validation-error-msg-extension="Upload csv"
+              data-validation-error-msg-size="You cannot upload more than 500mb file">
+              <a><div class="submit">Submit</div></a>
           </div>
         </div>
     <script src="{% static 'other_pages_other/container_js.js' %}"></script>

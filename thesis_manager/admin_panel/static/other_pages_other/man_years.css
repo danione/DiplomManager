@@ -1,4 +1,4 @@
-.save-a-year, .load-a-year, .delete-a-year
+.load-a-year
 {
   position: relative;
   width: 20%;
@@ -6,10 +6,8 @@
   -moz-transition: visibility 0s, opacity 0.5s ease-in-out;
   -o-transition: visibility 0s, opacity 0.5s ease-in-out;
   transition: visibility 0s, opacity 0.5s ease-in-out;
-  visibility: hidden;
-  opacity: 0;
   margin: auto;
-  margin-top: 4%;
+  margin-top: 10%;
   height: 0;
   text-align: center;
 }
@@ -64,4 +62,44 @@
   color: red;
   margin-top: 15%;
   display: none;
+}
+
+@media screen and (max-width:1290px)
+{
+  .simple-table
+  {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:770px)
+{
+  .load-a-year
+  {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width:770px)
+{
+  .load-a-year
+  {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width:380px)
+{
+  h1
+  {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width:380px)
+{
+  h1
+  {
+    font-size: 1.25em;
+  }
 }
