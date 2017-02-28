@@ -11,3 +11,34 @@
   color: red;
   display: none;
 }
+
+
+@media screen and (max-width:770px)
+{
+  input
+  {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:530px)
+{
+  .assign
+  {
+    margin-top: 50%;
+    width: 35%;
+  }
+
+  h1
+  {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width:380px)
+{
+  .assign
+  {
+    width: 50%;
+  }
+}

@@ -33,7 +33,7 @@ ul.nav li
   text-decoration: none;
 }
 
-.nav li a:hover, .side a, .icon:hover
+.nav li a:hover, .icon:hover
 {
   background-color: #f1f1f1;
   color: #0088ff;
@@ -171,7 +171,7 @@ ul.nav li a, .side a
 {
     width: 60%;
     height: 2px;
-    background-color: #0088ff;
+    background-color: #0088ff;;
     margin: auto;
     margin-top: 1%;
 }
@@ -233,6 +233,7 @@ ul.nav li a, .side a
 
 @media screen and (max-width:680px)
 {
+
   .responsive-body{
     display: inline;
   }

@@ -41,6 +41,7 @@ class Commission(BasicModel):
     place = models.CharField(max_length = 50, default = "none")
     date = models.CharField(max_length = 60,default = "none")
     time = models.CharField(max_length = 30, default = "never")
+    period_happened = models.CharField(max_length = 15, default = str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().year + 1))
 
 
     def __str__(self):

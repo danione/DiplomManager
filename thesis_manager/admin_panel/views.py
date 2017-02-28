@@ -8,6 +8,12 @@ import csv
 def init_list():
     return list(Student.objects.order_by('class_char','name'))
 
+def get_current_period():
+    if Period.objects.filter(is_current_period = 'True'):
+        return Period.objects.get(is_current_period = 'True')
+    else:
+        return None
+
 
 def admin_homepage(request):
     students_list_thesis = init_list()
@@ -17,16 +23,18 @@ def admin_homepage(request):
     students_list_reviewer = init_list()
     students_list_commission  = init_list()
 
-    print(Student.objects.filter(study_period = '2016-2017'))
-    period = None
-    if Period.objects.filter(is_current_period = 'True'):
-        period = Period.objects.get(is_current_period = 'True')
+    period = get_current_period()
 
     students_list_document = [student for student in students_list_document
-                              if student.handed_document_over == False and (student.did_graduate == False or student.study_period == period.period)]
+                              if student.handed_document_over == False
+                              and (student.did_graduate == False
+                                   or student.study_period == period.period)]
 
     students_list_thesis = [student for student in students_list_thesis
-                            if student.has_prearranged_thesis == False and student.current_thesis is None and (student.did_graduate == False or student.study_period == period.period)]
+                            if student.has_prearranged_thesis == False
+                            and student.current_thesis is None
+                            and (student.did_graduate == False or student.study_period == period.period)]
+
     students_list_assignment = [student for student in students_list_assignment
                                 if student.handed_assignment_over == False and (student.did_graduate == False or student.study_period == period.period)]
     students_list_documentation = [student for student in students_list_documentation
@@ -62,15 +70,13 @@ def new_year(request):
 
 def man_years(request):
     periods = Period.objects.filter(is_current_period = 'False').order_by('period')
-    current_period = None
-    if Period.objects.filter(is_current_period = 'True'):
-        current_period = Period.objects.get(is_current_period = 'True')
+    current_period = get_current_period()
     context = {'periods': periods, 'current_period': current_period}
     return render(request, 'man_years.html', context)
 
 def period_change(request):
     new_period = Period.objects.get(id = int(request.POST.get('load')))
-    current_period = Period.objects.get(is_current_period = 'True')
+    current_period = get_current_period()
 
     current_period.is_current_period = False
     current_period.save()
@@ -82,6 +88,9 @@ def period_change(request):
 
 
 def upload_students(request):
+    period = get_current_period()
+    if period == None:
+        return HttpResponseNotFound('<h1>You did not select period</h1>')
     return render(request, 'upload_students.html')
 
 def student_handler(request):
@@ -89,9 +98,13 @@ def student_handler(request):
     class_ = request.POST.get('Class')
     number_ = request.POST.get('Number')
     category_ = request.POST.get('Category')
-    period_ = Period.objects.get(is_current_period = 'True')
+    period_ = get_current_period()
 
-    Student(name = name_ , class_char = class_ , number = number_ , category = category_, study_period = period_.period).save()
+    Student(name = name_ ,
+            class_char = class_ ,
+            number = number_ ,
+            category = category_,
+            study_period = period_.period).save()
     return HttpResponseRedirect('redirection')
 
 
@@ -136,7 +149,7 @@ def file_handler(request):
                 return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[3] + '</p>')
 
 
-            period_ = Period.objects.get(is_current_period = 'True')
+            period_ = get_current_period()
             if data[0] and data[1] and data[2] and data[3]:
                 Student(number = int(data[0]), name = data[1], class_char = data[2], category = data[3] , study_period = period_.period ).save()
     return HttpResponseRedirect('redirection')
@@ -171,13 +184,13 @@ def supervisor_file_handler(request):
             data = row.split(',')
 
             if is_proper_length_type_and_symbols(100,data[0]) == False:
-                return HttpResponseNotFound('<h1>Data in first field is not in proper type</h1><p>' + data[0] + '</p>')
+                return HttpResponseNotFound('<h1>Data in first field is not in proper type,length or having forbidden symbols</h1><p>' + data[0] + '</p>')
             if is_proper_length_and_type(300, data[1]) == False:
                 return HttpResponseNotFound('<h1>Data in second field is not in proper type or is longer</h1><p>' + data[1] + '</p>')
             if is_proper_length_and_type(60, data[2]) == False:
-                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[2] + '</p>')
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or length</h1><p>' + data[2] + '</p>')
             if is_proper_length_and_type(200, data[3]) == False:
-                return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[3] + '</p>')
+                return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or length</h1><p>' + data[3] + '</p>')
 
 
             if data[0] and data[1] and data[2] and data[3]:
@@ -187,11 +200,17 @@ def supervisor_file_handler(request):
 
 
 def upload_supervisors(request):
+    period = get_current_period()
+    if period == None:
+        return HttpResponseNotFound('<h1>You did not select period</h1>')
     return render(request, 'upload_supervisors.html')
 
 def upload_thesis(request):
     supervisors = ManagementAndReview.objects.all()
-    thesis_topics = Thesis.objects.all()
+    period = get_current_period()
+    if period == None:
+        return HttpResponseNotFound('<h1>You did not select period</h1>')
+    thesis_topics = Thesis.objects.filter(period_given = period.period)
     context = {'supervisors': supervisors, 'thesis_topics': thesis_topics}
     return render(request, 'upload_thesis.html', context)
 
@@ -201,11 +220,9 @@ def thesis_handler(request):
     category_ = request.POST.get('Category')
     supervisor_ = request.POST.get('Supervisor')
 
-    period = None
-    if Period.objects.filter(is_current_period = 'True'):
-        period = Period.objects.get(is_current_period = 'True')
+    period = get_current_period()
 
-    Thesis(name = description_, category = category_, supervisor = ManagementAndReview.objects.get(name = supervisor_), period_given = period_ ).save()
+    Thesis(name = description_, category = category_, supervisor = ManagementAndReview.objects.get(name = supervisor_), period_given = period.period ).save()
     return HttpResponseRedirect('redirection')
 
 def thesis_file_handler(request):
@@ -219,20 +236,21 @@ def thesis_file_handler(request):
             data = row.split(',')
 
             if is_proper_length_and_type(300, data[0]) == False:
-                return HttpResponseNotFound('<h1>Data in first field is not in proper type</h1><p>' + data[0] + '</p>')
+                return HttpResponseNotFound('<h1>Data in first field is longer or is not in proper type</h1><p>' + data[0] + '</p>')
             if is_proper_length_and_type(60, data[1]) == False:
                 return HttpResponseNotFound('<h1>Data in second field is not in proper type or is longer</h1><p>' + data[1] + '</p>')
             if is_proper_length_type_and_symbols(100, data[2]) == False:
-                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[2] + '</p>')
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is containing forbidden symbols or it is too long</h1><p>' + data[2] + '</p>')
             if is_proper_length_and_type(300, data[3]) == False:
-                return HttpResponseNotFound('<h1>Data in third field is not in proper type or it is not a character</h1><p>' + data[3] + '</p>')
+                return HttpResponseNotFound('<h1>Data in third field is not in proper type or longer</h1><p>' + data[3] + '</p>')
             if is_proper_length_and_type(60, data[4]) == False:
                 return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[4] + '</p>')
 
 
             if data[0] and data[1] and data[2] and data[3]:
                 if ManagementAndReview.objects.filter(titles = data[2], name = data[3], workplace = data[4]):
-                    Thesis(name = data[0], category = data[1], supervisor = ManagementAndReview.objects.get(titles = data[2], name = data[3], workplace = data[4])).save()
+                    period = get_current_period()
+                    Thesis(name = data[0], category = data[1], supervisor = ManagementAndReview.objects.get(titles = data[2], name = data[3], workplace = data[4]), period_given = period.period).save()
                 else:
                     return HttpResponseNotFound('<h1>Supervisor does not exist</h1><p>' + data[2] + data[3] + data[4] + '</p>')
 
@@ -241,7 +259,9 @@ def thesis_file_handler(request):
 
 def assign_document(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
-    context = {'student':student, 'thesis_topics': Thesis.objects.all()}
+
+    period = get_current_period()
+    context = {'student':student, 'thesis_topics': Thesis.objects.filter(period_given = period.period)}
     request.session['student_id'] = student_id
     return render(request, 'document_assign.html', context)
 
@@ -339,19 +359,23 @@ def reviewer_assign(request, student_id):
     return render(request, 'reviewer_assign.html', context)
 
 def reviewer_connect(request):
-    if request.method == 'POST':
-        reviewer = request.POST.get('Reviewer')
-        student_id = request.session['student_id']
-        student = Student.objects.get(id = student_id)
-        student.assigned_reviewer = ManagementAndReview.objects.get(name = reviewer)
-        student.save()
+    reviewer = request.POST.get('Reviewer')
+    student_id = request.session['student_id']
+    student = Student.objects.get(id = student_id)
+    student.assigned_reviewer = ManagementAndReview.objects.get(name = reviewer)
+    student.save()
 
     return HttpResponseRedirect('redirection')
 
 def commission_assign(request, student_id):
+    period = get_current_period()
     student = Student.objects.get(id = student_id)
     people_in_system = ManagementAndReview.objects.all()
-    commissions = Commission.objects.filter(category = student.current_thesis.category)
+    if student.current_thesis is None:
+        return HttpResponseNotFound('<h1>No assignment</h1>')
+
+
+    commissions = Commission.objects.filter(category = student.current_thesis.category, period_happened = period.period)
     request.session['student_id'] = student_id
 
     context = {'student': student, 'members': people_in_system, 'commissions': commissions}
@@ -369,6 +393,7 @@ def new_commission_handler(request):
     date_ = request.POST.get('ManualDate')
     time_ = request.POST.get('morning/afternoon')
 
+    period = get_current_period()
     category_ = student.current_thesis.category
     commission = Commission(name = category_ +
                             " " + date_ +
@@ -378,7 +403,8 @@ def new_commission_handler(request):
                             chairman = chairman_,
                             place = place_,
                             date = date_,
-                            time = time_)
+                            time = time_,
+                            period_happened = period.period)
     commission.save()
     for member in members:
         commission.commissioners.add(member)
@@ -400,10 +426,14 @@ def existing_commission_handler(request):
     return HttpResponseRedirect('redirection')
 
 def listing(request):
-    students = init_list()
+    period = get_current_period()
+    if period == None:
+        return HttpResponseNotFound('<h1>You did not select period</h1>')
+
+    students = Student.objects.filter(study_period = period.period).order_by('class_char','name')
     man_review = ManagementAndReview.objects.order_by('name')
-    thesis_topics = Thesis.objects.order_by('name')
-    commissions = Commission.objects.order_by('place')
+    thesis_topics = Thesis.objects.filter(period_given = period.period).order_by('name')
+    commissions = Commission.objects.filter(period_happened = period.period).order_by('place')
 
     context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
     return render(request, 'listing.html', context)

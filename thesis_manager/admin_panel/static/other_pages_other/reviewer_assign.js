@@ -1,5 +1,5 @@
 $("#Reviewer").autocomplete({
-  source: reviewers
+  source: reviewers,
 });
 
 function exists(value)

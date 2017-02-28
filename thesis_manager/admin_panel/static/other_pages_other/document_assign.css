@@ -16,7 +16,7 @@
 
 .standard-topic
 {
-  margin-top: -2%;
+  margin-top: 1%;
 }
 
 .heading
@@ -78,4 +78,13 @@ input[type="number"]
     margin-left: -100%;
     margin-right: -100%;
   }
+}
+
+@media screen and (max-width:430px)
+{
+  .standard-topic, .prearranged-topic
+  {
+    width: 35%;
+  }
+
 }

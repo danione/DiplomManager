@@ -287,8 +287,60 @@ input[type="checkbox"]:checked + label span::after {
   color: #fff !important;
 }
 
-
 .load-field
 {
   display: none;
+}
+
+@media screen and (max-width:1000px)
+{
+  .new-commission,.existing-commission
+  {
+    width: 35%;
+  }
+}
+
+
+@media screen and (max-width:855px)
+{
+  input
+  {
+    width: 100%;
+  }
+
+  .new-commission,.existing-commission
+  {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width:855px)
+{
+  .new-commission, .existing-commission
+  {
+    width: 50%;
+  }
+
+  h1
+  {
+    font-size: 1.5em;
+  }
+
+}
+
+@media screen and (max-width:405px)
+{
+  .new-commission,.existing-commission
+  {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width:405px)
+{
+  .new-commission,.existing-commission
+  {
+    width: 64%;
+  }
+
 }
