@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = [
     url(r'^$', views.admin_homepage, name='admin_homepage'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^logout/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^new_year/$', views.new_year, name='new_year'),
     url(r'^man_years/$', views.man_years, name='man_years'),
     url(r'^upload_students/$', views.upload_students, name='upload_students'),

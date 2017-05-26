@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from home import views
 
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^auth', views.auth, name='auth'),
     url(r'^admin_panel/', include('admin_panel.urls'), name='admin home'),
 ]

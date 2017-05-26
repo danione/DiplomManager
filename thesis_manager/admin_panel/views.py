@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from .models import Student, ManagementAndReview, Thesis, Commission, Choice, Period
 from django.shortcuts import get_object_or_404
 import csv
+from django.contrib.auth import logout
 
 
 def init_list():
@@ -14,8 +15,15 @@ def get_current_period():
     else:
         return None
 
+def logout(request):
+    logout(request)
+    return HttpResponseRedirect('redirection')
 
 def admin_homepage(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
+
+
     students_list_thesis = init_list()
     students_list_document = init_list()
     students_list_assignment = init_list()
