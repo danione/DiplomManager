@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse

@@ -5,14 +5,21 @@ from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = [
     url(r'^$', views.admin_homepage, name='admin_homepage'),
-    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^logout/$', views.log_out, name='logout'),
+    url(r'^redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^logout/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^new_year/$', views.new_year, name='new_year'),
+    url(r'^new_year/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^man_years/$', views.man_years, name='man_years'),
+    url(r'^man_years/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^upload_students/$', views.upload_students, name='upload_students'),
+    url(r'^upload_students/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^upload_supervisors/$', views.upload_supervisors, name='upload_supervisors'),
+    url(r'^upload_supervisors/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^upload_thesis/$', views.upload_thesis, name='upload_thesis'),
+    url(r'^upload_thesis/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^listing/$', views.listing, name='listing'),
+    url(r'^listing/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^supervisor_handler/$', views.supervisor_handler, name='supervisor_handler'),
     url(r'^supervisor_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_supervisors')), name='supervisor_handler/redirection'),
     url(r'^student_handler/$', views.student_handler, name='student_handler'),
@@ -41,6 +48,7 @@ urlpatterns = [
     url(r'^thesis_file_handler/redirection/$', RedirectView.as_view(url=reverse_lazy('upload_thesis')), name='thesis_file_handler/redirection'),
 
     url(r'^(?P<student_id>[0-9]+)/assign_document/$', views.assign_document, name='assign_document'),
+    url(r'^(?P<student_id>[0-9]+)/assign_document/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^(?P<student_id>[0-9]+)/update_student/$', views.update_student, name='update_student'),
     url(r'^(?P<student_id>[0-9]+)/update_student/redirection/$', RedirectView.as_view(url=reverse_lazy('listing')), name='update_student/redirection'),
     url(r'^(?P<man_rev_id>[0-9]+)/update_man_review$', views.update_man_review, name='update_man_review'),
@@ -59,5 +67,8 @@ urlpatterns = [
     url(r'^(?P<student_id>[0-9]+)/finilize/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='finilize/redirection'),
     url(r'^(?P<student_id>[0-9]+)/finilize/redirection/$', RedirectView.as_view(url=reverse_lazy('admin_homepage')), name='finilize/redirection'),
     url(r'^(?P<student_id>[0-9]+)/reviewer_assign/$', views.reviewer_assign, name='reviewer_assign'),
+    url(r'^(?P<student_id>[0-9]+)/reviewer_assign/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
     url(r'^(?P<student_id>[0-9]+)/commission_assign/$', views.commission_assign, name='commission_assign'),
+    url(r'^(?P<student_id>[0-9]+)/commission_assign/redirection/$', RedirectView.as_view(url=reverse_lazy('home')), name='logout/redirection'),
+
 ]

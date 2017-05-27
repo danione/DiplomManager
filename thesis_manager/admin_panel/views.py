@@ -15,14 +15,13 @@ def get_current_period():
     else:
         return None
 
-def logout(request):
+def log_out(request):
     logout(request)
     return HttpResponseRedirect('redirection')
 
 def admin_homepage(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
-
 
     students_list_thesis = init_list()
     students_list_document = init_list()
@@ -58,6 +57,8 @@ def admin_homepage(request):
     return render(request, 'admin_homepage.html', context)
 
 def graduate(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     current_students = init_list()
     for student in current_students:
         student.did_graduate = True;
@@ -73,16 +74,22 @@ def graduate(request):
     return HttpResponseRedirect('redirection')
 
 def new_year(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     return render(request, 'new_year.html')
 
 
 def man_years(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     periods = Period.objects.filter(is_current_period = 'False').order_by('period')
     current_period = get_current_period()
     context = {'periods': periods, 'current_period': current_period}
     return render(request, 'man_years.html', context)
 
 def period_change(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     new_period = Period.objects.get(id = int(request.POST.get('load')))
     current_period = get_current_period()
 
@@ -96,12 +103,16 @@ def period_change(request):
 
 
 def upload_students(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     period = get_current_period()
     if period == None:
         return HttpResponseNotFound('<h1>You did not select period</h1>')
     return render(request, 'upload_students.html')
 
 def student_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     name_ = request.POST.get('FullName')
     class_ = request.POST.get('Class')
     number_ = request.POST.get('Number')
@@ -139,6 +150,8 @@ def is_only_char(char):
         return False
 
 def file_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     extension = request.FILES['text_csv'].name.split('.')[1]
     if extension == 'csv':
         my_file = request.FILES['text_csv'].read().decode('utf-8')
@@ -164,6 +177,8 @@ def file_handler(request):
 
 
 def supervisor_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     name_ = request.POST.get('FullName')
     category_ = request.POST.get('Category')
     titles_ = request.POST.get('Title')
@@ -182,6 +197,8 @@ def is_proper_length_type_and_symbols(length,string):
 
 
 def supervisor_file_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     extension = request.FILES['text_csv'].name.split('.')[1]
     if extension == 'csv':
         my_file = request.FILES['text_csv'].read().decode('utf-8')
@@ -208,12 +225,16 @@ def supervisor_file_handler(request):
 
 
 def upload_supervisors(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     period = get_current_period()
     if period == None:
         return HttpResponseNotFound('<h1>You did not select period</h1>')
     return render(request, 'upload_supervisors.html')
 
 def upload_thesis(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     supervisors = ManagementAndReview.objects.all()
     period = get_current_period()
     if period == None:
@@ -224,6 +245,8 @@ def upload_thesis(request):
 
 
 def thesis_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     description_ = request.POST.get('ThesisDescription')
     category_ = request.POST.get('Category')
     supervisor_ = request.POST.get('Supervisor')
@@ -234,6 +257,8 @@ def thesis_handler(request):
     return HttpResponseRedirect('redirection')
 
 def thesis_file_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     extension = request.FILES['text_csv'].name.split('.')[1]
     if extension == 'csv':
         my_file = request.FILES['text_csv'].read().decode('utf-8')
@@ -266,6 +291,8 @@ def thesis_file_handler(request):
 
 
 def assign_document(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student = get_object_or_404(Student, pk=student_id)
 
     period = get_current_period()
@@ -275,6 +302,8 @@ def assign_document(request, student_id):
 
 def prearranged_handler(request):
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('redirection')
         student_id = request.session['student_id']
         student = Student.objects.get(id = student_id)
         thesis = Thesis.objects.get(name = request.POST.get('Thesis'))
@@ -290,6 +319,8 @@ def prearranged_handler(request):
 
 def standard_handler(request):
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('redirection')
         choices = []
         choices.append(Thesis.objects.get(name = request.POST.get('Thesis1')))
         choices.append(Thesis.objects.get(name = request.POST.get('Thesis2')))
@@ -311,6 +342,8 @@ def standard_handler(request):
     return render(request,'document_assign.html')
 
 def standard_thesis(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student = get_object_or_404(Student, pk=student_id)
     choices = student.choice_set.all()
     thesis = []
@@ -333,6 +366,8 @@ def standard_thesis(request, student_id):
     return render(request, 'assignment_assign.html', context)
 
 def finilize(request, thesis_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student_id = request.session['student_id']
     student = Student.objects.get(id = student_id)
     thesis = Thesis.objects.get(id = thesis_id)
@@ -345,6 +380,8 @@ def finilize(request, thesis_id):
     return HttpResponseRedirect('redirection')
 
 def handed_assignment_over(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student = Student.objects.get(id = student_id)
     student.handed_assignment_over = True
     student.save()
@@ -352,6 +389,8 @@ def handed_assignment_over(request, student_id):
     return HttpResponseRedirect('redirection')
 
 def handed_documentation_over(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student = Student.objects.get(id = student_id)
     student.handed_documentation_over = True
     student.save()
@@ -359,6 +398,8 @@ def handed_documentation_over(request, student_id):
     return HttpResponseRedirect('redirection')
 
 def reviewer_assign(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     reviewers = ManagementAndReview.objects.all()
     request.session['student_id'] = student_id
     student = Student.objects.get(id = student_id)
@@ -367,6 +408,8 @@ def reviewer_assign(request, student_id):
     return render(request, 'reviewer_assign.html', context)
 
 def reviewer_connect(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     reviewer = request.POST.get('Reviewer')
     student_id = request.session['student_id']
     student = Student.objects.get(id = student_id)
@@ -376,6 +419,8 @@ def reviewer_connect(request):
     return HttpResponseRedirect('redirection')
 
 def commission_assign(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     period = get_current_period()
     student = Student.objects.get(id = student_id)
     people_in_system = ManagementAndReview.objects.all()
@@ -390,6 +435,8 @@ def commission_assign(request, student_id):
     return render(request, 'commission_assign.html', context)
 
 def new_commission_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     chairman_ = ManagementAndReview.objects.get(id = int(request.POST.get('ChairmanId')))
     members = []
     student_id = request.session['student_id']
@@ -423,6 +470,8 @@ def new_commission_handler(request):
     return HttpResponseRedirect('redirection')
 
 def existing_commission_handler(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student_id = request.session['student_id']
     student = Student.objects.get(id = student_id)
     commission = Commission.objects.get(id = int(request.POST.get('load')))
@@ -434,6 +483,8 @@ def existing_commission_handler(request):
     return HttpResponseRedirect('redirection')
 
 def listing(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     period = get_current_period()
     if period == None:
         return HttpResponseNotFound('<h1>You did not select period</h1>')
@@ -448,6 +499,8 @@ def listing(request):
 
 
 def update_student(request, student_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     student = Student.objects.get(id = student_id)
     student.number = request.POST.get('Number')
     student.name = request.POST.get('Name')
@@ -463,6 +516,8 @@ def update_student(request, student_id):
     return HttpResponseRedirect('update_student/redirection')
 
 def update_man_review(request, man_rev_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     man_rev = ManagementAndReview.objects.get(id = man_rev_id)
     man_rev.titles = request.POST.get('Title')
     man_rev.name = request.POST.get('FullName')
@@ -478,6 +533,8 @@ def update_man_review(request, man_rev_id):
 
 
 def update_thesis(request, thesis_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     thesis = Thesis.objects.get(id = thesis_id)
     thesis.name = request.POST.get('ThesisDescription')
     thesis.category = request.POST.get('Category')
@@ -486,6 +543,8 @@ def update_thesis(request, thesis_id):
     return HttpResponseRedirect('update_thesis/redirection')
 
 def update_commission(request, commission_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
     commission = Commission.objects.get(id = commission_id)
     commission.place = request.POST.get('Place')
     commission.date = request.POST.get('Date')
