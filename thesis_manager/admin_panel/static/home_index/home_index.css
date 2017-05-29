@@ -184,3 +184,9 @@ span.psw {
        width: 100%;
     }
 }
+
+.message
+{
+  color: red;
+  text-align: center;
+}

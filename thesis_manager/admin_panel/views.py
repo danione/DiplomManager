@@ -53,7 +53,7 @@ def admin_homepage(request):
 
     context = {'students_list_document': students_list_document,'students_list_thesis' : students_list_thesis,
                'students_list_assignment' : students_list_assignment,'students_list_documentation': students_list_documentation,
-               'students_list_reviewer': students_list_reviewer,'students_list_commission' : students_list_commission}
+               'students_list_reviewer': students_list_reviewer,'students_list_commission' : students_list_commission, 'username':request.user.username}
     return render(request, 'admin_homepage.html', context)
 
 def graduate(request):
@@ -76,7 +76,7 @@ def graduate(request):
 def new_year(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
-    return render(request, 'new_year.html')
+    return render(request, 'new_year.html', {'username':request.user.username})
 
 
 def man_years(request):
@@ -84,7 +84,7 @@ def man_years(request):
         return HttpResponseRedirect('redirection')
     periods = Period.objects.filter(is_current_period = 'False').order_by('period')
     current_period = get_current_period()
-    context = {'periods': periods, 'current_period': current_period}
+    context = {'periods': periods, 'current_period': current_period, 'username':request.user.username}
     return render(request, 'man_years.html', context)
 
 def period_change(request):
@@ -108,7 +108,7 @@ def upload_students(request):
     period = get_current_period()
     if period == None:
         return HttpResponseNotFound('<h1>You did not select period</h1>')
-    return render(request, 'upload_students.html')
+    return render(request, 'upload_students.html', {'username':request.user.username})
 
 def student_handler(request):
     if not request.user.is_authenticated:
@@ -230,7 +230,7 @@ def upload_supervisors(request):
     period = get_current_period()
     if period == None:
         return HttpResponseNotFound('<h1>You did not select period</h1>')
-    return render(request, 'upload_supervisors.html')
+    return render(request, 'upload_supervisors.html', {'username':request.user.username})
 
 def upload_thesis(request):
     if not request.user.is_authenticated:
@@ -240,7 +240,7 @@ def upload_thesis(request):
     if period == None:
         return HttpResponseNotFound('<h1>You did not select period</h1>')
     thesis_topics = Thesis.objects.filter(period_given = period.period)
-    context = {'supervisors': supervisors, 'thesis_topics': thesis_topics}
+    context = {'supervisors': supervisors, 'thesis_topics': thesis_topics, 'username':request.user.username}
     return render(request, 'upload_thesis.html', context)
 
 
@@ -296,7 +296,7 @@ def assign_document(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
 
     period = get_current_period()
-    context = {'student':student, 'thesis_topics': Thesis.objects.filter(period_given = period.period)}
+    context = {'student':student, 'thesis_topics': Thesis.objects.filter(period_given = period.period), 'username':request.user.username}
     request.session['student_id'] = student_id
     return render(request, 'document_assign.html', context)
 
@@ -361,7 +361,7 @@ def standard_thesis(request, student_id):
         sorted_choice = []
 
 
-    context = {'student':student, 'thesis' : thesis, 'students_output' : students_output}
+    context = {'student':student, 'thesis' : thesis, 'students_output' : students_output, 'username':request.user.username}
     request.session['student_id'] = student_id
     return render(request, 'assignment_assign.html', context)
 
@@ -404,7 +404,7 @@ def reviewer_assign(request, student_id):
     request.session['student_id'] = student_id
     student = Student.objects.get(id = student_id)
 
-    context = {'reviewers': reviewers,'student': student}
+    context = {'reviewers': reviewers,'student': student, 'username':request.user.username}
     return render(request, 'reviewer_assign.html', context)
 
 def reviewer_connect(request):
@@ -431,7 +431,7 @@ def commission_assign(request, student_id):
     commissions = Commission.objects.filter(category = student.current_thesis.category, period_happened = period.period)
     request.session['student_id'] = student_id
 
-    context = {'student': student, 'members': people_in_system, 'commissions': commissions}
+    context = {'student': student, 'members': people_in_system, 'commissions': commissions, 'username':request.user.username}
     return render(request, 'commission_assign.html', context)
 
 def new_commission_handler(request):
@@ -494,7 +494,7 @@ def listing(request):
     thesis_topics = Thesis.objects.filter(period_given = period.period).order_by('name')
     commissions = Commission.objects.filter(period_happened = period.period).order_by('place')
 
-    context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions}
+    context = {'students': students,'man_review' : man_review, 'thesis_topics': thesis_topics, 'commissions' : commissions, 'username':request.user.username}
     return render(request, 'listing.html', context)
 
 

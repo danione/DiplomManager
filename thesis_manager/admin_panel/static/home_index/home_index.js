@@ -7,3 +7,14 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+$('form').submit(function(e){
+    $.post('/auth', $(this).serialize(), function(data){
+      var parser = $.parseJSON(data);
+      if(parser.message == 'Success')
+        window.location.replace("/admin_panel");
+      $('.message').html(parser.message);
+    });
+    e.preventDefault();
+});

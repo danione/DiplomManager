@@ -12,7 +12,8 @@ h1, h2
 .buttons
 {
   width: 60%;
-  padding-top: 25em;
+  padding-top: 20%;
+  padding-bottom: 5%;
   margin: auto;
 }
 
@@ -31,6 +32,7 @@ h1, h2
   -moz-transition: background 0.6s ease-in-out;
   -o-transition: background 0.6s ease-in-out;
   transition: background 0.6s ease-in-out;
+  cursor: pointer;
 }
 
 .first:hover .tick::before
@@ -76,6 +78,7 @@ a
   -moz-transition: background 0.6s ease-in-out;
   -o-transition: background 0.6s ease-in-out;
   transition: background 0.6s ease-in-out;
+  cursor: pointer;
 }
 
 .cross::before

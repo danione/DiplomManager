@@ -60,38 +60,6 @@ function closeSideNavi()
   $(".bar1, .bar2, .bar3").css('width', '30px');
   $(".nav").css('background-color', '#0088ff');
 }
-
-function myFunction(x)
-{
-    x.classList.toggle("change");
-    if(!opened)
-    {
-      opened = true;
-      if($(window).width() > 680)
-        openSideNavi();
-    }
-    else
-    {
-        opened = false;
-        if($(window).width() > 680)
-          closeSideNavi();
-
-    }
-}
-
-$(document).ready(function(){
-
-  $('#main').click(function()
-  {
-    closeSideNavi();
-    $('#icon').attr('class', 'icon');
-    opened = false;
-  });
-
-  $(".main-content").css('padding-bottom', $(".footer").outerHeight(true));
-  $(".main-content").css('padding-top', $(".nav").outerHeight(true));
-});
-
 function responsiveAppear()
 {
   $("#greetings").css('font-size', '20px');
@@ -119,17 +87,44 @@ function responsiveDisappear()
   $("body").attr('class', 'none');
 }
 
-$('#icon').click(function responsive()
+
+function myFunction(x)
 {
-    if($("#navigation").attr('class') === 'nav')
+    x.classList.toggle("change");
+    if(!opened)
     {
-      if($(window).width() <= 680)
+      opened = true;
+      if($(window).width() > 680)
+        openSideNavi();
+      else
         responsiveAppear();
+
     }
     else
     {
-      if($(window).width() <= 680)
-        responsiveDisappear();
+        opened = false;
+        if($(window).width() > 680)
+          closeSideNavi();
+        else
+          responsiveDisappear();
+
     }
 
+}
+
+$(document).ready(function(){
+
+  $('#main').click(function()
+  {
+    if($(window).width() > 680)
+      closeSideNavi();
+    else
+      responsiveDisappear();
+
+    $('#icon').attr('class', 'icon');
+    opened = false;
+  });
+
+  $(".main-content").css('padding-bottom', $(".footer").outerHeight(true));
+  $(".main-content").css('padding-top', $(".nav").outerHeight(true));
 });

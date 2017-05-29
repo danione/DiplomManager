@@ -22,10 +22,11 @@
     </div>
 
     <div id="id01" class="modal">
-      <form class="modal-content animate" action="{% url 'auth' %}" method="post">
+      <form class="modal-content animate" action="" method="post">
         {% csrf_token %}
         <div class="container">
           <h2 class="header2">thesis manager</h2>
+          <div class="message"></div>
           <input type="text" placeholder="Username" name="uname" required><br>
 
           <input type="password" placeholder="Password" name="psw" required><br>

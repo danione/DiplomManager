@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+import json
 
 
 
@@ -11,11 +12,14 @@ def auth(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return HttpResponseRedirect('admin_panel')
+        message = 'Success'
+        return HttpResponse(json.dumps({'message': message}))
     else:
-        message = 'Save complete'
-        return render_to_response('index.html', {message:message})
+        message = 'Wrong username or password'
+        return HttpResponse(json.dumps({'message': message}))
 
 
 def home(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('admin_panel')
     return render(request, 'index.html')
