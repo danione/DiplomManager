@@ -395,6 +395,9 @@ def handed_assignment_over(request, student_id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
     student = Student.objects.get(id = student_id)
+
+    if student.handed_document_over == False:
+        return HttpResponseNotFound("<h1> Student first should hand over the document </h1>")
     student.handed_assignment_over = True
     student.save()
 
@@ -404,6 +407,10 @@ def handed_documentation_over(request, student_id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
     student = Student.objects.get(id = student_id)
+
+    if student.handed_document_over == False or student.handed_assignment_over == False:
+        return HttpResponseNotFound("<h1> Student first should hand over the document and the assignment </h1>")
+
     student.handed_documentation_over = True
     student.save()
 
@@ -415,6 +422,9 @@ def reviewer_assign(request, student_id):
     reviewers = ManagementAndReview.objects.all()
     request.session['student_id'] = student_id
     student = Student.objects.get(id = student_id)
+
+    if student.handed_document_over == False or student.handed_assignment_over == False or student.handed_documentation_over == False:
+        return HttpResponseNotFound("<h1> Student first should hand over the document and the assignment and the documentation</h1>")
 
     context = {'reviewers': reviewers,'student': student, 'username':request.user.username}
     return render(request, 'reviewer_assign.html', context)
@@ -436,8 +446,9 @@ def commission_assign(request, student_id):
     period = get_current_period()
     student = Student.objects.get(id = student_id)
     people_in_system = ManagementAndReview.objects.all()
-    if student.current_thesis is None:
-        return HttpResponseNotFound('<h1>No assignment</h1>')
+
+    if student.handed_document_over == False or student.handed_assignment_over == False or student.handed_documentation_over == False or student.assigned_reviewer is None:
+        return HttpResponseNotFound("<h1> Student first should hand over the document and the assignment and the documentation and be assigned a reviewer</h1>")
 
 
     commissions = Commission.objects.filter(category = student.current_thesis.category, period_happened = period.period)
