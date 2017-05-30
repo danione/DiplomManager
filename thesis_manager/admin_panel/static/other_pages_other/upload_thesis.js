@@ -17,5 +17,6 @@ $(".submit-thesis").click(function()
 });
 
 $("#Supervisor").autocomplete({
-    source: supervisors
-});
+    source: supervisors,
+    minLength: 0
+}).bind('focus', function(){ $(this).autocomplete("search"); } );

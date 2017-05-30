@@ -18,8 +18,9 @@
             return if you have made a mistake. Just check Managing Years for loading.
         </p>
 
-        <form action=" {% url 'graduate' %}" method="post">
+        <form action="" method="post">
           {% csrf_token %}
+         <div class="message"></div>
          <input type="text" name="Period" data-validation="length custom" data-validation-length="max15" data-validation-regexp="^[0-9-]+$"><br>
 
          <div class="buttons">

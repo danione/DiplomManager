@@ -20,15 +20,21 @@
       <form id="reviewer-form" action=" {% url 'reviewer_connect' %}" method="post">
         {% csrf_token %}
         <script>
-          var reviewers = [];
+          var all_reviewers = [];
         </script>
         {% for reviewer in reviewers %}
         <script>
-         reviewers.push("{{reviewer.name}}");
+         var rev ={
+            id: "{{reviewer.id}}",
+            value: "{{reviewer.name}}"
+         };
+         all_reviewers.push(rev);
         </script>
+
         {% endfor %}
         <label for="Reviewer">Reviewer:</label><br>
         <input id="Reviewer" type="text" name="Reviewer"><br>
+        <input id="ReviewerId" type="text" name="ReviewerId">
         <p class="error-msg"> Input doesn't exist </p>
         <a><div class="submit-reviewer">Submit</div></a>
       </form>

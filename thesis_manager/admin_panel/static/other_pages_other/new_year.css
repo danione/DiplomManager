@@ -103,6 +103,10 @@ a
   background: #002240;
 }
 
+.message{
+  color: red;
+}
+
 @media screen and (max-width:370px)
 {
   .buttons

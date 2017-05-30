@@ -26,10 +26,11 @@ var dates = [];
 $( function() {
   $(".member").autocomplete({
     source: all_members,
+    minLength: 0,
    select: function(event, ui) {
      $(this).nextAll('input').first().val(ui.item.id);
   }
-   });
+}).bind('focus', function(){ $(this).autocomplete("search"); } );
 
 });
 

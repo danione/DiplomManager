@@ -1,9 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponseNotFound
-from .models import Student, ManagementAndReview, Thesis, Commission, Choice, Period
-from django.shortcuts import get_object_or_404
 import csv
+import json
+from django.shortcuts import render
 from django.contrib.auth import logout
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
+from .models import Student, ManagementAndReview, Thesis, Commission, Choice, Period
+
 
 
 def init_list():
@@ -56,6 +58,12 @@ def admin_homepage(request):
                'students_list_reviewer': students_list_reviewer,'students_list_commission' : students_list_commission, 'username':request.user.username}
     return render(request, 'admin_homepage.html', context)
 
+
+def new_year(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('redirection')
+    return render(request, 'new_year.html', {'username':request.user.username})
+
 def graduate(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
@@ -68,15 +76,19 @@ def graduate(request):
         period.is_current_period = False
         period.save()
 
-    current_period = Period(period = request.POST.get('Period'), is_current_period = True)
-    current_period.save()
+    period_changer = request.POST.get('Period')
 
-    return HttpResponseRedirect('redirection')
+    period_get = Period.objects.filter(period = period_changer)
 
-def new_year(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('redirection')
-    return render(request, 'new_year.html', {'username':request.user.username})
+    if(period_get.count() > 0):
+        message = 'The period name duplicates'
+        return HttpResponse(json.dumps({'message': message}))
+
+    else:
+        current_period = Period(period = request.POST.get('Period'), is_current_period = True)
+        current_period.save()
+        message = 'Success'
+        return HttpResponse(json.dumps({'message': message}))
 
 
 def man_years(request):
@@ -410,10 +422,10 @@ def reviewer_assign(request, student_id):
 def reviewer_connect(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
-    reviewer = request.POST.get('Reviewer')
+    reviewer = request.POST.get('ReviewerId')
     student_id = request.session['student_id']
     student = Student.objects.get(id = student_id)
-    student.assigned_reviewer = ManagementAndReview.objects.get(name = reviewer)
+    student.assigned_reviewer = ManagementAndReview.objects.get(id = reviewer)
     student.save()
 
     return HttpResponseRedirect('redirection')
@@ -513,7 +525,7 @@ def update_student(request, student_id):
         student.assigned_reviewer = None
     student.save()
 
-    return HttpResponseRedirect('update_student/redirection')
+    return HttpResponseRedirect('redirection')
 
 def update_man_review(request, man_rev_id):
     if not request.user.is_authenticated:
@@ -529,7 +541,7 @@ def update_man_review(request, man_rev_id):
 
     man_rev.save()
 
-    return HttpResponseRedirect('update_man_review/redirection')
+    return HttpResponseRedirect('redirection')
 
 
 def update_thesis(request, thesis_id):
@@ -540,7 +552,7 @@ def update_thesis(request, thesis_id):
     thesis.category = request.POST.get('Category')
     thesis.save()
 
-    return HttpResponseRedirect('update_thesis/redirection')
+    return HttpResponseRedirect('redirection')
 
 def update_commission(request, commission_id):
     if not request.user.is_authenticated:
@@ -557,4 +569,4 @@ def update_commission(request, commission_id):
 
     commission.save()
 
-    return HttpResponseRedirect('update_commission/redirection')
+    return HttpResponseRedirect('redirection')

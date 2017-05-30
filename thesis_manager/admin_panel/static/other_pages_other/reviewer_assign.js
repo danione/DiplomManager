@@ -1,18 +1,27 @@
-$("#Reviewer").autocomplete({
-  source: reviewers,
+$( function() {
+  $("#Reviewer").autocomplete({
+    source: all_reviewers,
+    minLength:0,
+   select: function(event, ui) {
+     $(this).nextAll('input').first().val(ui.item.id);
+   }
+   }).bind('focus', function(){ $(this).autocomplete("search"); } );;
 });
 
-function exists(value)
+
+
+function exists_overall(value, array)
 {
-  if(jQuery.inArray(value.val(),reviewers) != -1)
+  var exists_in_array = false;
+  $.each(array,function(index,obj)
   {
-    value.css('border-color','green');
-    $('.error-msg').css('display', 'none');
-    return true;
-  }
-    value.css('border-color','red');
-    $('.error-msg').css('display', 'inline');
-    return false;
+    if(obj.value == value.val() && obj.id == parseInt(value.nextAll('input').first().val()))
+    {
+      exists_in_array = true;
+      return false;
+    }
+  });
+  return exists_in_array;
 }
 
 
@@ -20,7 +29,7 @@ $(".submit-reviewer").click(function()
 {
   var value = $("#Reviewer");
 
-  if(exists(value))
+  if(exists_overall(value, all_reviewers))
     $(this).closest("form").submit();
 
 });

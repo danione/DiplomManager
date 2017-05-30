@@ -12,6 +12,11 @@
   display: none;
 }
 
+#ReviewerId
+{
+  display: none;
+}
+
 
 @media screen and (max-width:770px)
 {

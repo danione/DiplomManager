@@ -1,6 +1,7 @@
 $(".thesis").autocomplete({
-  source: thesis_topics
-});
+  source: thesis_topics,
+  minLength: 0
+}).bind('focus', function(){ $(this).autocomplete("search"); } );
 
 function exists(value, array)
 {
