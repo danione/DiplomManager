@@ -250,3 +250,66 @@ input[type="radio"]:checked + label span.radio:after
   padding: 1em;
   color: #0065BF;
 }
+
+@media screen and (max-width:770px)
+{
+  .table td
+  {
+    font-size: 0.9em;
+  }
+
+}
+
+@media screen and (max-width:550px)
+{
+  .table-des table
+  {
+    font-size: .8em;
+  }
+}
+
+@media screen and (max-width:450px)
+{
+  .table-des
+  {
+    width: 80%;
+  }
+
+  .edit-icon
+  {
+    height: 2em;
+    width: 2em;
+    margin-right: -2em;
+    margin-top: -1em;
+  }
+}
+
+
+@media screen and (max-width:430px)
+{
+  .table
+  {
+    width: 90%;
+  }
+
+  .table td
+  {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width:375px)
+{
+  .table
+  {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width:320px)
+{
+  .table
+  {
+    width: 98%;
+  }
+}

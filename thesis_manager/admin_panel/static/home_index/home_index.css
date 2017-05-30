@@ -9,11 +9,10 @@
 }
 .video-container video {
   /* Make video to at least 100% wide and tall */
-  min-width: 100%;
-  min-height: 100%;
+
 
   /* Setting width & height to auto prevents the browser from stretching or squishing the video */
-  width: auto;
+  width: 100%;
   height: auto;
 
   /* Center the video */
@@ -173,6 +172,87 @@ span.psw {
     from {transform: scale(0)}
     to {transform: scale(1)}
 }
+
+@media screen and (max-width: 1300px)
+{
+  .header2
+  {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 970px)
+{
+
+  input[type=text], input[type=password]
+  {
+    font-size: .5em;
+  }
+
+}
+
+@media screen and (max-width: 880px)
+{
+  .header1
+  {
+    font-size: 3em;
+  }
+
+  .button
+  {
+    font-size: 1em;
+  }
+
+  .header2
+  {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 630px)
+{
+  .modal-content{
+    width: 50%;
+  }
+
+  .header1{
+    font-size: 2em;
+  }
+
+}
+
+
+@media screen and (max-width: 500px)
+{
+  .header1{
+    font-size: 1.5em;
+  }
+
+}
+
+@media screen and (max-width: 425px)
+{
+  .header1
+  {
+    font-size: 1em;
+  }
+
+  .modal-content
+  {
+    width: 70%;
+  }
+
+}
+
+@media screen and (max-width: 360px)
+{
+  .header1{
+    font-size: .5em;
+  }
+
+}
+
+
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {

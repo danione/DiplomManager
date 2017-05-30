@@ -61,7 +61,7 @@ $(".table td").click(function()
     if(first_time && appearing_content == '.new-commission' )
     {
       first_time = false;
-      $(".new-commission").css('margin-bottom', "-" + $(".new-commission").outerHeight(true));
+      // $(".new-commission").css('margin-bottom', "-" + $(".new-commission").outerHeight(true));
     }
     previous = content;
     previous_content = appearing_content;
