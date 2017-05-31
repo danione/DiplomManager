@@ -37,21 +37,22 @@ def admin_homepage(request):
     students_list_document = [student for student in students_list_document
                               if student.handed_document_over == False
                               and (student.did_graduate == False
-                                   or student.study_period == period.period)]
+                                   and student.study_period == period.period)]
+
 
     students_list_thesis = [student for student in students_list_thesis
                             if student.has_prearranged_thesis == False
                             and student.current_thesis is None
-                            and (student.did_graduate == False or student.study_period == period.period)]
+                            and (student.did_graduate == False and student.study_period == period.period)]
 
     students_list_assignment = [student for student in students_list_assignment
-                                if student.handed_assignment_over == False and (student.did_graduate == False or student.study_period == period.period)]
+                                if student.handed_assignment_over == False and (student.did_graduate == False and student.study_period == period.period)]
     students_list_documentation = [student for student in students_list_documentation
-                                   if student.handed_documentation_over == False and (student.did_graduate == False or student.study_period == period.period)]
+                                   if student.handed_documentation_over == False and (student.did_graduate == False and student.study_period == period.period)]
     students_list_reviewer = [student for student in students_list_reviewer
-                              if student.assigned_reviewer is None and (student.did_graduate == False or student.study_period == period.period)]
+                              if student.assigned_reviewer is None and (student.did_graduate == False and student.study_period == period.period)]
     students_list_commission = [student for student in students_list_commission
-                                if not student.commission  and (student.did_graduate == False or student.study_period == period.period)]
+                                if not student.commission  and (student.did_graduate == False and student.study_period == period.period)]
 
     context = {'students_list_document': students_list_document,'students_list_thesis' : students_list_thesis,
                'students_list_assignment' : students_list_assignment,'students_list_documentation': students_list_documentation,
@@ -181,10 +182,15 @@ def file_handler(request):
             if is_proper_length_and_type(60, data[3]) == False:
                 return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[3] + '</p>')
 
+        for row in rows:
+            if len(row) <= 1:
+                break
+            data = row.split(',')
 
             period_ = get_current_period()
             if data[0] and data[1] and data[2] and data[3]:
                 Student(number = int(data[0]), name = data[1], class_char = data[2], category = data[3] , study_period = period_.period ).save()
+
     return HttpResponseRedirect('redirection')
 
 
@@ -229,9 +235,14 @@ def supervisor_file_handler(request):
             if is_proper_length_and_type(200, data[3]) == False:
                 return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or length</h1><p>' + data[3] + '</p>')
 
+        for row in rows:
+            if len(row) <= 1:
+                break
+            data = row.split(',')
 
             if data[0] and data[1] and data[2] and data[3]:
                 ManagementAndReview(titles = data[0], name = data[1], category = data[2] , workplace = data[3]).save()
+
 
     return HttpResponseRedirect('redirection')
 
@@ -290,14 +301,18 @@ def thesis_file_handler(request):
                 return HttpResponseNotFound('<h1>Data in third field is not in proper type or longer</h1><p>' + data[3] + '</p>')
             if is_proper_length_and_type(60, data[4]) == False:
                 return HttpResponseNotFound('<h1>Data in fourth field is not in proper type or is longer</h1><p>' + data[4] + '</p>')
+            if ManagementAndReview.objects.filter(titles = data[2], name = data[3], workplace = data[4]).count() == 0:
+                return HttpResponseNotFound('<h1>Supervisor does not exist</h1><p>' + data[2] + data[3] + data[4] + '</p>')
 
+
+        for row in rows:
+            if len(row) <= 1:
+                break
+            data = row.split(',')
 
             if data[0] and data[1] and data[2] and data[3]:
-                if ManagementAndReview.objects.filter(titles = data[2], name = data[3], workplace = data[4]):
-                    period = get_current_period()
-                    Thesis(name = data[0], category = data[1], supervisor = ManagementAndReview.objects.get(titles = data[2], name = data[3], workplace = data[4]), period_given = period.period).save()
-                else:
-                    return HttpResponseNotFound('<h1>Supervisor does not exist</h1><p>' + data[2] + data[3] + data[4] + '</p>')
+                period = get_current_period()
+                Thesis(name = data[0], category = data[1], supervisor = ManagementAndReview.objects.get(titles = data[2], name = data[3], workplace = data[4]), period_given = period.period).save()
 
     return HttpResponseRedirect('redirection')
 
@@ -308,7 +323,8 @@ def assign_document(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
 
     period = get_current_period()
-    context = {'student':student, 'thesis_topics': Thesis.objects.filter(period_given = period.period), 'username':request.user.username}
+    category_student = student.category
+    context = {'student':student, 'thesis_topics': Thesis.objects.filter(period_given = period.period, category = category_student), 'username':request.user.username}
     request.session['student_id'] = student_id
     return render(request, 'document_assign.html', context)
 
@@ -419,9 +435,9 @@ def handed_documentation_over(request, student_id):
 def reviewer_assign(request, student_id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
-    reviewers = ManagementAndReview.objects.all()
     request.session['student_id'] = student_id
     student = Student.objects.get(id = student_id)
+    reviewers = ManagementAndReview.objects.filter(category = student.category)
 
     if student.handed_document_over == False or student.handed_assignment_over == False or student.handed_documentation_over == False:
         return HttpResponseNotFound("<h1> Student first should hand over the document and the assignment and the documentation</h1>")
@@ -445,16 +461,16 @@ def commission_assign(request, student_id):
         return HttpResponseRedirect('redirection')
     period = get_current_period()
     student = Student.objects.get(id = student_id)
-    people_in_system = ManagementAndReview.objects.all()
+    members = ManagementAndReview.objects.filter(category = student.category)
 
     if student.handed_document_over == False or student.handed_assignment_over == False or student.handed_documentation_over == False or student.assigned_reviewer is None:
         return HttpResponseNotFound("<h1> Student first should hand over the document and the assignment and the documentation and be assigned a reviewer</h1>")
 
 
-    commissions = Commission.objects.filter(category = student.current_thesis.category, period_happened = period.period)
+    commissions = Commission.objects.filter(category = student.category, period_happened = period.period)
     request.session['student_id'] = student_id
 
-    context = {'student': student, 'members': people_in_system, 'commissions': commissions, 'username':request.user.username}
+    context = {'student': student, 'members': members, 'commissions': commissions, 'username':request.user.username}
     return render(request, 'commission_assign.html', context)
 
 def new_commission_handler(request):
