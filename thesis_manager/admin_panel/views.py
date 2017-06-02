@@ -69,6 +69,7 @@ def graduate(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('redirection')
     current_students = init_list()
+    print(current_students)
     for student in current_students:
         student.did_graduate = True;
         student.save()
